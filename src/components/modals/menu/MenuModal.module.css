@@ -1,0 +1,45 @@
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+}
+.container {
+    background-color: var(--global-accent-color);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin-right: -270px;
+    transition: margin-right .3s;
+    width: 270px;
+    z-index: 1050;
+    padding: 0 10px;
+}
+.visible {
+    margin-right: 0px!important;
+}
+.header {
+    display: flex;
+    justify-content: flex-end;
+}
+.icon {
+    width: 20px;
+    height: 20px;
+}
+.item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+}
+.item span {
+    font-size: 18px;
+    color: var(--global-primary-color);
+}
+.hr {
+    border-bottom: 1px solid rgba(var(--global-primary-color-rgb), .2);
+    margin-top: 0;
+}

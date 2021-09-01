@@ -1,0 +1,62 @@
+.editButton {
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 5px;
+    height: 30px;
+    white-space: nowrap;
+    margin-left: 15px;
+    border: 2px solid var(--global-accent-color);
+    background-color: white;
+}
+.editButton:focus {
+    outline: none;
+}
+.nick {
+    color: var(--global-primary-color);
+    font-size: 22px;
+}
+
+@media (max-width: 992px) {
+    .avatar img {
+        border-radius: 50%;
+        width: 95px;
+        height: 95px;
+        object-fit: cover;
+        box-shadow: 0 0 10px -4px #ccc;
+    }
+    .nick {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .details {
+        width: 100%;
+        padding: 0 10px;
+    }
+    .editButton {
+        width: 100%;
+        margin: 8px 0;
+    }
+}
+
+@media (min-width: 993px) {
+    .avatar {
+        margin-right: 2rem;
+        height: 330px;
+        width: 330px;
+    }
+    .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 0 10px 0px black;
+    }
+    .details {
+        width: 480px;
+        padding: 0 15px;
+    }
+    .nick {
+        font-size: 24px;
+    }
+}

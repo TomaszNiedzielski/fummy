@@ -1,0 +1,55 @@
+.item {
+    display: flex;
+    align-items: center;
+}
+.item span {
+    color: var(--global-primary-color);
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.registerLink {
+    border: 2px solid var(--global-primary-color);
+    border-radius: 30px;
+    padding: 10px 18px;
+}
+.registerLink:hover {
+    background-color: rgba(var(--global-primary-color-rgb), 0.2);
+}
+.appName {
+    font-size: 23px;
+    font-weight: 500;
+    color: var(--global-primary-color);
+    text-decoration: none;
+    margin-left: .5rem;
+    display: none;
+    font-family: 'futura-extra-bold-oblique';
+}
+.logo {
+    height: 36px;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+.shadow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(var(--global-primary-color-rgb), 0.04);
+    border-bottom: 1px solid;
+    border-color: rgba(var(--global-primary-color-rgb), 0.06);
+    z-index: -1;
+}
+
+@media (min-width: 992px) {
+    .appName {
+        display: block;
+    }
+}
+
+@media (min-width: 1100px) {
+    .dropdown {
+        right: 15px;
+    }
+}

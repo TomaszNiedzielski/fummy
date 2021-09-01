@@ -1,0 +1,13 @@
+.container {
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    color: var(--global-primary-color);
+    font-size: 18px;
+}
+.container div div:last-child {
+    color: white;
+    font-family: futura-light;
+    font-size: 14px
+}

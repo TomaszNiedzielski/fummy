@@ -1,0 +1,30 @@
+.close {
+    font-size: 60px;
+    font-weight: 400;
+    color: var(--global-primary-color);
+    text-shadow: none;
+    opacity: unset;
+}
+.close:focus {
+    outline: 0;
+}
+.modal {
+    padding-right: unset!important;
+}
+.modal-content {
+    background: var(--global-dark-background);
+    color: white!important;
+    border: 2px solid #ccc;
+    max-height: calc(100vh - 30px);
+}
+
+@media only screen and (max-width: 576px) {
+    .modal-content {
+        border: none;
+        max-height: 100vh;
+        height: 100vh;
+    }
+    .modal-dialog {
+        margin: 0px;
+    }
+}

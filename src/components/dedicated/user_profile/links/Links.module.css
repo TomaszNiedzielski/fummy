@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+.item {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+}
+.icon {
+    width: 25px;
+    height: 25px;
+}
+.name {
+    margin-left: 5px;
+    color: var(--global-primary-color);
+    letter-spacing: -0.5px;
+}
+
+@media (min-width: 993px) {
+    .container {
+        justify-content: start;
+    }
+}

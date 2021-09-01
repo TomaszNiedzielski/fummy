@@ -1,0 +1,33 @@
+.booking__avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid var(--global-primary-color);
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.booking__avatar img {
+    height: 97%;
+    width: 97%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.booking__offers-container {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 100%;
+}
+.booking__form {
+    margin-top: 10px;
+    width: 100%;
+}
+
+@media screen and (min-width: 992px) {
+    .booking__form {
+        width: 450px;
+        margin-top: 10px;
+    }
+}

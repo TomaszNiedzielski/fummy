@@ -1,0 +1,87 @@
+.container {
+    width: 95%;
+    min-height: 400px;
+    box-shadow: 0 0 10px -6px #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.title {
+    font-size: 22px;
+    color: var(--global-primary-color);
+    letter-spacing: -0.5px;
+}
+.new {
+    background: var(--global-primary-color);
+    font-size: 13px;
+    color: var(--global-accent-color);
+    line-height: 15px;
+    height: 15px;
+    border-radius: 3px;
+    letter-spacing: -1px;
+    margin-left: 4px;
+    padding: 0 2px;
+}
+.instructions {
+    font-family: futura-light;
+    font-size: 15px;
+    text-align: justify;
+}
+.upload {
+    height: 130px;
+    background: rgba(var(--global-primary-color-rgb), 0.1);
+    width: 100%;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+.label {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    font-size: 13px;
+}
+.input {
+    width: 0px;
+    height: 0px;
+}
+.label img {
+    height: 50px;
+}
+.price {
+    background: var(--global-primary-color);
+    padding: 0 6px;
+    border-radius: 3px;
+    font-size: 15px;
+}
+.scrollable {
+    overflow-y: auto;
+    padding: 0 6px;
+    width: 100%;
+}
+.scrollable::-webkit-scrollbar {
+    width: 5px;
+}
+/* Handle */
+.scrollable::-webkit-scrollbar-thumb {
+    background: rgb(56, 56, 56);
+    border-radius: 10px;
+}
+/* Handle on hover */
+.scrollable::-webkit-scrollbar-thumb:hover {
+    background: rgb(82, 80, 80); 
+}
+
+@media screen and (min-width: 992px) {
+    .container {
+        width: 300px;
+        height: 430px;
+    }
+}

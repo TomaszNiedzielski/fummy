@@ -1,0 +1,60 @@
+import React, { useState, useEffect } from 'react';
+import styles from './PrimaryInput.module.css';
+
+export interface Props {
+    type?: string;
+    label?: string;
+    placeholder?: string;
+    value?: string;
+    onChange?: (value: string) => void;
+    maxLength?: number;
+    clickToCopy?: boolean;
+    errorMessage?: string;
+    onBlur?: () => void;
+    style?: object;
+}
+
+const PrimaryInput: React.FC<Props> = ({ type, label, placeholder, value, onChange, maxLength, clickToCopy, errorMessage, onBlur, style }) => {
+    const BEFORE_COPY__BUBBLE_TEXT = 'Kliknij, by skopiować';
+    const AFTER_COPY__BUBBLE_TEXT = 'Skopiowano';
+
+    const [isCopyBubbleVisible, setIsCopyBubbleVisible] = useState<boolean>(false);
+    const [attributes, setAttributes] = useState<object>();
+    const [copyBubbleText, setCopyBubbleText] = useState<string>(BEFORE_COPY__BUBBLE_TEXT);
+
+    const copyValue = () => {
+        navigator.clipboard.writeText(value);
+        setCopyBubbleText(AFTER_COPY__BUBBLE_TEXT);
+    }
+
+    useEffect(() => {
+        if(clickToCopy) {
+            setAttributes({
+                onMouseOver: () => setIsCopyBubbleVisible(true),
+                onMouseOut: () => {setIsCopyBubbleVisible(false); setCopyBubbleText(BEFORE_COPY__BUBBLE_TEXT)},
+                onClick: () => copyValue(),
+                style: {cursor: 'pointer'}
+            });
+        }
+    }, []);
+
+    return (
+        <div className={styles.container}>
+            {isCopyBubbleVisible && <div className={styles.copyBubble}>{copyBubbleText}</div>}
+            <label className={styles.label}>{label}</label>
+            <input
+                type={type ? type : 'text'}
+                className={styles.input}
+                placeholder={placeholder}
+                value={value ? value : ''}
+                onChange={onChange ? e => onChange(e.target.value) : () => {}}
+                maxLength={maxLength}
+                {...attributes}
+                onBlur={onBlur}
+                style={style}
+            />
+            {errorMessage && <div className={styles.error}>{ errorMessage }</div>}
+        </div>
+    );
+}
+export default PrimaryInput;

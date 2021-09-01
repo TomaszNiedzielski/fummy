@@ -1,0 +1,101 @@
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { loginPasswordRules, passwordRules } from '../../../helpers/ValidationRules';
+import { RootState } from '../../../redux/store';
+import PrimaryButton from '../../buttons/primary/PrimaryButton';
+import PrimaryInput from '../../inputs/primary/PrimaryInput';
+import { toast } from 'react-toastify';
+import { post, Response } from '../../../helpers/ApiRequest';
+
+const UpdatePassword: React.FC = () => {
+    const { token } = useSelector((state: RootState) => state.auth);
+
+    const [currentPassword, setCurrentPassword] = useState<string>();
+    const [newPassword, setNewPassword] = useState<string>();
+    const [currentPasswordError, setCurrentPasswordError] = useState<string>();
+    const [newPasswordError, setNewPasswordError] = useState<string>();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const save = () => {
+        if(!isFormCorrect()) return;
+
+        setIsLoading(true);
+
+        post('password/update?token='+token, { currentPassword, newPassword })
+        .then((response: Response) => {
+            setIsLoading(false);
+
+            const { code, errors } = response;
+            setCurrentPasswordError(null);
+
+            if(code === 200) {
+                setCurrentPassword(null);
+                setNewPassword(null);
+
+                toast.success('Hasło zostało zaaktualizowane!');
+            } else if(code === 500) {
+                const { currentPassword } = errors;
+
+                setCurrentPasswordError(currentPassword);
+            }
+        })
+        .catch(() => setIsLoading(false));
+    }
+
+    const isFormCorrect = () => {        
+        setCurrentPasswordError(loginPasswordRules(currentPassword));
+        setNewPasswordError(passwordRules(newPassword));
+
+        if(!currentPassword || !newPassword || currentPasswordError || newPasswordError) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    useEffect(() => {
+        if(currentPasswordError) setCurrentPasswordError(loginPasswordRules(currentPassword));
+    }, [currentPassword]);
+
+    useEffect(() => {
+        if(newPasswordError) setNewPasswordError(passwordRules(newPassword));
+    }, [newPassword]);
+
+    return (
+        <>
+        <section className="w-100">
+            <h5>Zmień hasło</h5>
+            <div className="w-100 d-md-flex">
+                <div className="w-100 mr-md-2">
+                    <PrimaryInput
+                        type="password"
+                        placeholder="Aktualne hasło"
+                        value={currentPassword}
+                        onChange={newValue => setCurrentPassword(newValue)}
+                        onBlur={() => setCurrentPasswordError(loginPasswordRules(currentPassword))}
+                        errorMessage={currentPasswordError}
+                    />
+                </div>
+                <div className="w-100 ml-md-2">
+                    <PrimaryInput
+                        type="password"
+                        placeholder="Nowe hasło"
+                        value={newPassword}
+                        onChange={newValue => setNewPassword(newValue)}
+                        onBlur={() => setNewPasswordError(passwordRules(newPassword))}
+                        errorMessage={newPasswordError}
+                    />
+                </div>
+            </div>
+            <div className="w-100 d-flex justify-content-center justify-content-md-end mt-3">
+                <PrimaryButton
+                    title="Zapisz"
+                    onClick={save}
+                    isLoading={isLoading}
+                />
+            </div>
+        </section>
+        </>
+    );
+}
+export default UpdatePassword;

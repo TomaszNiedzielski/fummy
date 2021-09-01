@@ -1,0 +1,12 @@
+.button {
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 25px;
+    color: white;
+    font-weight: 500;
+    text-shadow: 0 0 1px;
+    padding: 5px 20px;
+}
+.button:focus {
+    outline: none;
+}

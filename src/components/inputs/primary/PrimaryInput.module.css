@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    padding: 10px 0;
+    position: relative;
+}
+.input {
+    width: 100%;
+    border-radius: 8px;
+    padding: 14px;
+    border-color: #dedde3;
+    border-style: solid;
+    outline: none;
+    border-width: 1px;
+    font-size: 14px;
+}
+.input::placeholder {
+    color: #ccc;
+}
+.label {
+    font-size: 13px;
+    font-weight: 700;
+    width: 100%;
+}
+.copyBubble {
+    position: absolute;
+    background-color: var(--global-primary-color);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid white;
+    top: -40px;
+}
+.error {
+    color: red;
+    font-size: 13px;
+    width: 100%;
+}

@@ -1,0 +1,13 @@
+.editButton {
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 5px;
+    height: 30px;
+    white-space: nowrap;
+    background: var(--global-dark-background);
+    border: 2px solid #2d2d2d;
+    color: whitesmoke;
+}
+.editButton:focus {
+    outline: none;
+}

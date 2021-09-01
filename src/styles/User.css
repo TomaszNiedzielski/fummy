@@ -1,0 +1,31 @@
+.user-profile__details-right {
+    color: #f5f5f5;
+}
+
+@media (max-width: 992px) {
+    .container {
+        margin: 0;
+        padding: 10px;
+        width: 100%;
+        max-width: unset;
+    }
+    .user-profile__details-right {
+        width: 100%;
+        box-shadow: 0 0 10px #ececec;
+        border-radius: 10px;
+        margin: 10px;
+        padding: 10px;
+    }
+}
+
+@media (min-width: 993px) {
+    .wrapper {
+        padding: 10px 10px;
+    }
+}
+
+@media (min-width: 1100px) {
+    .wrapper {
+        padding: 10px 50px;
+    }
+}
