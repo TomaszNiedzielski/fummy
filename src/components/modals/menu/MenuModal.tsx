@@ -36,7 +36,7 @@ const MenuModal: React.FC<Props> = ({ isVisible, onChange }) => {
         return () => {
             router.events.off('routeChangeStart', handleRouteChange);
         }
-    }, []);
+    }, [onChange]);
 
     return (
         <>
