@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import OrderCard from '../components/dedicated/order_card/OrderCard';
 import { post, Response } from '../helpers/ApiRequest';
-import { RootState } from '../redux/store';
-import { useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
 
 const OrdersPage = ({ orders }) => {
@@ -13,6 +11,7 @@ const OrdersPage = ({ orders }) => {
                 <div className="d-flex flex-wrap">
                     {orders.map(({ id, title, instructions, deadline, purchaser, price, currency }) => (
                         <OrderCard
+                            key={id}
                             id={id}
                             title={title}
                             instructions={instructions}

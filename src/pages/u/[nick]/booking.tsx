@@ -98,6 +98,7 @@ const BookingPage: React.FC<any> = ({ profileDetails, offer }) => {
                 <div className="booking__offers-container">
                     {offer.map(({ id, title, price, currency }) => (
                         <OfferButton
+                            key={id}
                             title={title}
                             price={price}
                             currency={currency}

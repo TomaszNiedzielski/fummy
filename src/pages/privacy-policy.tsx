@@ -146,7 +146,7 @@ const PrivacyPolicyPage = () => {
                 <li>Pliki cookies wykorzystywane są w następujących celach:</li>
                 <ul>
                     <li>utrzymanie sesji użytkownika Serwisu (po zalogowaniu), dzięki której użytkownik nie musi na każdej podstronie Serwisu ponownie wpisywać loginu i hasła;</li>
-                    <li>realizacji celów określonych powyżej w części "Istotne techniki marketingowe";</li>
+                    <li>realizacji celów określonych powyżej w części &quot;Istotne techniki marketingowe&quot;;</li>
                 </ul>
                 <li>
                     W ramach Serwisu stosowane są dwa zasadnicze rodzaje plików cookies: „sesyjne” (session cookies) oraz „stałe” (persistent cookies).

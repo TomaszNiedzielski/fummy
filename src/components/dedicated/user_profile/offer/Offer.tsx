@@ -33,8 +33,8 @@ const Offer: React.FC<Props> = ({ isDashboard, nick, data }) => {
                 : 'Kupując u tego użytkownika dostajesz gwarancję zwrotu pieniędzy w przypadku nie dostarczenia video.' }
             </div>
             <div className="d-flex flex-wrap flex-lg-row">
-                {data !== undefined && data.map(({ id, title, price, currency }, i) => (
-                    <OfferButton title={title} price={price} currency={currency} link={nick+'/booking?id='+id} />
+                {data !== undefined && data.map(({ id, title, price, currency }) => (
+                    <OfferButton key={id} title={title} price={price} currency={currency} link={nick+'/booking?id='+id} />
                 ))}
             </div>
         </div>

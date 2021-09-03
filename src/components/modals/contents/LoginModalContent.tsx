@@ -5,8 +5,9 @@ import PrimaryInput from '../../inputs/primary/PrimaryInput';
 
 import { useDispatch } from 'react-redux';
 import { authSuccess } from '../../../redux/actions/user/Auth';
-import { emailRules, loginPasswordRules, passwordRules } from '../../../helpers/ValidationRules';
+import { emailRules, loginPasswordRules } from '../../../helpers/ValidationRules';
 import { post, Response } from '../../../helpers/ApiRequest';
+import Link from 'next/link';
 
 interface LoginResponse extends Response {
     token: string;
@@ -92,7 +93,9 @@ const LoginModalContent = () => {
                     isLoading={isLoading}
                 />
                 <small className="mt-3">
-                    <a href="/password/reset" className="text-white" style={{ textDecorationLine: 'underline' }}>Nie pamiętasz hasła?</a>
+                    <Link href="/password/reset">
+                        <a className="text-white" style={{ textDecorationLine: 'underline' }}>Nie pamiętasz hasła?</a>
+                    </Link>
                 </small>
             </div>
         </div>
