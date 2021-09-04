@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Head from 'next/head';
 import { Provider, useDispatch, useSelector } from 'react-redux';
-import store from '../redux/store';
+import store, { RootState } from '../redux/store';
 import { setToken } from '../redux/actions/user/Auth';
 import { loadProfileDetails } from '../redux/actions/user/Profile';
 
@@ -28,7 +28,7 @@ const cookies = new Cookies();
 function Index({ Component, pageProps }) {
     const dispatch = useDispatch();
 
-    let { token } = useSelector((state) => state.auth);
+    let { token } = useSelector((state: RootState) => state.auth);
     if(!token && typeof window !== 'undefined') {
         token = cookies.get('token');
     }
