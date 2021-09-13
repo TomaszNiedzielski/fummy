@@ -26,17 +26,7 @@ const Navbar: React.FC = () => {
             <Link href="/">
                 <a>
                     <div className="d-flex align-items-center">
-                        <div style={{
-                            fontSize: '26px',
-                            color: 'var(--global-primary-color)',
-                            border: '2px solid var(--global-primary-color)',
-                            padding: '0 8px',
-                            borderRadius: '0.25rem',
-                            height: '34px',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}>F</div>
+                        <img src="/icons/logo.png" className={styles.logo} />
                         <div className={styles.appName}>{APP_NAME}</div>
                     </div>
                 </a>
