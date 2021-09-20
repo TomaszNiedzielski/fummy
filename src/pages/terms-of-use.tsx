@@ -1,9 +1,7 @@
 import React from 'react';
+import { INSTAGRAM, APP_NAME, EMAIL } from '../constants';
 
-const TermsOfUsePage = () => {
-    const APP_NAME = 'famechallenge.pl';
-    const INSTAGRAM_LINK = 'https://www.instagram.com/famechallenge';
-
+const TermsOfUsePage: React.FC = () => {
     return (
         <div className="container text-white py-3 py-lg-5">
             <h2>Regulamin Serwisu Internetowego {APP_NAME}</h2>
@@ -12,8 +10,8 @@ const TermsOfUsePage = () => {
             <h6>1. Niniejszy Regulamin określa ogólne warunki, zasady oraz sposób świadczenia Usług drogą elektroniczną, za pośrednictwem serwisu internetowego {APP_NAME} (zwanego dalej „Serwisem Internetowym” lub „Serwisem”) przez Tomasza Niedzielskiego, zwanego dalej Usługodawcą.</h6>
             <h6>2. Kontakt z Usługodawcą odbywa się za pośrednictwem:</h6>
             <ul>
-                <li>wiadomości e-mail na adres: famechallenge@gmail.com;</li>
-                <li>wiadomości za pośrednictwem Serwisu Instagram - <a href={INSTAGRAM_LINK} target="_blank" rel="noopener noreferrer">{INSTAGRAM_LINK}</a></li>
+                <li>wiadomości e-mail na adres: {EMAIL};</li>
+                <li>wiadomości za pośrednictwem Serwisu Instagram - <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer">{INSTAGRAM}</a></li>
             </ul>
             
             <h6>
