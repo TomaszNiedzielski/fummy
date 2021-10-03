@@ -16,7 +16,7 @@ export const saveOffer = (offerData: OfferItem[]) => {
         const token = restoreToken();
         post('offer/update?token='+token, { offerData })
         .then((response: Response) => {
-            console.log(response);
+            console.log('after update response: ', response);
             if(response.code === 200) {
                 dispatch({
                     type: UPDATE_OFFER_SUCCESS,

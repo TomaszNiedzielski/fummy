@@ -9,9 +9,11 @@ import { hideModal } from '../PrimaryModal';
 const CURRENCY = 'PLN';
 
 const DEFAULT_OFFER = {
+    id: null,
     title: '',
     price: '',
-    currency: CURRENCY
+    currency: CURRENCY,
+    isRemoved: false
 }
 
 const CreateOfferModalContent: React.FC = () => {
@@ -22,18 +24,44 @@ const CreateOfferModalContent: React.FC = () => {
     const offerFromRedux = useSelector((state: RootState) => state.offer);
 
     useEffect(() => {
-        if(offerFromRedux.data !== undefined && offerFromRedux.data.length > 0) {
-            let updatedOffer = [...offerFromRedux.data];
+        console.log('redux state po rzekomym wyzerowaniu: ', offerFromRedux);
+
+        // if(offerFromRedux.data !== undefined && offerFromRedux.data.length > 0) {
+            const updatedOffer = [...offerFromRedux.data];
             while(updatedOffer.length < 3) {
                 updatedOffer.push({...DEFAULT_OFFER});
             }
 
             setOffer(updatedOffer);
-        }
+        // }
     }, [offerFromRedux]);
 
     const save = () => {
-        let filteredOffer = offer.filter(item => item.title !== '' && item.price !== '');
+        // let filteredOffer = offer.filter(item => item.title !== '' && item.price !== '');
+
+        console.log('before ', offer);
+
+        let filteredOffer = offer.filter(item => {
+            if(!item.id && (!item.title || !item.price)) {
+                return false;
+            }
+
+            return true;
+        });
+
+        console.log('filter ', filteredOffer);
+
+        filteredOffer = filteredOffer.map(item => {
+            if((item.title === '' || item.price === '') && item.id) {
+                item.isRemoved = true;
+            } else {
+                item.isRemoved = false;
+            }
+
+            return item;
+        });
+
+        console.log('after ', filteredOffer);
 
         dispatch(saveOffer(filteredOffer));
 

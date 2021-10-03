@@ -1,28 +1,81 @@
-import React from 'react';
+import React, { useState } from 'react';
 import OrderCard from '../components/dedicated/order_card/OrderCard';
 import { post, Response } from '../helpers/ApiRequest';
 import Cookies from 'universal-cookie';
+import Sidebar from '../components/dedicated/orders/sidebar/Sidebar';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+
+const CurrentOrders = ({ orders }) => {
+    if(orders.length > 0) {
+        return (
+            orders.map(({ id, title, instructions, deadline, purchaser, price, currency, processingComplete }) => (
+                <OrderCard
+                    key={id}
+                    id={id}
+                    title={title}
+                    instructions={instructions}
+                    deadline={deadline}
+                    purchaser={purchaser}
+                    price={price}
+                    currency={currency}
+                    processingComplete={processingComplete}
+                />
+            ))
+        );
+    }
+    
+    return <h5 className="w-100 text-center mt-3">Brak aktualnych zamówień</h5>
+}
+
+const CompletedOrders = ({ orders }) => {
+    if(orders.length > 0) {
+        return (
+            orders.map(({ id, title, instructions, deadline, purchaser, price, currency, videoName, thumbnail, processingComplete }) => (
+                <OrderCard
+                    key={id}
+                    id={id}
+                    title={title}
+                    instructions={instructions}
+                    deadline={deadline}
+                    purchaser={purchaser}
+                    price={price}
+                    currency={currency}
+                    thumbnail={thumbnail}
+                    videoName={videoName}
+                    processingComplete={processingComplete}
+                />
+            ))
+        );
+    }
+
+    return <h5 className="w-100 text-center mt-3">Brak zrealizowanych zamówień</h5>
+}
+
+const UncompletedOrders = () => (
+    <h5 className="w-100 text-center mt-3">Brak niezrealizowanych zamówień</h5>
+);
+
+export type OrdersView = 'current' | 'completed' | 'uncompleted';
 
 const OrdersPage = ({ orders }) => {
     return (
-        <div className="container">
-            {orders !== undefined && orders.length > 0 ? <>
-                <h2 className="my-3 primary-color ml-2" style={{ fontFamily: 'futura-extra-bold-oblique' }}>Zamówienia</h2>
-                <div className="d-flex flex-wrap">
-                    {orders.map(({ id, title, instructions, deadline, purchaser, price, currency }) => (
-                        <OrderCard
-                            key={id}
-                            id={id}
-                            title={title}
-                            instructions={instructions}
-                            deadline={deadline}
-                            purchaser={purchaser}
-                            price={price}
-                            currency={currency}
-                        />
-                    ))}
+        <div className="container mt-5 mt-md-0 mx-0 px-0 d-flex flex-column flex-md-row mw-100">
+            <Router>
+                <Sidebar />
+                <div className="w-100 d-flex flex-wrap">
+                    <Switch>
+                        <Route exact path="/">
+                            <CurrentOrders orders={orders.current} />
+                        </Route>
+                        <Route path="/completed">
+                            <CompletedOrders orders={orders.completed} />
+                        </Route>
+                        <Route path="/uncompleted">
+                            <UncompletedOrders />
+                        </Route>
+                    </Switch>
                 </div>
-            </> : <h6 className="text-center mt-3 primary-color">Brak zamówień</h6>}
+            </Router>
         </div>
     );
 }

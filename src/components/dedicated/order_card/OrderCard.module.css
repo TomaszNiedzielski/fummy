@@ -10,6 +10,39 @@
     align-items: center;
     justify-content: space-between;
 }
+.thumbnailContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.thumbnail {
+    width: 50%;
+}
+.thumbnailBackground {
+    width: 97%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.thumbnailBackground img {
+    width: 10%;
+    height: 10%;
+    -webkit-filter: blur(2px);
+    filter: blur(1px);
+    left: 40%;
+    top: 40%;
+    opacity: 0.5;
+    -webkit-transform: scale(11);
+    -moz-transform: scale(11);
+    transform: scale(11);
+}
 .title {
     font-size: 22px;
     color: var(--global-primary-color);
@@ -52,8 +85,31 @@
     width: 0px;
     height: 0px;
 }
+.fileName {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+}
+.error {
+    width: 100%;
+    color: red;
+    font-size: 13px;
+}
 .label img {
     height: 50px;
+}
+.loadingBar {
+    width: 90%;
+    height: 10px;
+    background: white;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+.loadingBar div {
+    height: 100%;
+    background: var(--global-primary-color);
+    border-radius: 4px;
 }
 .price {
     background: var(--global-primary-color);
