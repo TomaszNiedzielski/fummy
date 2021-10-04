@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import styles from './OrderCard.module.css';
-import { post, Response } from '../../../helpers/ApiRequest';
-import { RootState } from '../../../redux/store';
+import styles from './Card.module.css';
+import { post, Response } from '../../../../helpers/ApiRequest';
+import { RootState } from '../../../../redux/store';
 import { useSelector } from 'react-redux';
-import PrimaryButton from '../../buttons/primary/PrimaryButton';
+import PrimaryButton from '../../../buttons/primary/PrimaryButton';
 import { toast } from 'react-toastify';
-import CountdownTimer from '../countdown/Countdown';
-import { API_STORAGE } from '../../../constants';
+import CountdownTimer from '../../countdown/Countdown';
+import { API_STORAGE } from '../../../../constants';
 import Link from 'next/link';
+import Moment from 'react-moment';
+import 'moment/locale/pl';
 
 interface Props {
     id: number | string;
@@ -19,7 +21,9 @@ interface Props {
     currency: string;
     thumbnail?: string;
     videoName?: string;
-    processingComplete: number;
+    processingComplete?: number;
+    unrealized?: boolean;
+    videoCreatedAt?: string;
 }
 
 const ProgressBar = ({ progress }) => (
@@ -28,7 +32,7 @@ const ProgressBar = ({ progress }) => (
     </div>
 );
 
-const OrderCard: React.FC<Props> = ({ id, title, instructions, deadline, purchaser, price, currency, thumbnail, videoName, processingComplete }) => {
+const OrderCard: React.FC<Props> = ({ id, title, instructions, deadline, purchaser, price, currency, thumbnail, videoName, processingComplete, unrealized, videoCreatedAt }) => {
     const { token } = useSelector((state: RootState) => state.auth);
     const { nick } = useSelector((state: RootState) => state.profile);
 
@@ -79,8 +83,6 @@ const OrderCard: React.FC<Props> = ({ id, title, instructions, deadline, purchas
 
         if(!video) return;
 
-        console.log('size: ', video);
-
         if(video.size > 209715200) {
             setVideoError('Video nie może być większe niż 200MB.');
             return;
@@ -104,9 +106,7 @@ const OrderCard: React.FC<Props> = ({ id, title, instructions, deadline, purchas
         setVideo(video);
     }
 
-    const onUploadProgress = (p) => {
-        console.log(Math.round(p.loaded/p.total*100));
-
+    const onUploadProgress = (p: any) => {
         setUploadProgress(Math.round(p.loaded/p.total*100)+'%');
     }
 
@@ -136,6 +136,7 @@ const OrderCard: React.FC<Props> = ({ id, title, instructions, deadline, purchas
     return (
         <div className={styles.container}>
             <div className={styles.scrollable}>
+                <div className={styles.price}>{price} {currency}</div>
                 <div className="w-100 d-flex flex-column">
                     {thumbnail && <div className={styles.thumbnailContainer}>
                         <Link href={`/u/${nick}/video/${videoName}`}>
@@ -147,30 +148,38 @@ const OrderCard: React.FC<Props> = ({ id, title, instructions, deadline, purchas
                             </div>
                         </Link>
                     </div>}
-                    <div className="d-flex">
-                        <div className={styles.title}>{title}</div>
-                        {!isCompleted && <div className={styles.new}>NEW</div>}
+                    <div className={styles.specification}>
+                        <div className={styles.specificationTitle}>Nazwa oferty</div>
+                        <div className={styles.specificationBody}>{title}</div>
                     </div>
-                    <div className={styles.instructions}>{instructions}</div>
-                    <div className="w-100 d-flex justify-content-between my-3">
-                        <div className={styles.price}>{price} {currency}</div>
-                        <div>
-                            <span className="primary-color">{purchaser}</span>
-                        </div>
+                    <div className={styles.specification}>
+                        <div className={styles.specificationTitle}>Opis</div>
+                        <div className={styles.specificationBody}>{instructions}</div>
                     </div>
-                    {!isCompleted && <div className="d-flex justify-content-center">
+                    <div className={styles.specification}>
+                        <div className={styles.specificationTitle}>Klient</div>
+                        <div className={styles.specificationBody}>{purchaser}</div>
+                    </div>
+                    {!isCompleted && <div className={styles.specification}>
+                        <div className={styles.specificationTitle}>Czas na wykonanie zamówienia</div>
                         <CountdownTimer date={deadline} />
+                    </div>}
+                    {isCompleted && videoCreatedAt && <div className={styles.specification}>
+                        <div className={styles.specificationTitle}>Zrealizowano</div>
+                        <div className={styles.specificationBody}>
+                            <Moment format="lll">{videoCreatedAt}</Moment>
+                        </div>
                     </div>}
                 </div>
                 <div className="w-100 d-flex flex-column align-items-center">
-                    <div className={styles.upload}>
+                    {!unrealized && <div className={styles.upload}>
                         <label className={styles.label}>
-                            {!isUploaded && <input type="file" className={styles.input} accept="video/mp4,video/x-m4v,video/*" onChange={e => onChange(e)} />}
+                            {!isUploaded && !isCompleted && <input type="file" className={styles.input} accept="video/mp4,video/x-m4v,video/*" onChange={e => onChange(e)} />}
                             <img alt="state" src={`/icons/${statusIcon}.png`} />
                             {<div className={styles.fileName}>{uploadMessage}</div>}
                             {isUploading && <ProgressBar progress={uploadProgress} />}
                         </label>
-                    </div>
+                    </div>}
                     <div className={styles.error}>{videoError}</div>
                 </div>
             </div>

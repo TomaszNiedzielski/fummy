@@ -6,7 +6,7 @@ interface Props {
     date: string;
 }
 
-const Completionist = () => <span>Czas upłynął!</span>;
+const Completionist = () => <div style={{ fontSize: '14px' }}>Czas upłynął!</div>;
 
 const renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
@@ -14,22 +14,22 @@ const renderer = ({ days, hours, minutes, seconds, completed }) => {
     } else {
         return (
             <div className={styles.container}>
-                <div>
+                <div className={styles.item}>
                     <div>{days < 10 ? `0${days}` : days}</div>
                     <div>dni</div>
                 </div>
                 <div>:</div>
-                <div>
+                <div className={styles.item}>
                     <div>{hours < 10 ? `0${hours}` : hours}</div>
                     <div>godzin</div>
                 </div>
                 <div>:</div>
-                <div>
+                <div className={styles.item}>
                     <div>{minutes < 10 ? `0${minutes}` : minutes}</div>
                     <div>minut</div>
                 </div>
                 <div>:</div>
-                <div>
+                <div className={styles.item}>
                     <div>{seconds < 10 ? `0${seconds}` : seconds}</div>
                     <div>sekund</div>
                 </div>

@@ -1,13 +1,14 @@
 .container {
-    width: 150px;
     display: flex;
-    justify-content: space-between;
     text-align: center;
-    color: var(--global-primary-color);
-    font-size: 18px;
+    font-size: 14px;
+    margin-left: -10px;
 }
 .container div div:last-child {
     color: white;
     font-family: futura-light;
     font-size: 14px
+}
+.item {
+    width: 36px;
 }

@@ -44,7 +44,10 @@ const LoginModalContent = () => {
                 setPasswordError(response.message);
             }
         })
-        .catch(() => setIsLoading(false));
+        .catch((e) => {
+            setIsLoading(false);
+            setPasswordError(e.response.data.message);
+        });
     }
 
     useEffect(() => {

@@ -4,11 +4,12 @@
     box-shadow: 0 0 10px -6px #ccc;
     border-radius: 10px;
     padding: 15px;
-    margin: 10px;
+    margin: 20px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 }
 .thumbnailContainer {
     display: flex;
@@ -47,22 +48,6 @@
     font-size: 22px;
     color: var(--global-primary-color);
     letter-spacing: -0.5px;
-}
-.new {
-    background: var(--global-primary-color);
-    font-size: 13px;
-    color: var(--global-accent-color);
-    line-height: 15px;
-    height: 15px;
-    border-radius: 3px;
-    letter-spacing: -1px;
-    margin-left: 4px;
-    padding: 0 2px;
-}
-.instructions {
-    font-family: futura-light;
-    font-size: 15px;
-    text-align: justify;
 }
 .upload {
     height: 130px;
@@ -112,10 +97,29 @@
     border-radius: 4px;
 }
 .price {
-    background: var(--global-primary-color);
+    background-color: rgba(var(--global-primary-color-rgb), 0.4);
     padding: 0 6px;
-    border-radius: 3px;
+    border-radius: 1px 10px 1px 100%;
     font-size: 15px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    min-width: 130px;
+    text-align: right;
+    height: 40px;
+    line-height: 32px;
+    font-family: 'futura-extra-bold-oblique';
+    z-index: 1;
+}
+.specification {
+    margin: 5px 0;
+}
+.specificationTitle {
+    font-size: 13px;
+    color: #ccc;
+}
+.specificationBody {
+    font-size: 14px;
 }
 .scrollable {
     overflow-y: auto;
