@@ -1,35 +1,51 @@
+.content {
+    position: fixed;
+    top: 60px;
+    z-index: 2;
+    width: 100%;
+}
+.title {
+    display: none;
+}
 .list {
     list-style-type: none;
     padding: 0;
     display: flex;
     flex-direction: row;
-    position: fixed;
     background: var(--global-accent-color);
-    z-index: 1;
     width: 100%;
-    top: 60px;
 }
 .list li {
     cursor: pointer;
-    padding: 10px;
+    border-radius: 5px;
 }
 .list li a {
     color: var(--global-primary-color);
     display: block;
     width: 100%;
     height: 100%;
+    padding: 8px;
 }
 
 @media screen and (min-width: 767px) {
     .container {
         min-width: 240px;
     }
+    .content {
+        width: unset;
+    }
+    .title {
+        display: block;
+        padding: 30px 20px 0 20px;
+    }
     .list {
         flex-direction: column;
-        width: 239px;
+        width: 240px;
     }
     .list li {
-        margin: 10px 20px;
-        padding: 5px 10px;
+        margin-left: 20px;
+    }
+    .list li a {
+        padding: 10px 20px;
     }
 }

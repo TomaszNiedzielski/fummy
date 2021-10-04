@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './Videos.module.css';
 import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
 import VideoPage from '../../../../pages/u/[nick]/video/[name]';

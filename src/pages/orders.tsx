@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import OrderCard from '../components/dedicated/order_card/OrderCard';
+import React from 'react';
+import OrderCard from '../components/dedicated/orders/card/Card';
 import { post, Response } from '../helpers/ApiRequest';
 import Cookies from 'universal-cookie';
-import Sidebar from '../components/dedicated/orders/sidebar/Sidebar';
+import Navigator from '../components/dedicated/orders/navigator/Navigator';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
 const CurrentOrders = ({ orders }) => {
@@ -24,13 +24,13 @@ const CurrentOrders = ({ orders }) => {
         );
     }
     
-    return <h5 className="w-100 text-center mt-3">Brak aktualnych zamówień</h5>
+    return <h6 className="w-100 text-center mt-3">Brak aktualnych zamówień</h6>
 }
 
 const CompletedOrders = ({ orders }) => {
     if(orders.length > 0) {
         return (
-            orders.map(({ id, title, instructions, deadline, purchaser, price, currency, videoName, thumbnail, processingComplete }) => (
+            orders.map(({ id, title, instructions, deadline, purchaser, price, currency, videoName, thumbnail, processingComplete, videoCreatedAt }) => (
                 <OrderCard
                     key={id}
                     id={id}
@@ -43,17 +43,36 @@ const CompletedOrders = ({ orders }) => {
                     thumbnail={thumbnail}
                     videoName={videoName}
                     processingComplete={processingComplete}
+                    videoCreatedAt={videoCreatedAt}
                 />
             ))
         );
     }
 
-    return <h5 className="w-100 text-center mt-3">Brak zrealizowanych zamówień</h5>
+    return <h6 className="w-100 text-center mt-3">Brak zrealizowanych zamówień</h6>
 }
 
-const UncompletedOrders = () => (
-    <h5 className="w-100 text-center mt-3">Brak niezrealizowanych zamówień</h5>
-);
+const UnrealizedOrders = ({ orders }) => {
+    if(orders.length > 0) {
+        return (
+            orders.map(({ id, title, instructions, deadline, purchaser, price, currency }) => (
+                <OrderCard
+                    key={id}
+                    id={id}
+                    title={title}
+                    instructions={instructions}
+                    deadline={deadline}
+                    purchaser={purchaser}
+                    price={price}
+                    currency={currency}
+                    unrealized={true}
+                />
+            ))
+        );
+    }
+
+    return <h6 className="w-100 text-center mt-3">Brak niezrealizowanych zamówień</h6>
+}
 
 export type OrdersView = 'current' | 'completed' | 'uncompleted';
 
@@ -61,7 +80,7 @@ const OrdersPage = ({ orders }) => {
     return (
         <div className="container mt-5 mt-md-0 mx-0 px-0 d-flex flex-column flex-md-row mw-100">
             <Router>
-                <Sidebar />
+                <Navigator />
                 <div className="w-100 d-flex flex-wrap">
                     <Switch>
                         <Route exact path="/">
@@ -71,7 +90,7 @@ const OrdersPage = ({ orders }) => {
                             <CompletedOrders orders={orders.completed} />
                         </Route>
                         <Route path="/uncompleted">
-                            <UncompletedOrders />
+                            <UnrealizedOrders orders={orders.unrealized} />
                         </Route>
                     </Switch>
                 </div>
