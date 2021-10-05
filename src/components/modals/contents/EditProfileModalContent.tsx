@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { API_URL } from '../../../constants';
 import { NICK_LENGTH } from '../../../constants/InputLengths';
+import { post, Response } from '../../../helpers/ApiRequest';
 import { bioRules, fullNameRules, nickRules } from '../../../helpers/ValidationRules';
 import { UPDATE_PROFILE_DETAILS } from '../../../redux/actions/user/Profile';
 import { RootState } from '../../../redux/store';
@@ -65,16 +66,8 @@ const EditProfileModalContent = () => {
         bio && formData.append('bio', bio);
         formData.append('socialMediaLinks', JSON.stringify(socialMediaLinks));
 
-        fetch(API_URL+'profile/update-details', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + token,
-                'Accept': 'application/json',
-            },
-            body: formData
-        })
-        .then(response => response.json())
-        .then(response => {
+        post('profile/update-details?token='+token, formData)
+        .then((response: Response) => {
             setIsLoading(false);
             
             if(response.code === 200) {

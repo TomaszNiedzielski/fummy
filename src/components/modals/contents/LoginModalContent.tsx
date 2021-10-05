@@ -23,7 +23,9 @@ const LoginModalContent = () => {
 
     const dispatch = useDispatch();
 
-    const login = () => {
+    const login = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
         if(!isFormCorrect()) return;
 
         setIsLoading(true);
@@ -70,7 +72,7 @@ const LoginModalContent = () => {
     }
 
     return (
-        <div className="d-flex flex-column align-items-center">
+        <form className="d-flex flex-column align-items-center" onSubmit={login} noValidate>
             <PrimaryInput
                 type="email"
                 label="Adres e-mail"
@@ -91,8 +93,8 @@ const LoginModalContent = () => {
             />
             <div className="mt-3 w-75 d-flex flex-column align-items-center mb-5">
                 <PrimaryButton
+                    type="submit"
                     title="Zaloguj się"
-                    onClick={login}
                     isLoading={isLoading}
                 />
                 <small className="mt-3">
@@ -101,7 +103,7 @@ const LoginModalContent = () => {
                     </Link>
                 </small>
             </div>
-        </div>
+        </form>
     );
 }
 export default LoginModalContent;

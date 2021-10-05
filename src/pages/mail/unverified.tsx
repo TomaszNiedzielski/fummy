@@ -32,17 +32,15 @@ const UnverifiedPage = () => {
     }
 
     return (
-        <>
-        <div className="container d-flex flex-column align-items-center pt-5">
-            <h5>Sprawdź swoją skrzynkę pocztową i potwierdź adres e-mail, aby kontynuować.</h5>
-            <h6 className="mt-4 mb-2">E-mail nie dotarł?</h6>
+        <div className="container d-flex flex-column align-items-center mt-2 mt-md-5">
+            <div>Sprawdź swoją skrzynkę pocztową i potwierdź adres e-mail, aby kontynuować.</div>
+            <small className="mt-4 mb-2">E-mail nie dotarł?</small>
             <PrimaryButton
                 title="Wyślij ponownie"
                 onClick={sendVerificationMail}
                 isLoading={isLoading}
             />
         </div>
-        </>
     );
 }
 export default UnverifiedPage;

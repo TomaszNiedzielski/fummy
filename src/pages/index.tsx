@@ -22,8 +22,8 @@ const HomePage: React.FC<{ users: User[] }> = ({ users }) => {
     return (
         <>
         <header className="home__header">
-            <h1 className="font-weight-bold mb-4 mt-0">Dedykowane filmy od twoich <br className="d-none d-lg-block" /> ulubionych idoli!</h1>
-            <div className="home__header__desc">Wyszukaj swojego ulubionego influencera i zamów <br className="d-none d-lg-block" /> video przygotowane specjalnie dla Ciebie!</div>
+            <h1 className="font-weight-bold mb-4 mt-0">Dedykowane filmy od twoich <br className="d-none d-sm-block" /> ulubionych idoli!</h1>
+            <div className="home__header__desc">Wyszukaj swojego ulubionego influencera i zamów <br className="d-none d-sm-block" /> video przygotowane specjalnie dla Ciebie!</div>
         </header>
 
         {(!token && users.length === 0) && <AuthButtons />}

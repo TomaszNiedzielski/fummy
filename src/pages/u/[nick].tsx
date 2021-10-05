@@ -9,6 +9,7 @@ import * as Contants from '../../constants';
 import Details from '../../components/dedicated/user_profile/details/Details';
 import { LOAD_OFFER_SUCCESS } from '../../redux/actions/user/Offer';
 import Videos from '../../components/dedicated/user_profile/videos/Videos';
+import Cookies from 'universal-cookie';
 
 const UserPage: React.FC<any> = ({ offerFromServer, videos }) => {
     const [isDashboard, setIsDashboard] = useState(false);
@@ -67,6 +68,7 @@ const UserPage: React.FC<any> = ({ offerFromServer, videos }) => {
 
         post('profile/load-details?token='+token, { nick: urlNick })
         .then((response: Response) => {
+            console.log(response);
             if(response.code === 200) {
                 const { fullName, nick, bio, socialMediaLinks, avatar, isVerified, isMailVerified } = response.data;
 
@@ -125,7 +127,24 @@ const UserPage: React.FC<any> = ({ offerFromServer, videos }) => {
         )
     }
 }
-export const getServerSideProps = async ({ params }) => {
+export const getServerSideProps = async ({ params, req }) => {
+    const token = new Cookies(req.headers.cookie).get('token');
+
+    if(token) {
+        const userDetailsResponse: any = await post('profile/load-details?token='+token);
+
+        const isDashboard = userDetailsResponse.data.nick === params.nick;
+
+        if(userDetailsResponse.data.isMailVerified === false && isDashboard) {
+            return {
+                redirect: {
+                    destination: '/mail/unverified',
+                    permanent: false
+                }
+            }
+        }
+    }
+
     const responseWithOffer: any = await get('offer/load/'+params.nick);
     const responseWithVideos: any = await get('videos/get-list/'+params.nick);
 

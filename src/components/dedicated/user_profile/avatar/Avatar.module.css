@@ -1,0 +1,27 @@
+.container img {
+    border-radius: 50%;
+    width: 95px;
+    height: 95px;
+    object-fit: cover;
+    box-shadow: 0 0 10px -4px #ccc;
+}
+
+@media (min-width: 767px) {
+    .container img {
+        width: 270px;
+        height: 270px;
+    }
+}
+
+@media (min-width: 993px) {
+    .container {
+        margin-right: 2rem;
+    }
+    .container img {
+        height: 330px;
+        width: 330px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 0 10px 0px black;
+    }
+}

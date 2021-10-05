@@ -23,7 +23,9 @@ const RegisterModalContent = () => {
 
     const dispatch = useDispatch();
 
-    const register = () => {
+    const register = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
         if(!isFormCorrect()) return;
 
         setIsLoading(true);
@@ -77,7 +79,7 @@ const RegisterModalContent = () => {
     }
 
     return (
-        <div className="d-flex flex-column align-items-center">
+        <form className="d-flex flex-column align-items-center" onSubmit={register} noValidate>
             <PrimaryInput
                 label="Imię i Nazwisko"
                 placeholder="np. Monika Kowalska"
@@ -115,12 +117,12 @@ const RegisterModalContent = () => {
             />
             <div className="mt-3 w-75 d-flex justify-content-center mb-5">
                 <PrimaryButton
+                    type="submit"
                     title="Zarejestruj się"
-                    onClick={register}
                     isLoading={isLoading}
                 />
             </div>
-        </div>
+        </form>
     );
 }
 export default RegisterModalContent;
