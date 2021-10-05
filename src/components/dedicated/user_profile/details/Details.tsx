@@ -25,7 +25,7 @@ const Details: React.FC<Props> = ({ fullName, nick, bio, socialMediaLinks, avata
         <div className="w-100 mt-2 mt-lg-4 ">
             <div className="d-flex w-100 justify-content-md-center">
                 <Avatar name={avatar} />
-                <div className="d-flex flex-column w-100 w-md-unset">
+                <div className="d-flex flex-column w-100 w-lg-unset">
                     <div className="d-flex flex-column flex-md-row ml-3 ml-lg-0">
                         <div>
                             <div className="d-flex align-items-center">

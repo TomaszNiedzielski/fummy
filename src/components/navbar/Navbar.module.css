@@ -40,6 +40,7 @@
     z-index: -1;
 }
 
+
 @media (min-width: 992px) {
     .appName {
         display: block;

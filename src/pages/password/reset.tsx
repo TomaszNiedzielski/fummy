@@ -10,6 +10,7 @@ const PasswordResetPage = () => {
     const [emailError, setEmailError] = useState<string>();
     const [responseMessage, setResponseMessage] = useState<string>();
     const [isLoading, setIsLoading] = useState(false);
+    const [isEmailSent, setIsEmailSent] = useState(false);
 
     const resetPassword = () => {
         if(!isFormCorrect()) return;
@@ -19,12 +20,12 @@ const PasswordResetPage = () => {
         post('password/send-reset-link', { email })
         .then((response: any) => {
             setIsLoading(false);
-            const { code, data, message } = response;
+            const { status, message } = response.data;
             
-            if(code === 200) {
-                setResponseMessage(data);
-            } else if(code === 500) {
-                toast.error(message);
+            if(status === 'success') {
+                setIsEmailSent(true);
+            } else if(status === 'info') {
+                toast.info(message)
             }
         })
         .catch(() => setIsLoading(false));
@@ -45,12 +46,13 @@ const PasswordResetPage = () => {
     }, [email]);
 
     return (
-        <div className="container text-white d-flex flex-column align-items-center pt-5">
-            {!responseMessage ? <>
+        <div className="container text-white d-flex flex-column align-items-center mt-2 mt-md-5">
+            {!isEmailSent ? <>
             <h4>Reset hasła</h4>
-            <h6 className="text-center">Podaj swój email, a my wyślemy Ci link do resetu hasła. <br/> Będzie ważny przez 14 dni.</h6>
+            <div className="text-md-center">Podaj swój email, a my wyślemy Ci link do resetu hasła. <br className="d-none d-md-block" /> Będzie ważny przez 14 dni.</div>
             <div className="w-100 w-sm-50 mb-3">
                 <PrimaryInput
+                    type="email"
                     label="Adres e-mail"
                     value={email}
                     onChange={newValue => setEmail(newValue)}
@@ -64,7 +66,13 @@ const PasswordResetPage = () => {
                 isLoading={isLoading}
             />
             </> :
-            <h6>{responseMessage}</h6>}
+            <div className="d-flex flex-column align-items-center">
+                <div className="text-md-center mb-3">E-mail z linkiem do resetu hasła został wysłany na podany adres.</div>
+                <PrimaryButton
+                    title="Nie dostałeś maila?"
+                    onClick={() => setIsEmailSent(false)}
+                />
+            </div>}
         </div>
     );
 }

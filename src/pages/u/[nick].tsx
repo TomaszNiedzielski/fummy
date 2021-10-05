@@ -97,7 +97,6 @@ const UserPage: React.FC<any> = ({ offerFromServer, videos }) => {
                     isDashboard={isDashboard}
                     offer={offer.data}
                 />
-                <hr className="d-none d-lg-block" />
 
                 {isDashboard && !isVerified ?
                 <div className="my-5 d-flex align-items-center flex-column">

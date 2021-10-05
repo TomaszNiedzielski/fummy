@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 interface Props {
     id: string;
@@ -16,6 +17,20 @@ export const hideModal = () => {
 }
 
 const PrimaryModal: React.FC<Props> = ({ id, title, Content }) => {
+    const router = useRouter();
+
+    useEffect(() => {
+        const handleRouteChange = () => {
+            hideModal();
+        }
+
+        router.events.on('routeChangeStart', handleRouteChange)
+
+        return () => {
+            router.events.off('routeChangeStart', handleRouteChange)
+        }
+    }, []);
+
     return (
         <div className="modal vh-100" id={id} tabIndex={-1} role="dialog" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered my-0 vh-100" role="document">

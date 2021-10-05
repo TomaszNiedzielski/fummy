@@ -68,6 +68,10 @@ a:hover {
   min-height: calc(100vh - 107px);
 }
 
+.dropdown-item:active {
+  background-color: var(--global-primary-color);
+}
+
 @font-face {
   font-family: 'acme-regular';
   src: url('/fonts/Acme-Regular.ttf') format('truetype');
