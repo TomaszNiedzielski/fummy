@@ -1,34 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import PrimaryButton from '../components/buttons/primary/PrimaryButton';
-import { post, Response } from '../helpers/ApiRequest';
-import { RootState } from '../redux/store';
+import PaymentHistoryItem from '../components/dedicated/payments/PaymentHistoryItem';
+import { post } from '../helpers/ApiRequest';
+import Cookies from 'universal-cookie';
 
-const MoneyBoxPage: React.FC = () => {
-    const token = useSelector((state: RootState) => state.auth.token);
-    const [money, setMoney] = useState();
-
-    // useEffect(() => {
-    //     if(!token) return;
-
-    //     post('donates/count-money?token='+token)
-    //     .then((response: Response) => {
-    //         if(response.code === 200) {
-    //             setMoney(response.data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " "));
-    //         }
-    //     });
-    // }, [token]);
-
+const MoneyBoxPage: React.FC<{ incomesList: any, income: number }> = ({ incomesList, income }) => {
     return (
-        <div className="container text-center pt-3">
-            <div className="money-box__title">Stan portfela</div>
-            <div className="money-box__amount">0 PLN</div>
-            <small className="d-block mt-3">Wyświetlana kwota jest kwotą netto pomniejszoną o koszty</small>
-            <small>obsługi transakcji płatniczych 3% i naliczaną prowizję 6%.</small>
-            <div className="mt-3">
-                <PrimaryButton title="Wypłać pieniądze" />
+        <div className="container pt-3">
+            <div className="d-flex flex-column align-items-center">
+                <h5>Stan mojego konta</h5>
+                <h3 className="mt-2">{income} PLN</h3>
+                <div className="mt-3 w-100 text-center">
+                    <PrimaryButton title="Wypłać pieniądze" />
+                </div>
             </div>
+
+            {incomesList.length > 0 && <h4 className="mt-5">Historia przychodów</h4>}
+            {incomesList.map(({ createdAt, netAmount, grossAmount, purchaserName}, i: number) => (
+                <PaymentHistoryItem
+                    key={i}
+                    createdAt={createdAt}
+                    netAmount={netAmount}
+                    grossAmount={grossAmount}
+                    purchaserName={purchaserName}
+                />
+            ))}
         </div>
     )
 }
+
+export const getServerSideProps = async ({ req }) => {
+    const token = new Cookies(req.headers.cookie).get('token');
+
+    const incomesListResponse: any = await post('incomes/get-history?token='+token);
+    const incomeResponse: any = await post('income/get?token='+token);
+
+    return {
+        props: {
+            incomesList: incomesListResponse.data,
+            income: incomeResponse.data
+        }
+    }
+}
+
 export default MoneyBoxPage;

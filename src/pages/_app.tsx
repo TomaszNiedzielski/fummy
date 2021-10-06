@@ -18,7 +18,6 @@ import '../styles/globals.css';
 import '../styles/Modal.css';
 import '../styles/User.css';
 import '../styles/HomePage.css';
-import '../styles/MoneyBoxPage.css';
 import '../styles/Booking.css';
 import { APP_NAME } from '../constants';
 import { useRouter } from 'next/router';
