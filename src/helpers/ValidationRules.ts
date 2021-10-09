@@ -2,7 +2,7 @@
 type Status = any;
 
 interface Rule {
-    status: Status;
+    status?: Status;
     message: string;
 }
 
@@ -14,6 +14,7 @@ interface Validator {
     email?: Rule;
     regex?: Rule;
     numeric?: Rule;
+    positive?: Rule;
 }
 
 const validateEmail = (email: string) => {
@@ -22,12 +23,12 @@ const validateEmail = (email: string) => {
 }
 
 export const validateNumericString = (value: string) => {
-    const re = /^[0-9]+$/;
+    const re = /^-?\d*(\.\d+)?$/;
     return re.test(value);
 }
 
 const validator = (value: string, rules: Validator) => {
-    const { required, minLength, maxLength, between, email, regex, numeric } = rules;
+    const { required, minLength, maxLength, between, email, regex, numeric, positive } = rules;
 
     if(required && !value) {
         return required.message;
@@ -57,6 +58,11 @@ const validator = (value: string, rules: Validator) => {
     if(numeric && !validateNumericString(value)) {
         return numeric.message;
     }
+
+    if(positive && Number(value) < 0 || value[0] === '0') {
+        return positive.message;
+    }
+
 }
 
 /* Rules */
@@ -183,5 +189,44 @@ export const orderInstructionsRules = (value: string) => {
             status: 500,
             message: 'Maksymalna długość instrukcji to 500 znaków.'
         }
+    });
+}
+
+export const offerTitleRules = (value: string) => {
+    return validator(value, {
+        required: {
+            status: true,
+            message: 'Podaj tytuł oferty.'
+        },
+        maxLength: {
+            status: 30,
+            message: 'Tytuł nie może być dłuższy niż 30 znaków.'
+        }
+    });
+}
+
+export const offerPriceRules = (value: string) => {
+    return validator(value, {
+        required: {
+            status: true,
+            message: 'Podaj cene.'
+        },
+        numeric: {
+            status: true,
+            message: 'Cena musi być liczbą.'
+        },
+        positive: {
+            status: true,
+            message: 'Cena musi być liczbą dodatnią.'
+        }
+    });
+}
+
+export const offerDescriptionRules = (value: string) => {
+    return validator(value, {
+        required: {
+            status: true,
+            message: 'Napisz opis.'
+        },
     });
 }

@@ -14,18 +14,12 @@
     object-fit: cover;
     border-radius: 50%;
 }
-.booking__offers-container {
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    width: 100%;
-}
 .booking__form {
     margin-top: 10px;
     width: 100%;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 576px) {
     .booking__form {
         width: 450px;
         margin-top: 10px;

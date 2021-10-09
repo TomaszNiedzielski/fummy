@@ -7,7 +7,7 @@ import PrimaryInput from '../../components/inputs/primary/PrimaryInput';
 import { get, post, Response } from '../../helpers/ApiRequest';
 import * as Contants from '../../constants';
 import Details from '../../components/dedicated/user_profile/details/Details';
-import { LOAD_OFFER_SUCCESS } from '../../redux/actions/user/Offer';
+import { LOAD_OFFERS_SUCCESS } from '../../redux/actions/user/Offers';
 import Videos from '../../components/dedicated/user_profile/videos/Videos';
 import Cookies from 'universal-cookie';
 
@@ -15,13 +15,13 @@ const UserPage: React.FC<any> = ({ offerFromServer, videos }) => {
     const [isDashboard, setIsDashboard] = useState(false);
     const [urlNick, setUrlNick] = useState<string>();
 
-    const { profile, offer } = useSelector((state: RootState) => state);
+    const { profile, offers } = useSelector((state: RootState) => state);
     const { token } = useSelector((state: RootState) => state.auth);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch({ type: LOAD_OFFER_SUCCESS, payload: offerFromServer });
+        dispatch({ type: LOAD_OFFERS_SUCCESS, payload: offerFromServer });
     }, [offerFromServer]);
 
     useEffect(() => {
@@ -68,7 +68,6 @@ const UserPage: React.FC<any> = ({ offerFromServer, videos }) => {
 
         post('profile/load-details?token='+token, { nick: urlNick })
         .then((response: Response) => {
-            console.log(response);
             if(response.code === 200) {
                 const { fullName, nick, bio, socialMediaLinks, avatar, isVerified, isMailVerified } = response.data;
 
@@ -95,7 +94,7 @@ const UserPage: React.FC<any> = ({ offerFromServer, videos }) => {
                     socialMediaLinks={socialMediaLinks}
                     avatar={avatar}
                     isDashboard={isDashboard}
-                    offer={offer.data}
+                    offer={offers.data}
                 />
 
                 {isDashboard && !isVerified ?
@@ -144,13 +143,13 @@ export const getServerSideProps = async ({ params, req }) => {
         }
     }
 
-    const responseWithOffer: any = await get('offer/load/'+params.nick);
+    const responseWithOffers: any = await get('offers/load/'+params.nick);
     const responseWithVideos: any = await get('videos/get-list/'+params.nick);
 
-    if(responseWithOffer.code === 200 && responseWithVideos.code === 200) {
+    if(responseWithOffers.code === 200 && responseWithVideos.code === 200) {
         return {
             props: {
-                offerFromServer: responseWithOffer.data,
+                offerFromServer: responseWithOffers.data,
                 videos: responseWithVideos.data
             }
         }

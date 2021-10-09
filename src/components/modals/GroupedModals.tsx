@@ -3,7 +3,7 @@ import EditProfileModalContent from './contents/EditProfileModalContent';
 import LoginModalContent from './contents/LoginModalContent';
 import RegisterModalContent from './contents/RegisterModalContent';
 import PrimaryModal from './PrimaryModal';
-import CreateOfferModalContent from './contents/CreateOfferModalContent';
+import EditOffersModalContent from './contents/edit_offers/EditOffersModalContent';
 
 const GroupedModals: React.FC = () => (
     <>
@@ -23,9 +23,9 @@ const GroupedModals: React.FC = () => (
             Content={EditProfileModalContent}
         />
         <PrimaryModal
-            id="createOfferModal"
+            id="editOffersModal"
             title="Dodaj oferte"
-            Content={CreateOfferModalContent}
+            Content={EditOffersModalContent}
         />
     </>
 );

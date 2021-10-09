@@ -1,18 +1,17 @@
-import { UPDATE_OFFER_SUCCESS, LOAD_OFFER_SUCCESS } from '../../actions/user/Offer';
+import { UPDATE_OFFERS_SUCCESS, LOAD_OFFERS_SUCCESS } from '../../actions/user/Offers';
 
 const initialState = {
     data: []
 }
 
-const OfferReducer = (state = initialState, action) => {
+const OffersReducer = (state = initialState, action) => {
     switch(action.type) {
-        case UPDATE_OFFER_SUCCESS:
-            console.log('action: ', action);
+        case UPDATE_OFFERS_SUCCESS:
             return {
                 ...state,
                 data: action.payload
             }
-        case LOAD_OFFER_SUCCESS:
+        case LOAD_OFFERS_SUCCESS:
             return {
                 ...state,
                 data: action.payload
@@ -21,4 +20,4 @@ const OfferReducer = (state = initialState, action) => {
             return state;
     }
 }
-export default OfferReducer;
+export default OffersReducer;

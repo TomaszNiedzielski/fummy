@@ -8,11 +8,12 @@ import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 const CurrentOrders = ({ orders }) => {
     if(orders.length > 0) {
         return (
-            orders.map(({ id, title, instructions, deadline, purchaser, price, currency, processingComplete }) => (
+            orders.map(({ id, title, description, instructions, deadline, purchaser, price, currency, processingComplete }) => (
                 <OrderCard
                     key={id}
                     id={id}
                     title={title}
+                    description={description}
                     instructions={instructions}
                     deadline={deadline}
                     purchaser={purchaser}
@@ -30,11 +31,12 @@ const CurrentOrders = ({ orders }) => {
 const CompletedOrders = ({ orders }) => {
     if(orders.length > 0) {
         return (
-            orders.map(({ id, title, instructions, deadline, purchaser, price, currency, videoName, thumbnail, processingComplete, videoCreatedAt }) => (
+            orders.map(({ id, title, description, instructions, deadline, purchaser, price, currency, videoName, thumbnail, processingComplete, videoCreatedAt }) => (
                 <OrderCard
                     key={id}
                     id={id}
                     title={title}
+                    description={description}
                     instructions={instructions}
                     deadline={deadline}
                     purchaser={purchaser}
@@ -55,11 +57,12 @@ const CompletedOrders = ({ orders }) => {
 const UnrealizedOrders = ({ orders }) => {
     if(orders.length > 0) {
         return (
-            orders.map(({ id, title, instructions, deadline, purchaser, price, currency }) => (
+            orders.map(({ id, title, description, instructions, deadline, purchaser, price, currency }) => (
                 <OrderCard
                     key={id}
                     id={id}
                     title={title}
+                    description={description}
                     instructions={instructions}
                     deadline={deadline}
                     purchaser={purchaser}

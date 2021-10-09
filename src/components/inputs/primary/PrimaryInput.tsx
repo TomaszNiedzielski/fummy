@@ -8,13 +8,14 @@ export interface Props {
     value?: string;
     onChange?: (value: string) => void;
     maxLength?: number;
+    min?: number;
     clickToCopy?: boolean;
     errorMessage?: string;
     onBlur?: () => void;
     style?: object;
 }
 
-const PrimaryInput: React.FC<Props> = ({ type, label, placeholder, value, onChange, maxLength, clickToCopy, errorMessage, onBlur, style }) => {
+const PrimaryInput: React.FC<Props> = ({ type, label, placeholder, value, onChange, maxLength, min, clickToCopy, errorMessage, onBlur, style }) => {
     const BEFORE_COPY__BUBBLE_TEXT = 'Kliknij, by skopiować';
     const AFTER_COPY__BUBBLE_TEXT = 'Skopiowano';
 
@@ -49,6 +50,7 @@ const PrimaryInput: React.FC<Props> = ({ type, label, placeholder, value, onChan
                 value={value ? value : ''}
                 onChange={onChange ? e => onChange(e.target.value) : () => {}}
                 maxLength={maxLength}
+                min={min}
                 {...attributes}
                 onBlur={onBlur}
                 style={style}

@@ -2,24 +2,26 @@ import { Dispatch } from 'redux';
 import { post, Response } from '../../../helpers/ApiRequest';
 import { restoreToken } from './Profile';
 
-export const UPDATE_OFFER_SUCCESS = 'UPDATE_OFFER_SUCCESS';
-export const LOAD_OFFER_SUCCESS = 'LOAD_OFFER_SUCCESS';
+export const UPDATE_OFFERS_SUCCESS = 'UPDATE_OFFERS_SUCCESS';
+export const LOAD_OFFERS_SUCCESS = 'LOAD_OFFERS_SUCCESS';
 
-export interface OfferItem {
+export interface Offer {
+    id: number;
     title: string;
-    price: string;
+    description: string;
+    price: number;
     currency: string;
 }
 
-export const saveOffer = (offerData: OfferItem[]) => {
+export const saveOffer = (offers: Offer[]) => {
     return (dispatch: Dispatch) => {
         const token = restoreToken();
-        post('offer/update?token='+token, { offerData })
+
+        post('offers/update?token='+token, { offers })
         .then((response: Response) => {
-            console.log('after update response: ', response);
             if(response.code === 200) {
                 dispatch({
-                    type: UPDATE_OFFER_SUCCESS,
+                    type: UPDATE_OFFERS_SUCCESS,
                     payload: response.data
                 });
             }

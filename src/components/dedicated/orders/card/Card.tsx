@@ -14,6 +14,7 @@ import 'moment/locale/pl';
 interface Props {
     id: number | string;
     title: string;
+    description: string;
     instructions: string;
     deadline: string;
     purchaser: string;
@@ -32,7 +33,7 @@ const ProgressBar = ({ progress }) => (
     </div>
 );
 
-const OrderCard: React.FC<Props> = ({ id, title, instructions, deadline, purchaser, price, currency, thumbnail, videoName, processingComplete, unrealized, videoCreatedAt }) => {
+const OrderCard: React.FC<Props> = ({ id, title, description, instructions, deadline, purchaser, price, currency, thumbnail, videoName, processingComplete, unrealized, videoCreatedAt }) => {
     const { token } = useSelector((state: RootState) => state.auth);
     const { nick } = useSelector((state: RootState) => state.profile);
 
@@ -123,7 +124,6 @@ const OrderCard: React.FC<Props> = ({ id, title, instructions, deadline, purchas
             if(response.code === 200) {
                 setVideo(null);
                 setIsUploaded(true);
-                toast.success('Video zostało dodane.');
             } else {
                 toast.error('Coś poszło nie tak.');
             }
@@ -153,12 +153,16 @@ const OrderCard: React.FC<Props> = ({ id, title, instructions, deadline, purchas
                         <div className={styles.specificationBody}>{title}</div>
                     </div>
                     <div className={styles.specification}>
-                        <div className={styles.specificationTitle}>Opis</div>
-                        <div className={styles.specificationBody}>{instructions}</div>
+                        <div className={styles.specificationTitle}>Opis oferty</div>
+                        <div className={styles.specificationBody}>{description}</div>
                     </div>
                     <div className={styles.specification}>
                         <div className={styles.specificationTitle}>Klient</div>
                         <div className={styles.specificationBody}>{purchaser}</div>
+                    </div>
+                    <div className={styles.specification}>
+                        <div className={styles.specificationTitle}>Instrukcja do wykonania</div>
+                        <div className={styles.specificationBody}>{instructions}</div>
                     </div>
                     {!isCompleted && <div className={styles.specification}>
                         <div className={styles.specificationTitle}>Czas na wykonanie zamówienia</div>

@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import OfferButton from '../../../components/buttons/offer/OfferButton';
 import PrimaryButton from '../../../components/buttons/primary/PrimaryButton';
 import PrimaryInput from '../../../components/inputs/primary/PrimaryInput';
 import PrimaryTextArea from '../../../components/inputs/primary/PrimaryTextArea';
@@ -9,8 +8,9 @@ import { get, post, Response } from '../../../helpers/ApiRequest';
 import { useRouter } from 'next/router';
 import Checkbox from '../../../components/inputs/checkbox/Checkbox';
 import { emailRules, orderInstructionsRules, purchaserNameRules, validateNumericString } from '../../../helpers/ValidationRules';
+import Card from '../../../components/dedicated/user_profile/offers/card/Card';
 
-const BookingPage: React.FC<any> = ({ profileDetails, offer }) => {
+const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
     const { avatar, nick } = profileDetails;
 
     const [selectedOfferId, setSelectedOfferId] = useState<number>();
@@ -32,13 +32,13 @@ const BookingPage: React.FC<any> = ({ profileDetails, offer }) => {
         if(validateNumericString(id)) {
             setSelectedOfferId(Number(id) ? Number(id) : 0);
         } else {
-            setSelectedOfferId(offer[0].id);
+            setSelectedOfferId(offers[0].id);
         }
-    }, [offer]);
+    }, [offers]);
 
     useEffect(() => {
         if(selectedOfferId !== undefined) {
-            setPrice(offer.find(({ id }) => id === selectedOfferId).price);
+            setPrice(offers.find(({ id }) => id === selectedOfferId).price);
         }
     }, [selectedOfferId]);
 
@@ -95,15 +95,15 @@ const BookingPage: React.FC<any> = ({ profileDetails, offer }) => {
                 </span>
             </h4>
             <div className="booking__form">
-                <div className="booking__offers-container">
-                    {offer.map(({ id, title, price, currency }) => (
-                        <OfferButton
+                <div className="d-flex flex-column">
+                    {offers.map(({ id, title, price, description }) => (
+                        <Card
                             key={id}
                             title={title}
                             price={price}
-                            currency={currency}
+                            description={description}
                             onClick={() => setSelectedOfferId(id)}
-                            style={selectedOfferId === id ? { border: '3px solid var(--global-primary-color)' } : {}}
+                            isSelected={selectedOfferId === id}
                         />
                     ))}
                 </div>
@@ -158,13 +158,13 @@ export const getServerSideProps = async ({ params }) => {
     const { nick } = params;
 
     const profileDetails: any = await post('profile/load-details', { nick });
-    const offer: any = await get('offer/load/'+nick);
+    const offers: any = await get('offers/load/'+nick);
 
-    if(profileDetails.code === 200 && offer.code === 200) {
+    if(profileDetails.code === 200 && offers.code === 200) {
         return {
             props: {
                 profileDetails: profileDetails.data,
-                offer: offer.data
+                offers: offers.data
             }
         }
     }

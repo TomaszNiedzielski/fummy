@@ -4,13 +4,13 @@ import thunk from 'redux-thunk';
 import AuthReducer from './reducers/user/Auth';
 import ProfileReducer from './reducers/user/Profile';
 import SearchResultsReducer from './reducers/searching/SearchResults';
-import OfferReducer from './reducers/user/Offer';
+import OffersReducer from './reducers/user/Offers';
 
 const rootReducer = combineReducers({
     auth: AuthReducer,
     profile: ProfileReducer,
     searchResults: SearchResultsReducer,
-    offer: OfferReducer
+    offers: OffersReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
