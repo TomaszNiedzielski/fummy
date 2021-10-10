@@ -13,12 +13,12 @@ interface Props {
 }
 
 const Offers: React.FC<Props> = ({ isDashboard, nick, data }) => {
-    if(!isDashboard && data !== undefined && data.length === 0) return null;
-
     const [selectedOfferId, setSelectedOfferId] = useState<number>();
 
     const router = useRouter();
 
+    if(!isDashboard && data !== undefined && data.length === 0) return null;
+    
     return (
         <div className={styles.container}>
             <div className="d-flex align-items-center">
