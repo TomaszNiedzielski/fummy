@@ -8,6 +8,9 @@
 .close:focus {
     outline: 0;
 }
+.close:hover {
+    color: rgba(var(--global-primary-color-rgb), .5);
+}
 .modal {
     padding-right: unset!important;
 }

@@ -194,7 +194,7 @@ const EditProfileModalContent = () => {
                     value={tiktokLink}
                     onChange={newValue => {
                         setTiktokLink(newValue);
-                        setTiktokName(newValue.split('@')[1].split('?')[0]);
+                        setTiktokName(newValue?.split('@')[1]?.split('?')[0]);
                     }}
                 />
                 <div className="ml-md-2">
@@ -213,7 +213,7 @@ const EditProfileModalContent = () => {
                     value={youtubeLink}
                     onChange={newValue => {
                         setYoutubeLink(newValue);
-                        setYoutubeName(newValue.split('/')[4])
+                        setYoutubeName(newValue?.split('/')[4])
                     }}
                 />
                 <div className="ml-md-2">

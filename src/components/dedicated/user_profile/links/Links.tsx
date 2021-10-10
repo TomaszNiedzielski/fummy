@@ -11,7 +11,7 @@ interface ItemProps {
 }
 
 const Item: React.FC<ItemProps> = ({ icon, link, name }) => (
-    <a href={link} className="mx-1" target="_blank" rel="noopener noreferrer">
+    <a href={link} className="mr-3" target="_blank" rel="noopener noreferrer">
         <div className={styles.item}>
             <img src={"/icons/"+icon+".png"} alt="icon" className={styles.icon} />
             <span className={styles.name}>{name}</span>
