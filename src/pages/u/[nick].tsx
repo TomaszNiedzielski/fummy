@@ -11,9 +11,8 @@ import { LOAD_OFFERS_SUCCESS } from '../../redux/actions/user/Offers';
 import Videos from '../../components/dedicated/user_profile/videos/Videos';
 import Cookies from 'universal-cookie';
 
-const UserPage: React.FC<any> = ({ offerFromServer, videos }) => {
+const UserPage: React.FC<any> = ({ offerFromServer, videos, urlNick }) => {
     const [isDashboard, setIsDashboard] = useState(false);
-    const [urlNick, setUrlNick] = useState<string>();
 
     const { profile, offers } = useSelector((state: RootState) => state);
     const { token } = useSelector((state: RootState) => state.auth);
@@ -25,14 +24,7 @@ const UserPage: React.FC<any> = ({ offerFromServer, videos }) => {
     }, [offerFromServer]);
 
     useEffect(() => {
-        const url: string = window.location.href;
-        const lastUrlElement = url.split('/').pop();
-
-        if(lastUrlElement) {
-            setUrlNick(lastUrlElement);
-        }
-
-        if(lastUrlElement === profile.nick) {
+        if(urlNick === profile.nick) {
             setIsDashboard(true);
         }
         if(isDashboard) {
@@ -78,9 +70,10 @@ const UserPage: React.FC<any> = ({ offerFromServer, videos }) => {
                 setAvatar(avatar);
                 setIsVerified(isVerified);
                 setIsMailVerified(isMailVerified);
-            } else {
-                setError404(true);
             }
+        })
+        .catch(() => {
+            setError404(true);
         });
     }, [urlNick]);
 
@@ -150,7 +143,8 @@ export const getServerSideProps = async ({ params, req }) => {
         return {
             props: {
                 offerFromServer: responseWithOffers.data,
-                videos: responseWithVideos.data
+                videos: responseWithVideos.data,
+                urlNick: params.nick
             }
         }
     }
