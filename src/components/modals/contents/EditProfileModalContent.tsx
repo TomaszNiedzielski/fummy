@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { API_URL } from '../../../constants';
 import { NICK_LENGTH } from '../../../constants/InputLengths';
 import { post, Response } from '../../../helpers/ApiRequest';
 import { bioRules, fullNameRules, nickRules } from '../../../helpers/ValidationRules';
 import { UPDATE_PROFILE_DETAILS } from '../../../redux/actions/user/Profile';
 import { RootState } from '../../../redux/store';
-
 import PrimaryButton from '../../buttons/primary/PrimaryButton';
 import EditAvatar from '../../dedicated/edit_avatar/EditAvatar';
 import PrimaryInput from '../../inputs/primary/PrimaryInput';
@@ -23,7 +21,7 @@ const EditProfileModalContent = () => {
     const [fullName, setFullName] = useState<string>();
     const [nick, setNick] = useState<string>();
     const [bio, setBio] = useState<string>();
-    const [avatarFile, setAvatarFile] = useState<File>();
+    const [avatarFile, setAvatarFile] = useState<Blob>();
     const [avatarUrl, setAvatarUrl] = useState<string>();
 
     const [instagramLink, setInstagramLink] = useState<string>();
@@ -140,7 +138,7 @@ const EditProfileModalContent = () => {
         <div className="d-flex flex-column align-items-center">
             <EditAvatar
                 avatar={avatarUrl}
-                onSelectAvatar={(img: File, url) => {setAvatarFile(img); setAvatarUrl(url)}}
+                onSelectAvatar={(img: Blob, url) => {setAvatarFile(img); setAvatarUrl(url)}}
             />
             <PrimaryInput
                 label="Imię i Nazwisko"
