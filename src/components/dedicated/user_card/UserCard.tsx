@@ -12,6 +12,8 @@ const UserCard: React.FC<Props> = ({ avatar, nick, fullName, style, prices }) =>
     const [priceFrom, setPriceFrom] = useState<string>();
 
     useEffect(() => {
+        if(!prices) return;
+        
         const splittedPriceFrom = prices.from.split('.');
         if(splittedPriceFrom[1] === '00') {
             setPriceFrom(splittedPriceFrom[0]);

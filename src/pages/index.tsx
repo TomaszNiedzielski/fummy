@@ -9,7 +9,7 @@ export interface User {
     fullName: string;
     avatar: string;
     nick: string;
-    prices: {
+    prices?: {
         from: string;
         currency: string;
     }
