@@ -5,14 +5,13 @@ import { RootState } from '../redux/store';
 import { get } from '../helpers/ApiRequest';
 import AuthButtons from '../components/dedicated/auth_buttons/AuthButtons';
 
-interface User {
+export interface User {
     fullName: string;
     avatar: string;
     nick: string;
-    isVerified: boolean;
     prices: {
         from: string;
-        to: string;
+        currency: string;
     }
 }
 
@@ -29,13 +28,13 @@ const HomePage: React.FC<{ users: User[] }> = ({ users }) => {
         {(!token && users.length === 0) && <AuthButtons />}
         <div className="container">
             <div className="home-page__users-list">
-                {users.map(({ avatar, nick, isVerified, prices }, i) => (
+                {users.map(({ avatar, nick, fullName, prices }, i) => (
                     <div className="d-flex flex-column justify-content-end mx-2 mx-md-3 mb-4 mb-md-5" key={i}>
                         {i === 0 && <h2 className="my-3">New</h2>}
                         <UserCard
                             avatar={avatar}
                             nick={nick}
-                            isVerified={isVerified}
+                            fullName={fullName}
                             prices={prices}
                             style={{ color: 'whitesmoke' }}
                         />

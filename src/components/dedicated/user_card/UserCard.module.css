@@ -1,6 +1,5 @@
 .container {
     max-width: 190px;
-    max-height: 290px;
 }
 .avatar {
     width: 190px;
@@ -16,14 +15,20 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-top: 6px;
 }
 .price {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--global-primary-color);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
+}
+.fullname {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 18px;
+    margin-bottom: 6px;
 }
 @media only screen and (max-width: 420px) {
     .container {
