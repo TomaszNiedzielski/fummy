@@ -1,5 +1,6 @@
 import React from 'react';
 import UpdatePassword from '../components/settings/update_password/UpdatePassword';
+import Cookies from 'universal-cookie';
 
 const SettingsPage: React.FC = () => {
     return (
@@ -14,4 +15,18 @@ const SettingsPage: React.FC = () => {
         </div>
     );
 }
+
+export const getServerSideProps = async ({ req }) => {
+    const token = new Cookies(req.headers.cookie).get('token');
+
+    if(!token) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            }
+        }
+    }
+}
+
 export default SettingsPage;

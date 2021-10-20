@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { post, Response } from '../../helpers/ApiRequest';
 import { RootState } from '../../redux/store';
+import Cookies from 'universal-cookie';
 
 const VerifyPage = () => {
     const [processState, setProcessState] = useState('Weryfikuje...');
@@ -36,4 +37,18 @@ const VerifyPage = () => {
         </div>
     );
 }
+
+export const getServerSideProps = async ({ req }) => {
+    const token = new Cookies(req.headers.cookie).get('token');
+
+    if(!token) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            }
+        }
+    }
+}
+
 export default VerifyPage;

@@ -32,6 +32,15 @@ const MoneyBoxPage: React.FC<{ incomesList: any, income: number }> = ({ incomesL
 export const getServerSideProps = async ({ req }) => {
     const token = new Cookies(req.headers.cookie).get('token');
 
+    if(!token) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            }
+        }
+    }
+
     const incomesListResponse: any = await post('incomes/get-history?token='+token);
     const incomeResponse: any = await post('income/get?token='+token);
 

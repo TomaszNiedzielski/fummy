@@ -4,6 +4,7 @@ import { RootState } from '../../redux/store';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { post, Response } from '../../helpers/ApiRequest';
+import Cookies from 'universal-cookie';
 
 const UnverifiedPage = () => {
     const { token } = useSelector((state: RootState) => state.auth);
@@ -43,4 +44,18 @@ const UnverifiedPage = () => {
         </div>
     );
 }
+
+export const getServerSideProps = async ({ req }) => {
+    const token = new Cookies(req.headers.cookie).get('token');
+
+    if(!token) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            }
+        }
+    }
+}
+
 export default UnverifiedPage;
