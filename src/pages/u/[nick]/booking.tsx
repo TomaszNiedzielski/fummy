@@ -84,7 +84,7 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
     return (
         <div className="container d-flex flex-column align-items-center mb-5">
             <div className="booking__avatar">
-                <img src={`${API_STORAGE}avatars/${avatar}`} alt="avatar" />
+                <img src={avatar ? (avatar.slice(0, 8) === 'https://' ? avatar : API_STORAGE + "avatars/" + avatar) : "/icons/user.png"} alt="avatar" />
             </div>
             <h4 className="mt-2 text-center primary-color">
                 <span>Zamów video od </span>
