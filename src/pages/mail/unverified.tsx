@@ -23,13 +23,20 @@ const UnverifiedPage = () => {
 
         post('mail/send/verification-mail?token='+token)
         .then((response: Response) => {
-            setIsLoading(false);
-
-            if(response.code === 200) {
-                toast.success(response.data);
+            const { code, data } = response;
+            
+            if(code === 200) {
+                toast.success(data.message);
             }
         })
-        .catch(() => setIsLoading(false));
+        .catch(({ response }) => {
+            const { status, data } = response;
+
+            if(status === 429) {
+                toast.info(data.message);
+            }
+        })
+        .then(() => setIsLoading(false));
     }
 
     return (
@@ -56,6 +63,8 @@ export const getServerSideProps = async ({ req }) => {
             }
         }
     }
+
+    return { props: {} }
 }
 
 export default UnverifiedPage;

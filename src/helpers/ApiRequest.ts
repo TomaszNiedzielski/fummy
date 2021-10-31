@@ -24,14 +24,13 @@ export const post = (url: string, data?: object, onUploadProgress?: (p: unknown)
         })
         .catch((e: AxiosError) => {
             reject(e);
-            const { status } = e.response;
 
-            if(status === 500) {
-                toast.error('Coś poszło nie tak. Błąd serwera.');
-            } else if(status === 422) {
-                toast.error('Przesłane rozszerzenie pliku nie jest wspierane.');
-            } else if(status !== 401 && status !== 404) {
+            if(e.isAxiosError) {
                 toast.error('Coś poszło nie tak. Sprawdź swoje połączenie z internetem.');
+            }
+
+            if(e.response.status === 500) {
+                toast.error('Coś poszło nie tak. Błąd serwera.');
             }
         })
     });

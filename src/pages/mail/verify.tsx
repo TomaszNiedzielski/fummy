@@ -15,19 +15,18 @@ const VerifyPage = () => {
     }, [isMailVerified]);
 
     useEffect(() => {
-        const urlString = window.location.href;
-        const url = new URL(urlString);
-
-        const userId = url.searchParams.get('id');
-        const key = url.searchParams.get('key');
+        const { searchParams } = new URL(window.location.href);
+        const userId = searchParams.get('id');
+        const key = searchParams.get('key');
 
         post('mail/confirm', { userId, key })
         .then((response: Response) => {
             if(response.code === 200) {
                 setProcessState('Adres e-mail został zweryfikowany.');
-            } else {
-                setProcessState('Coś poszło nie tak, link wygasł lub jest uszkodzony.');
             }
+        })
+        .catch(() => {
+            setProcessState('Coś poszło nie tak, link wygasł lub jest uszkodzony.');
         })
     }, []);
 
@@ -49,6 +48,8 @@ export const getServerSideProps = async ({ req }) => {
             }
         }
     }
+
+    return { props: {} }
 }
 
 export default VerifyPage;

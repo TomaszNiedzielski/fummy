@@ -23,23 +23,21 @@ const UpdatePassword: React.FC = () => {
 
         post('password/update?token='+token, { currentPassword, newPassword })
         .then((response: Response) => {
-            setIsLoading(false);
-
-            const { code, errors } = response;
             setCurrentPasswordError(null);
 
-            if(code === 200) {
+            if(response.code === 200) {
                 setCurrentPassword(null);
                 setNewPassword(null);
 
                 toast.success('Hasło zostało zaaktualizowane!');
-            } else if(code === 500) {
-                const { currentPassword } = errors;
-
-                setCurrentPasswordError(currentPassword);
             }
         })
-        .catch(() => setIsLoading(false));
+        .catch(({ response }) => {
+            const { currentPassword } = response.data.errors;
+
+            setCurrentPasswordError(currentPassword);
+        })
+        .then(() => setIsLoading(false));
     }
 
     const isFormCorrect = () => {        

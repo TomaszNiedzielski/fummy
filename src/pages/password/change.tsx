@@ -21,9 +21,8 @@ const PasswordChangePage = () => {
     }, [token]);
 
     useEffect(() => {
-        const urlString = window.location.href;
-        const url = new URL(urlString);
-        const key = url.searchParams.get('key');
+        const { searchParams } = new URL(window.location.href);
+        const key = searchParams.get('key');
 
         if(!key) {
             window.location.href = '/';
@@ -39,16 +38,16 @@ const PasswordChangePage = () => {
 
         post('password/reset', { password, key })
         .then((response: any) => {
-            setIsLoading(false);
-            const { code, data, message } = response;
+            const { code, data } = response;
 
             if(code === 200) {
                 setResponseMessage(data);
-            } else if(code === 500) {
-                toast.error(message);
             }
         })
-        .catch(() => setIsLoading(false))
+        .catch(({ response }) => {
+            toast.error(response.data.message);
+        })
+        .then(() => setIsLoading(false));
     }
 
     useEffect(() => {

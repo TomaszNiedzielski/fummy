@@ -32,24 +32,20 @@ const LoginModalContent = () => {
 
         post('auth/login', { email, password })
         .then((response: LoginResponse) => {
-            setIsLoading(false);
+            const { code, token } = response;
 
-            if(response.code === 200) {
-                dispatch(authSuccess(response.token));
+            if(code === 200) {
+                dispatch(authSuccess(token));
                 window.location.reload();
-            } else if(response.errors) {
-                const { email, password } = response.errors;
-
-                setEmailError(email);
-                setPasswordError(password);
-            } else if(response.message) {
-                setPasswordError(response.message);
             }
         })
-        .catch((e) => {
-            setIsLoading(false);
-            setPasswordError(e.response.data.message);
-        });
+        .catch(({ response }) => {
+            const { errors, message } = response.data;
+
+            setEmailError(errors && errors.email);
+            setPasswordError(message);
+        })
+        .then(() => setIsLoading(false));
     }
 
     useEffect(() => {

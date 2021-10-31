@@ -66,24 +66,22 @@ const EditProfileModalContent = () => {
 
         post('profile/update-details?token='+token, formData)
         .then((response: Response) => {
-            setIsLoading(false);
-            
             if(response.code === 200) {
                 dispatch({
                     type: UPDATE_PROFILE_DETAILS,
                     payload: { fullName, bio, nick, avatarFile, avatar: avatarUrl, socialMediaLinks }
                 });
                 hideModal();
-            } else if(response.errors) {
-                const { fullName, nick, bio } = response.errors;
-                
-                setFullNameError(fullName);
-                setNickError(nick);
             }
         })
-        .catch(() => {
-            setIsLoading(false);
-        });
+        .catch(({ response }) => {
+            const { fullName, nick, bio } = response.data.errors;
+
+            setFullNameError(fullName);
+            setNickError(nick);
+            setBioError(bio);
+        })
+        .then(() => setIsLoading(false));
     }
 
     useEffect(() => {

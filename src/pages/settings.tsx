@@ -27,6 +27,8 @@ export const getServerSideProps = async ({ req }) => {
             }
         }
     }
+
+    return { props: {} }
 }
 
 export default SettingsPage;

@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 const PasswordResetPage = () => {
     const [email, setEmail] = useState<string>();
     const [emailError, setEmailError] = useState<string>();
-    const [responseMessage, setResponseMessage] = useState<string>();
     const [isLoading, setIsLoading] = useState(false);
     const [isEmailSent, setIsEmailSent] = useState(false);
 
@@ -19,16 +18,14 @@ const PasswordResetPage = () => {
 
         post('password/send-reset-link', { email })
         .then((response: any) => {
-            setIsLoading(false);
-            const { status, message } = response.data;
-            
-            if(status === 'success') {
+            if(response.code === 200) {
                 setIsEmailSent(true);
-            } else if(status === 'info') {
-                toast.info(message)
             }
         })
-        .catch(() => setIsLoading(false));
+        .catch(({ response }) => {
+            toast.info(response.data.message);
+        })
+        .then(() => setIsLoading(false));
     }
 
     const isFormCorrect = () => {        

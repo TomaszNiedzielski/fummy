@@ -32,21 +32,20 @@ const RegisterModalContent = () => {
 
         post('auth/register', { fullName, email, nick, password })
         .then((response: Response) => {
-            setIsLoading(false);
-
             if(response.code === 200) {
                 dispatch(authSuccess(response.data.token));
                 window.location.href = '/mail/unverified';
-            } else if(response.errors) {
-                const { fullName, email, nick, password } = response.errors;
-
-                setFullNameError(fullName);
-                setEmailError(email);
-                setNickError(nick);
-                setPasswordError(password);
             }
         })
-        .catch(() => setIsLoading(false));
+        .catch(({ response }) => {
+            const { fullName, email, nick, password } = response.data.errors;
+
+            setFullNameError(fullName);
+            setEmailError(email);
+            setNickError(nick);
+            setPasswordError(password);
+        })
+        .then(() => setIsLoading(false));
     }
 
     useEffect(() => {

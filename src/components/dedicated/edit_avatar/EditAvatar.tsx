@@ -5,7 +5,7 @@ import Editor from './editor/Editor';
 
 interface Props {
     avatar: string;
-    onSelectAvatar: (img: Blob, url: string) => void
+    onSelectAvatar: (img: Blob, url: string) => void;
 }
 
 const EditAvatar: React.FC<Props> = ({ avatar, onSelectAvatar }) => {
@@ -37,7 +37,7 @@ const EditAvatar: React.FC<Props> = ({ avatar, onSelectAvatar }) => {
         <>
         <div className={styles.container}>
             <div className={styles.avatars}>
-                <img alt="avatar" className={styles.round} src={avatar ? (avatar.split(':')[0] === 'blob' ? avatar :  (avatar.slice(0, 8) === 'https://' ? avatar : API_STORAGE + 'avatars/' + avatar)) : '/icons/user.png'} />
+                <img alt="avatar" className={styles.round} src={avatar ? (avatar.split(':')[0] === 'blob' ? avatar :  (avatar.slice(0, 8) === 'https://' ? avatar : API_STORAGE + 'avatars/' + avatar)) : '/icons/user_square.png'} />
                 <img alt="avatar" className={styles.rect} src={avatar ? (avatar.split(':')[0] === 'blob' ? avatar :  (avatar.slice(0, 8) === 'https://' ? avatar : API_STORAGE + 'avatars/' + avatar)) : '/icons/user.png'} />
             </div>
             <label className={styles.label + " my-2 w-100"}>
