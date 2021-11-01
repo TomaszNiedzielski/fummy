@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './EditAvatar.module.css';
 import { API_STORAGE } from '../../../constants';
 import Editor from './editor/Editor';
+import { isLinkExternal } from '../../../helpers/Link';
 
 interface Props {
     avatar: string;
@@ -37,8 +38,8 @@ const EditAvatar: React.FC<Props> = ({ avatar, onSelectAvatar }) => {
         <>
         <div className={styles.container}>
             <div className={styles.avatars}>
-                <img alt="avatar" className={styles.round} src={avatar ? (avatar.split(':')[0] === 'blob' ? avatar :  (avatar.slice(0, 8) === 'https://' ? avatar : API_STORAGE + 'avatars/' + avatar)) : '/icons/user_square.png'} />
-                <img alt="avatar" className={styles.rect} src={avatar ? (avatar.split(':')[0] === 'blob' ? avatar :  (avatar.slice(0, 8) === 'https://' ? avatar : API_STORAGE + 'avatars/' + avatar)) : '/icons/user.png'} />
+                <img alt="avatar" className={styles.round} src={avatar ? (avatar.split(':')[0] === 'blob' ? avatar :  (isLinkExternal(avatar) ? avatar : API_STORAGE + 'avatars/' + avatar)) : '/icons/user_square.png'} />
+                <img alt="avatar" className={styles.rect} src={avatar ? (avatar.split(':')[0] === 'blob' ? avatar :  (isLinkExternal(avatar) ? avatar : API_STORAGE + 'avatars/' + avatar)) : '/icons/user.png'} />
             </div>
             <label className={styles.label + " my-2 w-100"}>
                 <input type="file" className="custom-file-input" accept="image/*" onChange={(e) => { onChange(e); e.target.value = null; }} />

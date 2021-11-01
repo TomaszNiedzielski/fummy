@@ -10,6 +10,7 @@ import Checkbox from '../../../components/inputs/checkbox/Checkbox';
 import { emailRules, orderInstructionsRules, purchaserNameRules, validateNumericString } from '../../../helpers/ValidationRules';
 import Card from '../../../components/dedicated/user_profile/offers/card/Card';
 import Info from '../../../components/dedicated/booking/Info';
+import { isLinkExternal } from '../../../helpers/Link';
 
 const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
     const { avatar, nick } = profileDetails;
@@ -86,7 +87,7 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
         <div className="container d-flex justify-content-around flex-wrap flex-column flex-lg-row align-items-center">
             <div className="d-flex flex-column align-items-center mb-5">
                 <div className="booking__avatar">
-                    <img src={avatar ? (avatar.slice(0, 8) === 'https://' ? avatar : API_STORAGE + "avatars/" + avatar) : "/icons/user.png"} alt="avatar" />
+                    <img src={avatar ? (isLinkExternal(avatar) ? avatar : API_STORAGE + "avatars/" + avatar) : "/icons/user.png"} alt="avatar" />
                 </div>
                 <h4 className="mt-2 text-center primary-color">
                     <span>Zamów video od </span>

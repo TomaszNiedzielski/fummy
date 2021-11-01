@@ -10,6 +10,7 @@ import { API_STORAGE } from '../../../../constants';
 import Link from 'next/link';
 import Moment from 'react-moment';
 import 'moment/locale/pl';
+import { isLinkExternal } from '../../../../helpers/Link';
 
 interface Props {
     id: number | string;
@@ -119,8 +120,6 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, dead
         setIsUploading(true);
         post('video/upload?token='+token, formData, onUploadProgress)
         .then((response: Response) => {
-            setIsUploading(false);
-
             if(response.code === 200) {
                 setVideo(null);
                 setIsUploaded(true);
@@ -128,9 +127,12 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, dead
                 toast.error('Coś poszło nie tak.');
             }
         })
-        .catch(() => {
-            setIsUploading(false);
-        });
+        .catch(({ response }) => {
+            if(response.status === 422) {
+                toast.error('Nieobsługiwany typ pliku.');
+            }
+        })
+        .then(() => setIsUploading(false));
     }
 
     return (
@@ -142,9 +144,9 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, dead
                         <Link href={`/u/${nick}/video/${videoName}`}>
                             <div className="position-relative d-flex justify-content-center">
                                 <div className={styles.thumbnailBackground}>
-                                    <img src={`${API_STORAGE}thumbnails/${thumbnail}`} />
+                                    <img src={isLinkExternal(thumbnail) ? thumbnail : `${API_STORAGE}thumbnails/${thumbnail}`} />
                                 </div>
-                                <img src={`${API_STORAGE}thumbnails/${thumbnail}`} className={styles.thumbnail} />
+                                <img src={isLinkExternal(thumbnail) ? thumbnail : `${API_STORAGE}thumbnails/${thumbnail}`} className={styles.thumbnail} />
                             </div>
                         </Link>
                     </div>}

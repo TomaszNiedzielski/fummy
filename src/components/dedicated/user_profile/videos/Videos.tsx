@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import { API_STORAGE } from '../../../../constants';
+import { isLinkExternal } from '../../../../helpers/Link';
 
 interface Props {
     nick: string;
@@ -49,7 +50,7 @@ const Videos: React.FC<Props> = ({ nick, videos }) => {
                         <SwiperSlide key={i}>
                             <div className={styles.card}>
                                 <Link to={`${nick}/video/${name}`}>
-                                    <img src={thumbnail.slice(0, 8) === 'https://' ? thumbnail : `${API_STORAGE}thumbnails/${thumbnail}`} alt="cover" className={styles.mask} />
+                                    <img src={isLinkExternal(thumbnail) ? thumbnail : `${API_STORAGE}thumbnails/${thumbnail}`} alt="cover" className={styles.mask} />
                                 </Link>
                             </div>
                         </SwiperSlide>

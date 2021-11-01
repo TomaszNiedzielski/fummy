@@ -25,10 +25,6 @@ export const post = (url: string, data?: object, onUploadProgress?: (p: unknown)
         .catch((e: AxiosError) => {
             reject(e);
 
-            if(e.isAxiosError) {
-                toast.error('Coś poszło nie tak. Sprawdź swoje połączenie z internetem.');
-            }
-
             if(e.response.status === 500) {
                 toast.error('Coś poszło nie tak. Błąd serwera.');
             }
