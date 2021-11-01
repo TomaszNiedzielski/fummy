@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import Checkbox from '../../../components/inputs/checkbox/Checkbox';
 import { emailRules, orderInstructionsRules, purchaserNameRules, validateNumericString } from '../../../helpers/ValidationRules';
 import Card from '../../../components/dedicated/user_profile/offers/card/Card';
+import Info from '../../../components/dedicated/booking/Info';
 
 const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
     const { avatar, nick } = profileDetails;
@@ -82,74 +83,83 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
     }
 
     return (
-        <div className="container d-flex flex-column align-items-center mb-5">
-            <div className="booking__avatar">
-                <img src={avatar ? (avatar.slice(0, 8) === 'https://' ? avatar : API_STORAGE + "avatars/" + avatar) : "/icons/user.png"} alt="avatar" />
-            </div>
-            <h4 className="mt-2 text-center primary-color">
-                <span>Zamów video od </span>
-                <span>
-                    <Link href={'/u/'+nick}>
-                        <a className="primary-color">{nick}</a>
-                    </Link>
-                </span>
-            </h4>
-            <div className="booking__form">
-                <div className="d-flex flex-column">
-                    {offers.map(({ id, title, price, description }) => (
-                        <Card
-                            key={id}
-                            title={title}
-                            price={price}
-                            description={description}
-                            onClick={() => setSelectedOfferId(id)}
-                            isSelected={selectedOfferId === id}
-                        />
-                    ))}
+        <div className="container d-flex justify-content-around flex-wrap flex-column flex-lg-row">
+            <div className="d-flex flex-column align-items-center mb-5">
+                <div className="booking__avatar">
+                    <img src={avatar ? (avatar.slice(0, 8) === 'https://' ? avatar : API_STORAGE + "avatars/" + avatar) : "/icons/user.png"} alt="avatar" />
                 </div>
-                <div className="my-3 d-flex flex-column align-items-center">
-                    <PrimaryInput
-                        label="Imię"
-                        placeholder="Jak masz na imię?"
-                        value={name}
-                        onChange={val => setName(val)}
-                        style={styles.input}
-                        errorMessage={nameError}
-                        onBlur={() => setNameError(purchaserNameRules(name))}
-                    />
-                    <PrimaryInput
-                        type="email"
-                        label="Twój e-mail."
-                        placeholder="Adres e-mail, na który dostaniesz link do filmu."
-                        value={email}
-                        onChange={val => setEmail(val)}
-                        style={styles.input}
-                        errorMessage={emailError}
-                        onBlur={() => setEmailError(emailRules(email))}
-                    />
-                    <PrimaryTextArea
-                        label="Instrukcje do filmu."
-                        placeholder="Opisz co konkretnie chciał(a)byś zobaczyć na filmie. Pamiętaj, że im więcej podasz szczegółów, tym lepszy film otrzymasz."
-                        value={instructions}
-                        onChange={val => setInstructions(val)}
-                        rows={5}
-                        style={styles.input}
-                        errorMessage={instructionsError}
-                        onBlur={() => setInstructionsError(orderInstructionsRules(instructions))}
-                    />
-                    <div className="w-100 d-flex align-items-start">
-                        <Checkbox label="Nie pokazuj tego video w serwisie." value={isPrivate} onChange={(val) => setIsPrivate(val)} />
+                <h4 className="mt-2 text-center primary-color">
+                    <span>Zamów video od </span>
+                    <span>
+                        <Link href={'/u/'+nick}>
+                            <a className="primary-color">{nick}</a>
+                        </Link>
+                    </span>
+                </h4>
+                <div className="booking__form">
+                    <div className="d-flex flex-column">
+                        {offers.map(({ id, title, price, description }) => (
+                            <Card
+                                key={id}
+                                title={title}
+                                price={price}
+                                description={description}
+                                onClick={() => setSelectedOfferId(id)}
+                                isSelected={selectedOfferId === id}
+                            />
+                        ))}
                     </div>
-                    <div className="w-100 mt-3">
-                        <PrimaryButton
-                            title={`Zamów i zapłać [${price} PLN]`}
-                            style={{ maxWidth: 'unset' }}
-                            onClick={orderVideo}
-                            isLoading={isLoading}
+                    <div className="my-3 d-flex flex-column align-items-center">
+                        <PrimaryInput
+                            label="Imię"
+                            placeholder="Jak masz na imię?"
+                            value={name}
+                            onChange={val => setName(val)}
+                            style={styles.input}
+                            errorMessage={nameError}
+                            onBlur={() => setNameError(purchaserNameRules(name))}
                         />
+                        <PrimaryInput
+                            type="email"
+                            label="Twój e-mail."
+                            placeholder="Adres e-mail, na który dostaniesz link do filmu."
+                            value={email}
+                            onChange={val => setEmail(val)}
+                            style={styles.input}
+                            errorMessage={emailError}
+                            onBlur={() => setEmailError(emailRules(email))}
+                        />
+                        <PrimaryTextArea
+                            label="Instrukcje do filmu."
+                            placeholder="Opisz co konkretnie chciał(a)byś zobaczyć na filmie. Pamiętaj, że im więcej podasz szczegółów, tym lepszy film otrzymasz."
+                            value={instructions}
+                            onChange={val => setInstructions(val)}
+                            rows={5}
+                            style={styles.input}
+                            errorMessage={instructionsError}
+                            onBlur={() => setInstructionsError(orderInstructionsRules(instructions))}
+                        />
+                        <div className="w-100 d-flex align-items-start my-2">
+                            <Checkbox label="Nie pokazuj tego video w serwisie." value={isPrivate} onChange={(val) => setIsPrivate(val)} />
+                        </div>
+                        <div className="w-100 mt-3">
+                            <PrimaryButton
+                                title={`Zamów i zapłać [${price} PLN]`}
+                                style={{ maxWidth: 'unset' }}
+                                onClick={orderVideo}
+                                isLoading={isLoading}
+                            />
+                        </div>
+                        <div className="w-100 mt-3" style={{ fontSize: '14px' }}>
+                            <span>Zamawiając video, akceptujesz </span>
+                            <Link href="/terms-of-use"><a className="text-muted">Regulamin</a></Link> 
+                            <span> oraz </span>
+                            <Link href="/privacy-policy"><a className="text-muted">Politykę prywatności.</a></Link>
+                        </div>
                     </div>
                 </div>
             </div>
+            <Info />
         </div>
     );
 }
