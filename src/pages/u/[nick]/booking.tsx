@@ -83,7 +83,7 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
     }
 
     return (
-        <div className="container d-flex justify-content-around flex-wrap flex-column flex-lg-row">
+        <div className="container d-flex justify-content-around flex-wrap flex-column flex-lg-row align-items-center">
             <div className="d-flex flex-column align-items-center mb-5">
                 <div className="booking__avatar">
                     <img src={avatar ? (avatar.slice(0, 8) === 'https://' ? avatar : API_STORAGE + "avatars/" + avatar) : "/icons/user.png"} alt="avatar" />
