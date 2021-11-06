@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NICK_LENGTH } from '../../../constants/InputLengths';
 import { post, Response } from '../../../helpers/ApiRequest';
-import { bioRules, fullNameRules, nickRules } from '../../../helpers/ValidationRules';
+import { bioRules, fullNameRules, instagramLinkRules, tiktokLinkRules, nickRules, youtubeLinkRules } from '../../../helpers/ValidationRules';
 import { UPDATE_PROFILE_DETAILS } from '../../../redux/actions/user/Profile';
 import { RootState } from '../../../redux/store';
 import PrimaryButton from '../../buttons/primary/PrimaryButton';
@@ -34,6 +34,10 @@ const EditProfileModalContent = () => {
     const [fullNameError, setFullNameError] = useState<string>();
     const [nickError, setNickError] = useState<string>();
     const [bioError, setBioError] = useState<string>();
+
+    const [instagramLinkError, setInstagramLinkError] = useState<string>();
+    const [tiktokLinkError, setTiktokLinkError] = useState<string>();
+    const [youtubeLinkError, setYoutubeLinkError] = useState<string>();
 
     const dispatch = useDispatch();
 
@@ -113,7 +117,7 @@ const EditProfileModalContent = () => {
         setFullNameError(fullNameRules(fullName));
         setNickError(nickRules(nick));
 
-        if(!fullName || !nick || fullNameError || nickError) {
+        if(!fullName || !nick || fullNameError || nickError || instagramLinkError || tiktokLinkError || youtubeLinkError) {
             return false;
         }
         
@@ -131,6 +135,18 @@ const EditProfileModalContent = () => {
     useEffect(() => {
         if(bioError) setBioError(bioRules(bio));
     }, [bio]);
+
+    useEffect(() => {
+        if(instagramLinkError) setInstagramLinkError(instagramLinkRules(instagramLink));
+    }, [instagramLink]);
+
+    useEffect(() => {
+        if(tiktokLinkError) setTiktokLinkError(tiktokLinkRules(tiktokLink));
+    }, [tiktokLink]);
+
+    useEffect(() => {
+        if(youtubeLinkError) setYoutubeLinkError(youtubeLinkRules(youtubeLink));
+    }, [youtubeLink]);
 
     return (
         <div className="d-flex flex-column align-items-center">
@@ -164,57 +180,66 @@ const EditProfileModalContent = () => {
                 onBlur={() => setBioError(bioRules(bio))}
             />
 
-            <div className="w-100 d-md-flex align-items-end mb-2">
+            <div className="w-100 d-flex mb-4 mb-md-2 flex-column flex-md-row">
                 <PrimaryInput
                     label="Instagram"
-                    placeholder="Link"
+                    placeholder="https://www.instagram.com/your-nick/"
                     value={instagramLink}
                     onChange={newValue => {
                         setInstagramLink(newValue);
                         setInstagramName(newValue.split('/')[3]);
                     }}
+                    errorMessage={instagramLinkError}
+                    onBlur={() => setInstagramLinkError(instagramLinkRules(instagramLink))}
                 />
                 <div className="ml-md-2">
                     <PrimaryInput
-                        placeholder="Name"
+                        label="Nazwa profilu"
+                        placeholder="your-nick"
                         value={instagramName}
                         onChange={newValue => setInstagramName(newValue)}
                     />
                 </div>
             </div>
 
-            <div className="w-100 d-md-flex align-items-end mb-2">
+            <div className="w-100 d-flex mb-4 mb-md-2 flex-column flex-md-row">
                 <PrimaryInput
                     label="Tiktok"
-                    placeholder="Link"
+                    placeholder="https://www.tiktok.com/@your-nick"
                     value={tiktokLink}
                     onChange={newValue => {
                         setTiktokLink(newValue);
                         setTiktokName(newValue?.split('@')[1]?.split('?')[0]);
                     }}
+                    errorMessage={tiktokLinkError}
+                    onBlur={() => setTiktokLinkError(tiktokLinkRules(tiktokLink))}
                 />
                 <div className="ml-md-2">
                     <PrimaryInput
-                        placeholder="Name"
+                        label="Nazwa profilu"
+                        placeholder="your-nick"
                         value={tiktokName}
                         onChange={newValue => setTiktokName(newValue)}
                     />
                 </div>
             </div>
 
-            <div className="w-100 d-md-flex align-items-end mb-2">
+            <div className="w-100 d-flex mb-4 mb-md-2 flex-column flex-md-row">
                 <PrimaryInput
                     label="Youtube"
-                    placeholder="Link"
+                    placeholder="https://www.youtube.com/c/your-channel-name"
                     value={youtubeLink}
                     onChange={newValue => {
                         setYoutubeLink(newValue);
                         setYoutubeName(newValue?.split('/')[4])
                     }}
+                    errorMessage={youtubeLinkError}
+                    onBlur={() => setYoutubeLinkError(youtubeLinkRules(youtubeLink))}
                 />
                 <div className="ml-md-2">
                     <PrimaryInput
-                        placeholder="Name"
+                        label="Nazwa profilu"
+                        placeholder="your-channel-name"
                         value={youtubeName}
                         onChange={newValue => setYoutubeName(newValue)}
                     />

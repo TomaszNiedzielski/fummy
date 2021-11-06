@@ -230,3 +230,42 @@ export const offerDescriptionRules = (value: string) => {
         },
     });
 }
+
+export const instagramLinkRules = (value: string) => {
+    return validator(value, {
+        required: {
+            status: false,
+            message: ''
+        },
+        regex: {
+            status: /^(https:\/\/www\.instagram\.com)\/.+$/,
+            message: 'Ten link jest niepoprawny.'
+        }
+    });
+}
+
+export const tiktokLinkRules = (value: string) => {
+    return validator(value, {
+        required: {
+            status: false,
+            message: ''
+        },
+        regex: {
+            status: /^(https:\/\/www\.tiktok\.com)\/@.+$/,
+            message: 'Ten link jest niepoprawny.'
+        }
+    });
+}
+
+export const youtubeLinkRules = (value: string) => {
+    return validator(value, {
+        required: {
+            status: false,
+            message: ''
+        },
+        regex: {
+            status: /^https:\/\/www\.(youtube\.com)\/.+\/.+$/,
+            message: 'Ten link jest niepoprawny.'
+        }
+    });
+}
