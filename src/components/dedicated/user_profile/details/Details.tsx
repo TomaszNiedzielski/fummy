@@ -16,10 +16,10 @@ interface Props {
     socialMediaLinks: SocialMediaLinks;
     avatar: string;
     isDashboard: boolean;
-    offer: Offer[];
+    offers: Offer[];
 }
 
-const Details: React.FC<Props> = ({ fullName, nick, bio, socialMediaLinks, avatar, isDashboard, offer }) => {
+const Details: React.FC<Props> = ({ fullName, nick, bio, socialMediaLinks, avatar, isDashboard, offers }) => {
     if(!socialMediaLinks) return null;
 
     return (
@@ -46,14 +46,14 @@ const Details: React.FC<Props> = ({ fullName, nick, bio, socialMediaLinks, avata
                     <div className="d-none d-md-block ml-3 ml-lg-0">
                         <Bio value={bio} isDashboard={isDashboard} />
                         <Links links={socialMediaLinks} />
-                        <Offers isDashboard={isDashboard} nick={nick} data={offer} />
+                        <Offers isDashboard={isDashboard} nick={nick} data={offers} />
                     </div>
                 </div>
             </div>
             <div className="d-block d-md-none">
                 <Bio value={bio} isDashboard={isDashboard} />
                 <Links links={socialMediaLinks} />
-                <Offers isDashboard={isDashboard} nick={nick} data={offer} />
+                <Offers isDashboard={isDashboard} nick={nick} data={offers} />
             </div>
         </div>
     );
