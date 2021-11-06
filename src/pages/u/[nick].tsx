@@ -11,15 +11,6 @@ import { USER_PROFILE_LOADING_SUCCESS } from '../../redux/actions/user/Profile';
 import Unverified from '../../components/dedicated/user_profile/unverified/Unverified';
 
 const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDetails }) => {
-    if(isError404) {
-        return (
-            <div className="w-100 text-center p-2 vh-100">
-                <h1>404</h1>
-                <h6>Nie znaleziono takiego użytkownika.</h6>
-            </div>
-        );
-    }
-
     const { profile, offers } = useSelector((state: RootState) => state);
 
     const [fullName, setFullName] = useState<string>(userDetails.fullName);
@@ -53,24 +44,34 @@ const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDet
         }
     }, [isDashboard, profile]);
 
-    return (
-        <div className="wrapper mx-2" style={{ minHeight: 'calc(100vh - 56px)' }}>
-            <Details
-                fullName={fullName}
-                nick={nick}
-                bio={bio}
-                socialMediaLinks={socialMediaLinks}
-                avatar={avatar}
-                isDashboard={isDashboard}
-                offers={offers.data}
-            />
-            {isDashboard && !isVerified ? <Unverified /> : null}
-            <div className="mt-4">
-                <Videos nick={nick} videos={videos} />
+    if(!isError404) {
+        return (
+            <div className="wrapper mx-2" style={{ minHeight: 'calc(100vh - 56px)' }}>
+                <Details
+                    fullName={fullName}
+                    nick={nick}
+                    bio={bio}
+                    socialMediaLinks={socialMediaLinks}
+                    avatar={avatar}
+                    isDashboard={isDashboard}
+                    offers={offers.data}
+                />
+                {isDashboard && !isVerified ? <Unverified /> : null}
+                <div className="mt-4">
+                    <Videos nick={nick} videos={videos} />
+                </div>
             </div>
+        );
+    }
+
+    return (
+        <div className="w-100 text-center p-2 vh-100">
+            <h1>404</h1>
+            <h6>Nie znaleziono takiego użytkownika.</h6>
         </div>
     );
 }
+
 export const getServerSideProps = async ({ params, req }) => {
     const token = new Cookies(req.headers.cookie).get('token');
 
@@ -108,7 +109,8 @@ export const getServerSideProps = async ({ params, req }) => {
     } catch {
         return {
             props: {
-                isError404: true
+                isError404: true,
+                userDetails: {}
             }
         }
     }
