@@ -34,10 +34,9 @@ const PrimaryInput: React.FC<Props> = ({ type, label, placeholder, value, onChan
                 onMouseOver: () => setIsCopyBubbleVisible(true),
                 onMouseOut: () => {setIsCopyBubbleVisible(false); setCopyBubbleText(BEFORE_COPY__BUBBLE_TEXT)},
                 onClick: () => copyValue(),
-                style: {cursor: 'pointer'}
             });
         }
-    }, []);
+    }, [clickToCopy]);
 
     return (
         <div className={styles.container}>
@@ -55,7 +54,7 @@ const PrimaryInput: React.FC<Props> = ({ type, label, placeholder, value, onChan
                 onBlur={onBlur}
                 style={style}
             />
-            {errorMessage && <div className={styles.error}>{ errorMessage }</div>}
+            {errorMessage && <div className={styles.error}>{errorMessage}</div>}
         </div>
     );
 }

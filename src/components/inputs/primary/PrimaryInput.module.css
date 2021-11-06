@@ -30,7 +30,22 @@
     padding: 10px;
     border-radius: 5px;
     border: 1px solid white;
-    top: -40px;
+    top: -45px;
+}
+.copyBubble::after {
+    content: '';
+    display: block;
+    background-color: var(--global-primary-color);
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+    border-color: white;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    left: calc(50% - 6px);
+    transform: rotate(45deg);
+    border-bottom-right-radius: 3px;
+    bottom: -6px;
 }
 .error {
     color: red;

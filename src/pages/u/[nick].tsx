@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { SocialMediaLinks as SocialMediaLinksInterface } from '../../redux/reducers/user/Profile';
 import { RootState } from '../../redux/store';
-import PrimaryInput from '../../components/inputs/primary/PrimaryInput';
 import { get, post } from '../../helpers/ApiRequest';
-import * as Contants from '../../constants';
 import Details from '../../components/dedicated/user_profile/details/Details';
 import { LOAD_OFFERS_SUCCESS } from '../../redux/actions/user/Offers';
 import Videos from '../../components/dedicated/user_profile/videos/Videos';
 import Cookies from 'universal-cookie';
 import { USER_PROFILE_LOADING_SUCCESS } from '../../redux/actions/user/Profile';
+import Unverified from '../../components/dedicated/user_profile/unverified/Unverified';
 
 const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDetails }) => {
     if(isError404) {
@@ -65,17 +64,7 @@ const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDet
                 isDashboard={isDashboard}
                 offers={offers.data}
             />
-
-            {isDashboard && !isVerified ?
-            <div className="my-5 d-flex align-items-center flex-column">
-                <hr className="d-block d-lg-none" style={{ background: 'white', width: '100%' }} />
-                <div className="font-weight-bold text-center my-4">
-                    <div>Zweryfikuj swoje konto, aby Twój profil stał się dostępny.</div>
-                    <div>Napisz do nas na nasz <a href={Contants.INSTAGRAM}>profil instagramowy</a>, wysyłając poniższy link do Twojego profilu.</div>
-                    <PrimaryInput value={window.location.href} clickToCopy={true} />
-                </div>
-            </div> : null}
-
+            {isDashboard && !isVerified ? <Unverified /> : null}
             <div className="mt-4">
                 <Videos nick={nick} videos={videos} />
             </div>
