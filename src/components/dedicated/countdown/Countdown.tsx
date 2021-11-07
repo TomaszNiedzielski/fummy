@@ -41,7 +41,7 @@ const renderer = ({ days, hours, minutes, seconds, completed }) => {
 const CountdownTimer: React.FC<Props> = ({ date }) => {
     return (
         <Countdown
-            date={date}
+            date={date.replace(' ', 'T')}
             renderer={renderer}
         />
     );
