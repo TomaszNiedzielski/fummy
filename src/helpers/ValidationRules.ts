@@ -104,7 +104,7 @@ export const nickRules = (value: string) => {
         },
         regex: {
             status: /^[a-z0-9_]+$/,
-            message: 'Nick może zawierać jedynie małe litery, cyfry i podkreślenia.'
+            message: 'Nick może zawierać jedynie małe litery - bez polskich znaków, cyfry i podkreślenia.'
         }
     });
 }
