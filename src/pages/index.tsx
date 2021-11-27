@@ -12,7 +12,8 @@ export interface User {
     prices?: {
         from: string;
         currency: string;
-    }
+    };
+    is24HoursDeliveryOn: boolean;
 }
 
 const HomePage: React.FC<{ users: User[] }> = ({ users }) => {
@@ -28,15 +29,16 @@ const HomePage: React.FC<{ users: User[] }> = ({ users }) => {
         {(!token && users.length === 0) && <AuthButtons />}
         <div className="container">
             <div className="home-page__users-list">
-                {users.map(({ avatar, nick, fullName, prices }, i) => (
+                {users.map(({ avatar, nick, fullName, prices, is24HoursDeliveryOn }, i) => (
                     <div className="d-flex flex-column justify-content-end mx-2 mx-md-3 mb-4 mb-md-5" key={i}>
                         {i === 0 && <h2 className="my-3">New</h2>}
                         <UserCard
+                            style={{ color: 'whitesmoke' }}
                             avatar={avatar}
                             nick={nick}
                             fullName={fullName}
                             prices={prices}
-                            style={{ color: 'whitesmoke' }}
+                            is24HoursDeliveryOn={is24HoursDeliveryOn}
                         />
                     </div>
                 ))}

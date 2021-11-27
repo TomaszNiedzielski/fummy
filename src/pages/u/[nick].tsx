@@ -55,6 +55,8 @@ const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDet
                     avatar={avatar}
                     isDashboard={isDashboard}
                     offers={offers.data}
+                    isActive={userDetails.isActive}
+                    is24HoursDeliveryOn={userDetails.is24HoursDeliveryOn}
                 />
                 {isDashboard && !isVerified ? <Unverified /> : null}
                 <div className="mt-4">

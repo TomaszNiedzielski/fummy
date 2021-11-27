@@ -72,6 +72,17 @@ a:hover {
   background-color: var(--global-primary-color);
 }
 
+.primary-box {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(var(--global-primary-color-rgb), 0.2);
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.font-small {
+  font-size: 14px;
+}
+
 @font-face {
   font-family: 'acme-regular';
   src: url('/fonts/Acme-Regular.ttf') format('truetype');

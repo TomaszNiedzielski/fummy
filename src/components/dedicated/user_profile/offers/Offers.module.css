@@ -24,3 +24,9 @@
     color: whitesmoke;
     margin-bottom: 0;
 }
+.disactivated {
+    margin-bottom: 0;
+}
+.disactivated::first-letter {
+    text-transform: uppercase;
+}

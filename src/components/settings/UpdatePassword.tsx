@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { loginPasswordRules, passwordRules } from '../../../helpers/ValidationRules';
-import { RootState } from '../../../redux/store';
-import PrimaryButton from '../../buttons/primary/PrimaryButton';
-import PrimaryInput from '../../inputs/primary/PrimaryInput';
+import { loginPasswordRules, passwordRules } from '../../helpers/ValidationRules';
+import { RootState } from '../../redux/store';
+import PrimaryButton from '../buttons/primary/PrimaryButton';
+import PrimaryInput from '../inputs/primary/PrimaryInput';
 import { toast } from 'react-toastify';
-import { post, Response } from '../../../helpers/ApiRequest';
+import { post, Response } from '../../helpers/ApiRequest';
 
 const UpdatePassword: React.FC = () => {
     const { token } = useSelector((state: RootState) => state.auth);
@@ -60,14 +60,13 @@ const UpdatePassword: React.FC = () => {
     }, [newPassword]);
 
     return (
-        <>
-        <section className="w-100">
+        <section className="w-100 primary-box">
             <h5>Zmień hasło</h5>
             <div className="w-100 d-md-flex">
                 <div className="w-100 mr-md-2">
                     <PrimaryInput
                         type="password"
-                        placeholder="Aktualne hasło"
+                        label="Aktualne hasło"
                         value={currentPassword}
                         onChange={newValue => setCurrentPassword(newValue)}
                         onBlur={() => setCurrentPasswordError(loginPasswordRules(currentPassword))}
@@ -77,7 +76,7 @@ const UpdatePassword: React.FC = () => {
                 <div className="w-100 ml-md-2">
                     <PrimaryInput
                         type="password"
-                        placeholder="Nowe hasło"
+                        label="Nowe hasło"
                         value={newPassword}
                         onChange={newValue => setNewPassword(newValue)}
                         onBlur={() => setNewPasswordError(passwordRules(newPassword))}
@@ -85,15 +84,14 @@ const UpdatePassword: React.FC = () => {
                     />
                 </div>
             </div>
-            <div className="w-100 d-flex justify-content-center justify-content-md-end mt-3">
+            {currentPassword && newPassword && <div className="w-100 d-flex justify-content-center justify-content-md-end mt-3">
                 <PrimaryButton
                     title="Zapisz"
                     onClick={save}
                     isLoading={isLoading}
                 />
-            </div>
+            </div>}
         </section>
-        </>
     );
 }
 export default UpdatePassword;

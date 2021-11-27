@@ -30,6 +30,9 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    background-color: rgba(0, 0, 0, .1);
+    border-radius: 4px;
+    padding: 1px 4px;
 }
 .fullname {
     font-size: 14px;
@@ -37,6 +40,7 @@
     line-height: 18px;
     margin-bottom: 6px;
 }
+
 @media only screen and (max-width: 420px) {
     .container {
         max-width: calc(100vw / 2 - 2rem);

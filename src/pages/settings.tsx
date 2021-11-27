@@ -1,16 +1,19 @@
 import React from 'react';
-import UpdatePassword from '../components/settings/update_password/UpdatePassword';
 import Cookies from 'universal-cookie';
+import UpdatePassword from '../components/settings/UpdatePassword';
+import ActivityStatus from '../components/settings/ActivityStatus';
+import _24HrDelivery from '../components/settings/24HrDelivery';
+import PaymentProfile from '../components/settings/PaymentProfile';
 
 const SettingsPage: React.FC = () => {
     return (
         <div className="container">
-            <div className="d-flex flex-column align-items-center p-3">
-                <div>
-                    <h3 className="mx-5">Ustawienia</h3>
-                    <hr className="w-100 mb-4" style={{ borderColor: 'white' }} />
-                </div>
+            <div className="d-flex flex-column align-items-center py-3 mx-auto" style={{ maxWidth: '550px' }}>
+                <h3 className="mb-3">Ustawienia</h3>
                 <UpdatePassword />
+                <ActivityStatus />
+                <_24HrDelivery />
+                <PaymentProfile />
             </div>
         </div>
     );

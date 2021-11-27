@@ -10,9 +10,10 @@ interface Props {
     isDashboard: boolean;
     nick: string;
     data: Offer[];
+    isActive: boolean;
 }
 
-const Offers: React.FC<Props> = ({ isDashboard, nick, data }) => {
+const Offers: React.FC<Props> = ({ isDashboard, nick, data, isActive }) => {
     const [selectedOfferId, setSelectedOfferId] = useState<number>();
 
     const router = useRouter();
@@ -32,7 +33,7 @@ const Offers: React.FC<Props> = ({ isDashboard, nick, data }) => {
                 {isDashboard ? 'Poinformuj swoich fanów jaki rodzaj video oferujesz. Dodaj ofertę i poczekaj na zamówienia.'
                 : 'Kupując u tego użytkownika dostajesz gwarancję zwrotu pieniędzy w przypadku nie dostarczenia video.' }
             </div>
-            <div className="d-flex flex-column">
+            {isActive ? <div className="d-flex flex-column">
                 {data !== undefined && data.map(({ id, title, description, price }) => (
                     <Card
                         key={id}
@@ -54,6 +55,11 @@ const Offers: React.FC<Props> = ({ isDashboard, nick, data }) => {
                     }}
                 />}
             </div>
+            : <div className="primary-box">
+                {isDashboard
+                ? <h6 className={styles.disactivated}>Wyłączyłeś swoją aktywność. Twoi fani nie mogą składać Ci teraz zamówień.</h6>
+                : <h6 className={styles.disactivated}>{nick} nie przyjmuje aktualnie żadnych zamówień.</h6>}
+            </div>}
         </div>
     );
 }

@@ -1,0 +1,9 @@
+.container {
+    color: gold;
+    background: rgba(0, 0, 0, .1);
+    padding: 3px 5px;
+    font-family: 'webnar-bold';
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+}

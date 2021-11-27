@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './Info.module.css';
 
-const Info: React.FC = () => {
+const Info: React.FC<{ deliveryTime: string }> = ({ deliveryTime }) => {
     return (
         <div className={styles.container}>
             <div>
                 <h5 className="text-white">Co po zakupie?</h5>
                 <div className={styles.item}>
                     <img src="/icons/time.png" alt="time" />
-                    <div>Realizacja potrwa maksymalnie 7 dni.</div>
+                    <div>Realizacja potrwa maksymalnie {deliveryTime}.</div>
                 </div>
                 <div className={styles.item}>
                     <img src="/icons/email.png" alt="email" />

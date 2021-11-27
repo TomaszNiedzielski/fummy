@@ -11,7 +11,7 @@
     font-size: 15px;
 }
 .text {
-    font-size: 15px;
+    font-size: 14px;
 }
 
 @media (min-width: 993px) {
@@ -20,5 +20,8 @@
         min-width: 300px;
         text-align: left;
         margin: 20px 0;
+    }
+    .text {
+        font-size: 15px;
     }
 }

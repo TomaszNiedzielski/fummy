@@ -13,9 +13,10 @@ export interface Props {
     errorMessage?: string;
     onBlur?: () => void;
     style?: object;
+    inputMode?: 'search' | 'text' | 'none' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal';
 }
 
-const PrimaryInput: React.FC<Props> = ({ type, label, placeholder, value, onChange, maxLength, min, clickToCopy, errorMessage, onBlur, style }) => {
+const PrimaryInput: React.FC<Props> = ({ type, label, placeholder, value, onChange, maxLength, min, clickToCopy, errorMessage, onBlur, style, inputMode }) => {
     const BEFORE_COPY__BUBBLE_TEXT = 'Kliknij, by skopiować';
     const AFTER_COPY__BUBBLE_TEXT = 'Skopiowano';
 
@@ -53,6 +54,7 @@ const PrimaryInput: React.FC<Props> = ({ type, label, placeholder, value, onChan
                 {...attributes}
                 onBlur={onBlur}
                 style={style}
+                inputMode={inputMode}
             />
             {errorMessage && <div className={styles.error}>{errorMessage}</div>}
         </div>

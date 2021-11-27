@@ -23,6 +23,8 @@ export interface Profile {
     avatar: string;
     isMailVerified: boolean;
     socialMediaLinks: SocialMediaLinks;
+    isActive: boolean;
+    is24HoursDeliveryOn: boolean;
 }
 
 const initialLink = {
@@ -40,7 +42,9 @@ const initialState: Profile = {
         instagram: initialLink,
         tiktok: initialLink,
         youtube: initialLink
-    }
+    },
+    isActive: null,
+    is24HoursDeliveryOn: null
 }
 
 const ProfileReducer = (state = initialState, action: Action) => {

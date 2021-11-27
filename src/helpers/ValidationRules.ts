@@ -8,6 +8,7 @@ interface Rule {
 
 interface Validator {
     required?: Rule;
+    length?: Rule;
     minLength?: Rule;
     maxLength?: Rule;
     between?: Rule;
@@ -28,10 +29,14 @@ export const validateNumericString = (value: string) => {
 }
 
 const validator = (value: string, rules: Validator) => {
-    const { required, minLength, maxLength, between, email, regex, numeric, positive } = rules;
+    const { required, length, minLength, maxLength, between, email, regex, numeric, positive } = rules;
 
     if(required && !value) {
         return required.message;
+    }
+
+    if(length && value.length !== length.status) {
+        return length.message;
     }
 
     if(minLength && value.length < minLength.status) {
@@ -268,4 +273,34 @@ export const youtubeLinkRules = (value: string) => {
             message: 'Ten link jest niepoprawny.'
         }
     });
+}
+
+export const bankAccountNumberRules = (value: string) => {
+    return validator(value, {
+        required: {
+            status: true,
+            message: 'Podaj numer swojego konta bankowego.'
+        },
+        length: {
+            status: 26,
+            message: 'Numer konta musi mieć 26 znaków.'
+        },
+        numeric: {
+            status: true,
+            message: 'Numer konta może składać się tylko z cyfr.'
+        },
+    });
+}
+
+export const bankAccountHolderNameRules = (value: string) => {
+    return validator(value, {
+        required: {
+            status: true,
+            message: 'Podaj nazwę właściciela rachunku bankowego, taką jak na wyciągu z konta.'
+        },
+        maxLength: {
+            status: 70,
+            message: 'Nazwa nie może być dłuższa niż 70 znaków.'
+        }
+    })
 }

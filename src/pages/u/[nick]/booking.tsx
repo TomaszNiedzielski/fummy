@@ -13,7 +13,7 @@ import Info from '../../../components/dedicated/booking/Info';
 import { isLinkExternal } from '../../../helpers/Link';
 
 const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
-    const { avatar, nick } = profileDetails;
+    const { avatar, nick, is24HoursDeliveryOn } = profileDetails;
 
     const [selectedOfferId, setSelectedOfferId] = useState<number>();
     const [name, setName] = useState<string>();
@@ -54,7 +54,12 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
             setIsLoading(false);
 
             if(response.code === 200) {
-                router.push(`/u/${nick}/booked`);
+                router.push({
+                    pathname: `/u/${nick}/booked`,
+                    query: {
+                        'delivery': (is24HoursDeliveryOn ? '24h' : '7days')
+                    }
+                });
             }
         });
     }
@@ -160,7 +165,7 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
                     </div>
                 </div>
             </div>
-            <Info />
+            <Info deliveryTime={is24HoursDeliveryOn ? '24 godziny' : '7 dni'} />
         </div>
     );
 }

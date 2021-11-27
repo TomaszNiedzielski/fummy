@@ -4,12 +4,13 @@ import { API_STORAGE } from '../../../constants';
 import Link from 'next/link';
 import { User } from '../../../pages';
 import { isLinkExternal } from '../../../helpers/Link';
+import _24HrStamp from '../user_profile/24hr_stamp/24HrStamp';
 
 interface Props extends User {
     style: object;
 }
 
-const UserCard: React.FC<Props> = ({ avatar, nick, fullName, style, prices }) => {
+const UserCard: React.FC<Props> = ({ avatar, nick, fullName, style, prices, is24HoursDeliveryOn }) => {
     const [priceFrom, setPriceFrom] = useState<string>();
 
     useEffect(() => {
@@ -30,7 +31,10 @@ const UserCard: React.FC<Props> = ({ avatar, nick, fullName, style, prices }) =>
                     </div>
                     <div className={styles.nick} title={nick}>{nick}</div>
                     <div className={styles.fullname}>{fullName}</div>
-                    {priceFrom ? <div className={styles.price}>Od {priceFrom} {prices.currency}</div> : null}
+                    <div className="d-flex align-items-center justify-content-between">
+                        {priceFrom ? <div className={styles.price}>Od {priceFrom} {prices.currency}</div> : null}
+                        {is24HoursDeliveryOn ? <_24HrStamp isSmall /> : null}
+                    </div>
                 </a>
             </Link>
         </div>

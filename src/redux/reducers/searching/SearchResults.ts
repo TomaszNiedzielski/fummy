@@ -10,6 +10,7 @@ export interface Result {
     avatar: string;
     nick: string;
     isVerified: boolean;
+    is24HoursDeliveryOn: boolean;
 }
 
 interface State {
