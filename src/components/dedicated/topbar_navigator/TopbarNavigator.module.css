@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+}
+.item {
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-right: 5px;
+    box-shadow: 0 0 0 1px rgba(var(--global-primary-color-rgb), 0.2);
+}
+.item a {
+    color: var(--global-primary-color);
+}
+.active {
+    background-color: rgba(0, 0, 0, 0.2);
+}

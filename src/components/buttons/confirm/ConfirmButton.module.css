@@ -1,0 +1,18 @@
+.button {
+    border: 0;
+    border-radius: 4px;
+    padding: 8px 18px;
+    color: white;
+    background-color: var(--global-primary-color);
+}
+.button:focus {
+    outline: none;
+}
+.button:hover {
+    filter: brightness(85%);
+}
+.disabled {
+    filter: unset!important;
+    background: rgba(var(--global-primary-color-rgb), .5);
+    cursor: not-allowed;
+}

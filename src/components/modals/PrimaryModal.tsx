@@ -5,6 +5,7 @@ interface Props {
     id: string;
     title: string;
     Content: React.FC;
+    contentProps?: any;
 }
 
 export const hideModal = () => {
@@ -16,7 +17,7 @@ export const hideModal = () => {
     }
 }
 
-const PrimaryModal: React.FC<Props> = ({ id, title, Content }) => {
+const PrimaryModal: React.FC<Props> = ({ id, title, Content, contentProps }) => {
     const router = useRouter();
 
     useEffect(() => {
@@ -46,7 +47,7 @@ const PrimaryModal: React.FC<Props> = ({ id, title, Content }) => {
                             <h3 className="modal-title w-100 text-center font-weight-bold primary-color">{ title }</h3>
                         </div>
                         <div className="modal-body">
-                            <Content />
+                            <Content {...contentProps} />
                         </div>
                     </div>
                 </div>

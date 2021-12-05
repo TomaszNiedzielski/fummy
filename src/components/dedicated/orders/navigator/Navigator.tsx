@@ -8,8 +8,7 @@ const Sidebar: React.FC = () => {
     const location = useLocation();
 
     useEffect(() => {
-        const { href } = window.location;
-        const subpage = href.split('/').pop();
+        const subpage = window.location.href.split('/').pop();
 
         setSubpage(subpage);
     }, [location]);
