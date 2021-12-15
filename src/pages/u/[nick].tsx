@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { SocialMediaLinks as SocialMediaLinksInterface } from '../../redux/reducers/user/Profile';
 import { RootState } from '../../redux/store';
-import { get, post } from '../../helpers/ApiRequest';
+import { get } from '../../helpers/ApiRequest';
 import Details from '../../components/dedicated/user_profile/details/Details';
 import { LOAD_OFFERS_SUCCESS } from '../../redux/actions/user/Offers';
 import Videos from '../../components/dedicated/user_profile/videos/Videos';
@@ -10,7 +10,7 @@ import Cookies from 'universal-cookie';
 import { USER_PROFILE_LOADING_SUCCESS } from '../../redux/actions/user/Profile';
 import Unverified from '../../components/dedicated/user_profile/unverified/Unverified';
 
-const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDetails }) => {
+const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDetails, e }) => {
     const { profile, offers } = useSelector((state: RootState) => state);
 
     const [fullName, setFullName] = useState<string>(userDetails.fullName);
@@ -76,10 +76,11 @@ const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDet
 
 export const getServerSideProps = async ({ params, req }) => {
     const token = new Cookies(req.headers.cookie).get('token');
+    const { nick } = params;
 
     try {
-        const userDetailsResponse: any = await post('profile/load-details?token='+token, { nick: params.nick });
-        const { nick, isMailVerified, isDashboard } = userDetailsResponse.data;
+        const userDetailsResponse: any = await get('users/'+nick, { token });
+        const { isMailVerified, isDashboard } = userDetailsResponse.data;
 
         if(isMailVerified === false && isDashboard) {
             return {
@@ -95,8 +96,8 @@ export const getServerSideProps = async ({ params, req }) => {
             isError404 = true;
         }
 
-        const responseWithOffers: any = await get('offers/load/'+params.nick);
-        const responseWithVideos: any = await get('videos/get-list/'+params.nick);
+        const responseWithOffers: any = await get('offers?user_nick='+nick);
+        const responseWithVideos: any = await get('videos?user_nick='+nick);
 
         if(responseWithOffers.code === 200 && responseWithVideos.code === 200) {
             return {

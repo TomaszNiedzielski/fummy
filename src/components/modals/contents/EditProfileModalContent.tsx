@@ -13,7 +13,6 @@ import { hideModal } from '../PrimaryModal';
 
 const EditProfileModalContent = () => {
     const profile = useSelector((state: RootState) => state.profile);
-    const { token } = useSelector((state: RootState) => state.auth);
 
     const { socialMediaLinks } = profile;
 
@@ -68,7 +67,7 @@ const EditProfileModalContent = () => {
         bio && formData.append('bio', bio);
         formData.append('socialMediaLinks', JSON.stringify(socialMediaLinks));
 
-        post('profile/update-details?token='+token, formData)
+        post('users/me', formData)
         .then((response: Response) => {
             if(response.code === 200) {
                 dispatch({

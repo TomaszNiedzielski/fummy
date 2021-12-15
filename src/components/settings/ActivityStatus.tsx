@@ -1,12 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { post } from '../../helpers/ApiRequest';
+import { put } from '../../helpers/ApiRequest';
 import { UPDATE_PROFILE_DETAILS } from '../../redux/actions/user/Profile';
 import { RootState } from '../../redux/store';
 import ToggleSwitch from '../inputs/toggle_switch/ToggleSwitch';
 
 const ActivityStatus: React.FC = () => {
-    const { token } = useSelector((state: RootState) => state.auth);
     const { profile } = useSelector((state: RootState) => state);
 
     const dispatch = useDispatch();
@@ -16,7 +15,7 @@ const ActivityStatus: React.FC = () => {
 
         dispatch({ type: UPDATE_PROFILE_DETAILS, payload: profile });
 
-        post('profile/update-activity-status?token='+token, { isActive: status });
+        put('users/activity-status', { isActive: status });
     }
 
     return (

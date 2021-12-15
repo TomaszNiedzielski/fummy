@@ -1,6 +1,6 @@
 import React from 'react';
 import PrimaryButton from '../components/buttons/primary/PrimaryButton';
-import { post } from '../helpers/ApiRequest';
+import { get } from '../helpers/ApiRequest';
 import Cookies from 'universal-cookie';
 import PayoutsHistoryList from '../components/dedicated/finances/payouts/List';
 import TopbarNavigator from '../components/dedicated/topbar_navigator/TopbarNavigator';
@@ -83,10 +83,10 @@ export const getServerSideProps = async ({ req }) => {
         }
     }
 
-    const incomesListResponse: any = await post('incomes/get-history?token='+token);
-    const payoutsListResponse: any = await post('payout/get-history?token='+token);
-    const accountBalanceResponse: any = await post('account-balance/get?token='+token);
-    const incomeResponse: any = await post('income/get?token='+token);
+    const incomesListResponse: any = await get('incomes/history?token='+token);
+    const payoutsListResponse: any = await get('payouts/history?token='+token);
+    const accountBalanceResponse: any = await get('account-balance?token='+token);
+    const incomeResponse: any = await get('incomes?token='+token);
 
     return {
         props: {

@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { loginPasswordRules, passwordRules } from '../../helpers/ValidationRules';
-import { RootState } from '../../redux/store';
 import PrimaryButton from '../buttons/primary/PrimaryButton';
 import PrimaryInput from '../inputs/primary/PrimaryInput';
 import { toast } from 'react-toastify';
-import { post, Response } from '../../helpers/ApiRequest';
+import { put, Response } from '../../helpers/ApiRequest';
 
 const UpdatePassword: React.FC = () => {
-    const { token } = useSelector((state: RootState) => state.auth);
-
     const [currentPassword, setCurrentPassword] = useState<string>();
     const [newPassword, setNewPassword] = useState<string>();
     const [currentPasswordError, setCurrentPasswordError] = useState<string>();
@@ -21,7 +17,7 @@ const UpdatePassword: React.FC = () => {
 
         setIsLoading(true);
 
-        post('password/update?token='+token, { currentPassword, newPassword })
+        put('password', { currentPassword, newPassword })
         .then((response: Response) => {
             setCurrentPasswordError(null);
 

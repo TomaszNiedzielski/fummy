@@ -1,8 +1,6 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from 'react';
-
 import PrimaryButton from '../../buttons/primary/PrimaryButton';
 import PrimaryInput from '../../inputs/primary/PrimaryInput';
-
 import { useDispatch } from 'react-redux';
 import { authSuccess } from '../../../redux/actions/user/Auth';
 import { NICK_LENGTH } from '../../../constants';
@@ -38,14 +36,16 @@ const RegisterModalContent = () => {
             }
         })
         .catch(({ response }) => {
-            const { fullName, email, nick, password } = response.data.errors;
+            if(response.data.errors) {
+                const { fullName, email, nick, password } = response.data.errors;
 
-            setFullNameError(fullName);
-            setEmailError(email);
-            setNickError(nick);
-            setPasswordError(password);
+                setFullNameError(fullName);
+                setEmailError(email);
+                setNickError(nick);
+                setPasswordError(password);
+            }
         })
-        .then(() => setIsLoading(false));
+        .finally(() => setIsLoading(false));
     }
 
     useEffect(() => {

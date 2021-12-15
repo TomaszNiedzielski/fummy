@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { post, Response } from '../../helpers/ApiRequest';
+import { get, post, Response } from '../../helpers/ApiRequest';
 import { bankAccountHolderNameRules, bankAccountNumberRules } from '../../helpers/ValidationRules';
 import { RootState } from '../../redux/store';
 import PrimaryButton from '../buttons/primary/PrimaryButton';
@@ -22,7 +22,7 @@ const PaymentProfile: React.FC = () => {
     useEffect(() => {
         if(!token) return;
 
-        post('bank-account/get?token='+token)
+        get('bank-account')
         .then((response: Response) => {
             if(response.code === 200 && response.data) {
                 const { number, holderName } = response.data;
@@ -57,7 +57,7 @@ const PaymentProfile: React.FC = () => {
         if(!isFormCorrect()) return;
         
         setIsLoading(true);
-        post('bank-account/update?token='+token, {
+        post('bank-account', {
             number: bankAccountNumber.replaceAll(' ', ''),
             holderName
         })

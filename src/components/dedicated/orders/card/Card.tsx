@@ -35,7 +35,6 @@ const ProgressBar = ({ progress }) => (
 );
 
 const OrderCard: React.FC<Props> = ({ id, title, description, instructions, deadline, purchaser, price, currency, thumbnail, videoName, processingComplete, unrealized, videoCreatedAt }) => {
-    const { token } = useSelector((state: RootState) => state.auth);
     const { nick } = useSelector((state: RootState) => state.profile);
 
     const [video, setVideo] = useState<File>();
@@ -118,7 +117,7 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, dead
         formData.append('orderId', id.toString());
 
         setIsUploading(true);
-        post('video/upload?token='+token, formData, onUploadProgress)
+        post('videos', formData, onUploadProgress)
         .then((response: Response) => {
             if(response.code === 200) {
                 setVideo(null);

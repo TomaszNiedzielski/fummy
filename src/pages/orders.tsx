@@ -1,6 +1,6 @@
 import React from 'react';
 import OrderCard from '../components/dedicated/orders/card/Card';
-import { post, Response } from '../helpers/ApiRequest';
+import { get, Response } from '../helpers/ApiRequest';
 import Cookies from 'universal-cookie';
 import Navigator from '../components/dedicated/orders/navigator/Navigator';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
@@ -115,7 +115,7 @@ export const getServerSideProps = async ({ req }) => {
     }
 
     let orders: unknown;
-    await post('orders/load?token='+token)
+    await get('orders?token='+token)
     .then((response: Response) => {
         if(response.code === 200) {
             orders = response.data;

@@ -49,7 +49,7 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
 
         setIsLoading(true);
 
-        post(`order/create`, { name, email, instructions, offerId: selectedOfferId, isPrivate })
+        post('orders', { name, email, instructions, offerId: selectedOfferId, isPrivate })
         .then((response: Response) => {
             setIsLoading(false);
 
@@ -61,7 +61,8 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
                     }
                 });
             }
-        });
+        })
+        .catch(() => setIsLoading(false));
     }
 
     useEffect(() => {
@@ -173,8 +174,8 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
 export const getServerSideProps = async ({ params }) => {
     const { nick } = params;
 
-    const profileDetails: any = await post('profile/load-details', { nick });
-    const offers: any = await get('offers/load/'+nick);
+    const profileDetails: any = await get('users/'+nick);
+    const offers: any = await get('offers?user_nick='+nick);
 
     if(profileDetails.code === 200 && offers.code === 200) {
         return {

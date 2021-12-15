@@ -7,7 +7,6 @@ import { post, Response } from '../../helpers/ApiRequest';
 import Cookies from 'universal-cookie';
 
 const UnverifiedPage = () => {
-    const { token } = useSelector((state: RootState) => state.auth);
     const { isMailVerified, nick } = useSelector((state: RootState) => state.profile);
 
     const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +20,7 @@ const UnverifiedPage = () => {
     const sendVerificationMail = () => {
         setIsLoading(true);
 
-        post('mail/send/verification-mail?token='+token)
+        post('mail/verification-mail')
         .then((response: Response) => {
             const { code, data } = response;
             
@@ -36,7 +35,7 @@ const UnverifiedPage = () => {
                 toast.info(data.message);
             }
         })
-        .then(() => setIsLoading(false));
+        .finally(() => setIsLoading(false));
     }
 
     return (

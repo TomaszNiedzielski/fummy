@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import { post, Response } from '../../../helpers/ApiRequest';
+import { get, Response } from '../../../helpers/ApiRequest';
 
 export const SEARCH_USERS_REQUEST = 'SEARCH_USERS_REQUEST';
 export const SEARCH_USERS_SUCCESS = 'SEARCH_USERS';
@@ -9,7 +9,7 @@ export const search = (term: string) => {
     return (dispatch: Dispatch) => {
         dispatch({ type: SEARCH_USERS_REQUEST });
         
-        post('search', { searchingWord: term })
+        get('search-results?q='+term)
         .then((response: Response) => {
             if(response.code === 200) {
                 dispatch({

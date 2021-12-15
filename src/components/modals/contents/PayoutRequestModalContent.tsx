@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { post, Response } from '../../../helpers/ApiRequest';
+import { get, post, Response } from '../../../helpers/ApiRequest';
 import { RootState } from '../../../redux/store';
 import CancelButton from '../../buttons/cancel/CancelButton';
 import ConfirmButton from '../../buttons/confirm/ConfirmButton';
@@ -19,7 +19,7 @@ const PayoutRequestModalContent: React.FC<any> = ({ moneyAmount }) => {
     useEffect(() => {
         if(!token) return;
 
-        post('bank-account/get?token='+token)
+        get('bank-account')
         .then((response: Response) => {
             if(response.code === 200 && response.data) {
                 const { number, holderName } = response.data;
@@ -32,9 +32,10 @@ const PayoutRequestModalContent: React.FC<any> = ({ moneyAmount }) => {
             }
         });
 
-        post('payout/is-request-sent?token='+token)
+        get('payouts/request/status')
         .then((response: Response) => {
             const { code, data } = response;
+            
             if(code === 200) {
                 setIsPayoutRequestSent(data.isRequestSent)
             }
@@ -42,7 +43,7 @@ const PayoutRequestModalContent: React.FC<any> = ({ moneyAmount }) => {
     }, [token, router.pathname]);
 
     const createPayoutRequest = () => {
-        post('payout/create-request?token='+token)
+        post('payouts/request')
         .then((response: Response) => {
             if(response.code === 200) {
                 hideModal();

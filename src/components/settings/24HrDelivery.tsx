@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { post } from '../../helpers/ApiRequest';
+import { put } from '../../helpers/ApiRequest';
 import { UPDATE_PROFILE_DETAILS } from '../../redux/actions/user/Profile';
 import { RootState } from '../../redux/store';
 import ToggleSwitch from '../inputs/toggle_switch/ToggleSwitch';
@@ -16,7 +16,7 @@ const _24HrDelivery: React.FC = () => {
 
         dispatch({ type: UPDATE_PROFILE_DETAILS, payload: profile });
 
-        post('profile/update-delivery-time-status?token='+token, { is24HoursDeliveryOn });
+        put('users/delivery-time-status', { is24HoursDeliveryOn });
     }
 
     return (
