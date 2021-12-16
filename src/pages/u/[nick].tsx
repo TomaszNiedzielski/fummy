@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { SocialMediaLinks as SocialMediaLinksInterface } from '../../redux/reducers/user/Profile';
+import { Socials as SocialsInterface } from '../../redux/reducers/user/Profile';
 import { RootState } from '../../redux/store';
 import { get } from '../../helpers/ApiRequest';
 import Details from '../../components/dedicated/user_profile/details/Details';
@@ -16,7 +16,7 @@ const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDet
     const [fullName, setFullName] = useState<string>(userDetails.fullName);
     const [nick, setNick] = useState<string>(userDetails.nick);
     const [bio, setBio] = useState<string>(userDetails.bio);
-    const [socialMediaLinks, setSocialMediaLinks] = useState<SocialMediaLinksInterface>(userDetails.socialMediaLinks);
+    const [socials, setSocials] = useState<SocialsInterface>(userDetails.socials);
     const [avatar, setAvatar] = useState<string>(userDetails.avatar);
     const { isVerified, isDashboard } = userDetails;
 
@@ -40,7 +40,7 @@ const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDet
             setNick(profile.nick);
             setBio(profile.bio);
             setAvatar(profile.avatar);
-            setSocialMediaLinks(profile.socialMediaLinks);
+            setSocials(profile.socials);
         }
     }, [isDashboard, profile]);
 
@@ -51,7 +51,7 @@ const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDet
                     fullName={fullName}
                     nick={nick}
                     bio={bio}
-                    socialMediaLinks={socialMediaLinks}
+                    socials={socials}
                     avatar={avatar}
                     isDashboard={isDashboard}
                     offers={offers.data}
@@ -79,7 +79,7 @@ export const getServerSideProps = async ({ params, req }) => {
     const { nick } = params;
 
     try {
-        const userDetailsResponse: any = await get('users/'+nick, { token });
+        const userDetailsResponse: any = await get('users/'+nick+'?token='+token);
         const { isMailVerified, isDashboard } = userDetailsResponse.data;
 
         if(isMailVerified === false && isDashboard) {

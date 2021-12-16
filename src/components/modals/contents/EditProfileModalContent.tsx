@@ -14,7 +14,7 @@ import { hideModal } from '../PrimaryModal';
 const EditProfileModalContent = () => {
     const profile = useSelector((state: RootState) => state.profile);
 
-    const { socialMediaLinks } = profile;
+    const { socials } = profile;
 
     const [isLoading, setIsLoading] = useState(false);
     const [fullName, setFullName] = useState<string>();
@@ -45,7 +45,7 @@ const EditProfileModalContent = () => {
 
         setIsLoading(true);
 
-        const socialMediaLinks = {
+        const socials = {
             instagram: {
                 name: instagramName,
                 link: instagramLink
@@ -65,14 +65,14 @@ const EditProfileModalContent = () => {
         formData.append('fullName', fullName);
         formData.append('nick', nick);
         bio && formData.append('bio', bio);
-        formData.append('socialMediaLinks', JSON.stringify(socialMediaLinks));
+        formData.append('socials', JSON.stringify(socials));
 
         post('users/me', formData)
         .then((response: Response) => {
             if(response.code === 200) {
                 dispatch({
                     type: UPDATE_PROFILE_DETAILS,
-                    payload: { fullName, bio, nick, avatarFile, avatar: avatarUrl, socialMediaLinks }
+                    payload: { fullName, bio, nick, avatarFile, avatar: avatarUrl, socials }
                 });
                 hideModal();
             }
@@ -92,7 +92,7 @@ const EditProfileModalContent = () => {
         setNick(profile.nick);
         setBio(profile.bio);
 
-        const { instagram, tiktok, youtube } = socialMediaLinks;
+        const { instagram, tiktok, youtube } = socials;
 
         if(instagram) {
             setInstagramLink(instagram.link);
@@ -110,7 +110,7 @@ const EditProfileModalContent = () => {
         }
 
         setAvatarUrl(profile.avatar);
-    }, [profile, socialMediaLinks]);
+    }, [profile, socials]);
 
     const isFormCorrect = () => {        
         setFullNameError(fullNameRules(fullName));

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Details.module.css';
-import { SocialMediaLinks } from '../../../../redux/reducers/user/Profile';
+import { Socials } from '../../../../redux/reducers/user/Profile';
 import Bio from '../bio/Bio';
 import Links from '../links/Links';
 import Offers from '../offers/Offers';
@@ -13,7 +13,7 @@ interface Props {
     fullName: string;
     nick: string;
     bio: string;
-    socialMediaLinks: SocialMediaLinks;
+    socials: Socials;
     avatar: string;
     isDashboard: boolean;
     offers: Offer[];
@@ -21,9 +21,7 @@ interface Props {
     is24HoursDeliveryOn: boolean;
 }
 
-const Details: React.FC<Props> = ({ fullName, nick, bio, socialMediaLinks, avatar, isDashboard, offers, isActive, is24HoursDeliveryOn }) => {
-    if(!socialMediaLinks) return null;
-
+const Details: React.FC<Props> = ({ fullName, nick, bio, socials, avatar, isDashboard, offers, isActive, is24HoursDeliveryOn }) => {
     return (
         <div className="w-100 mt-2 mt-lg-4 ">
             <div className="d-flex w-100 justify-content-md-center">
@@ -50,14 +48,14 @@ const Details: React.FC<Props> = ({ fullName, nick, bio, socialMediaLinks, avata
                     </div>
                     <div className="d-none d-md-block ml-3 ml-lg-0">
                         <Bio value={bio} isDashboard={isDashboard} />
-                        <Links links={socialMediaLinks} />
+                        {socials && <Links links={socials} />}
                         <Offers isDashboard={isDashboard} nick={nick} data={offers} isActive={isActive} />
                     </div>
                 </div>
             </div>
             <div className="d-block d-md-none">
                 <Bio value={bio} isDashboard={isDashboard} />
-                <Links links={socialMediaLinks} />
+                {socials && <Links links={socials} />}
                 <Offers isDashboard={isDashboard} nick={nick} data={offers} isActive={isActive} />
             </div>
         </div>

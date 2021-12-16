@@ -5,15 +5,15 @@ interface Action {
     payload: Profile;
 }
 
-export interface SocialMediaLink {
+export interface Social {
     link: string;
     name: string;
 }
 
-export interface SocialMediaLinks {
-    instagram: SocialMediaLink;
-    tiktok: SocialMediaLink;
-    youtube: SocialMediaLink;
+export interface Socials {
+    instagram: Social;
+    tiktok: Social;
+    youtube: Social;
 }
 
 export interface Profile {
@@ -22,7 +22,7 @@ export interface Profile {
     nick: string;
     avatar: string;
     isMailVerified: boolean;
-    socialMediaLinks: SocialMediaLinks;
+    socials: Socials;
     isActive: boolean;
     is24HoursDeliveryOn: boolean;
 }
@@ -38,7 +38,7 @@ const initialState: Profile = {
     nick: '',
     avatar: '',
     isMailVerified: null,
-    socialMediaLinks: {
+    socials: {
         instagram: initialLink,
         tiktok: initialLink,
         youtube: initialLink
@@ -56,8 +56,8 @@ const ProfileReducer = (state = initialState, action: Action) => {
             if(!user.bio) user.bio = '';
             if(!user.nick) user.nick = '';
             if(!user.isMailVerified) user.isMailVerified = null;
-            if(!user.socialMediaLinks) {
-                user.socialMediaLinks = {
+            if(!user.socials) {
+                user.socials = {
                     instagram: initialLink,
                     tiktok: initialLink,
                     youtube: initialLink

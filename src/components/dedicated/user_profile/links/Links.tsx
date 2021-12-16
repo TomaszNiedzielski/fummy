@@ -1,5 +1,5 @@
 import React from 'react';
-import { SocialMediaLinks } from '../../../../redux/reducers/user/Profile';
+import { Socials } from '../../../../redux/reducers/user/Profile';
 import styles from './Links.module.css';
 
 type Icon = 'instagram' | 'tiktok' | 'youtube';
@@ -20,7 +20,7 @@ const Item: React.FC<ItemProps> = ({ icon, link, name }) => (
 );
 
 interface Props {
-    links: SocialMediaLinks
+    links: Socials
 }
 
 const Links: React.FC<Props> = ({ links }) => {
