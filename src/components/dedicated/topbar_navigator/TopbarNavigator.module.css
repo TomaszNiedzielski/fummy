@@ -2,14 +2,24 @@
     display: flex;
 }
 .item {
-    padding: 4px 8px;
-    border-radius: 4px;
-    margin-right: 5px;
-    box-shadow: 0 0 0 1px rgba(var(--global-primary-color-rgb), 0.2);
+    border-radius: 2px;
+    margin-right: 10px;
+    box-shadow: 0 0 0 1px rgba(var(--global-primary-color-rgb));
+    height: 34px;
+    width: 88px;
 }
 .item a {
     color: var(--global-primary-color);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .active {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: var(--global-primary-color);
+    color: white;
+}
+.active a {
+    color: var(--global-accent-color);
 }

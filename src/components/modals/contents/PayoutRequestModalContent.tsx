@@ -61,8 +61,9 @@ const PayoutRequestModalContent: React.FC<any> = ({ moneyAmount }) => {
             {isPaymentProfileComplete
             ? <>
             <div className="mb-4">
-                <div>Ogromnie cieszymy się, że możesz zarabiać, dzięki Fummy!</div>
-                <div className="mt-3">Cały stan Twojego konta zostanie wypłacony najszybciej jak to będzie możliwe.</div>
+                {!isPayoutRequestSent ? <><div>Ogromnie cieszymy się, że możesz zarabiać, dzięki Fummy!</div>
+                <div className="mt-3">Cały stan Twojego konta zostanie wypłacony najszybciej jak to będzie możliwe.</div></>
+                : <div className="text-success">Wypłata środków z konta została zlecona. Pieniądze trafią na twoje konto w ciągu 1 dnia roboczego.</div>}
             </div>
             <div className="d-flex justify-content-end align-items-center">
                 {!isPayoutRequestSent && <div className="mr-2">

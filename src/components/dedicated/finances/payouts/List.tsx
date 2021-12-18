@@ -11,7 +11,7 @@ export interface Item {
 
 const PayoutsHistoryList: React.FC<{ list: Item[] }> = ({ list }) => {
     return (
-        <div className={styles.container}>
+        <div className="primary-box primary-color my-3">
             {list.length ? list.map(({ createdAt, amount, isComplete }, i) => (
                 <div className={styles.item}>
                     <div className="my-2">

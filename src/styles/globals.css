@@ -73,7 +73,7 @@ a:hover {
 }
 
 .primary-box {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(var(--global-primary-color-rgb), 0.2);
   border-radius: 5px;
   padding: 20px;

@@ -22,7 +22,7 @@ const MoneyBoxPage: React.FC<Props> = ({ incomesList, payoutsList, accountBalanc
     return (
         <div className="container pt-3">
             <div className="d-flex flex-column flex-sm-row justify-content-center mb-5">
-                <section className="primary-box px-4 px-sm-5 text-center d-flex flex-column justify-content-center mr-sm-5 my-2">
+                <section className="primary-box primary-color px-4 px-sm-5 text-center d-flex flex-column justify-content-center mr-sm-5 my-2">
                     <h5>Stan mojego konta</h5>
                     <h3 className="mt-2">{accountBalance} PLN</h3>
                     {accountBalance > 0 ? <div className="mt-3 w-100 text-center">
@@ -33,7 +33,7 @@ const MoneyBoxPage: React.FC<Props> = ({ incomesList, payoutsList, accountBalanc
                         />
                     </div> : null}
                 </section>
-                <section className="primary-box px-4 px-sm-5 text-center d-flex flex-column justify-content-center my-2">
+                <section className="primary-box primary-color px-4 px-sm-5 text-center d-flex flex-column justify-content-center mr-sm-5 my-2">
                     <h5>Dochód od początku</h5>
                     <h3 className="mt-2">{income} PLN</h3>
                 </section>

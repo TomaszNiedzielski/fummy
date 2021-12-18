@@ -12,7 +12,7 @@ export interface Item {
 
 const IncomesHistoryList: React.FC<{ list: Item[] }> = ({ list }) => {
     return (
-        <div className={styles.container}>
+        <div className="primary-box primary-color my-3">
             {list.length > 0 ? list.map(({ createdAt, netAmount, grossAmount, purchaserName}, i: number) => (
                 <div className={styles.item}>
                     <div className="my-2">
