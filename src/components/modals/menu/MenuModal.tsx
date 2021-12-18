@@ -59,7 +59,7 @@ const MenuModal: React.FC<Props> = ({ isVisible, onChange }) => {
                         </Link>
                         <Link href="/orders">
                             <a className={styles.item}>
-                                <img src="/icons/suitcase.svg" alt="user" className={styles.icon} />
+                                <img src="/icons/clipboard.png" alt="user" className={styles.icon} />
                                 <span className="ml-2">Zamówienia</span>
                             </a>
                         </Link>

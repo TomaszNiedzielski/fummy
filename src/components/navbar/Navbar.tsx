@@ -53,31 +53,56 @@ const Navbar: React.FC = () => {
                             <span className="dropdown-toggle" data-toggle="dropdown">{fullName}</span>
 
                             <div className={styles.dropdown + " dropdown-menu dropdown-menu-right"}>
-                                <Link href={"/u/" + nick}>
+                                <div className={styles.dropdownItem}>
+                                    <Link href={"/u/" + nick}>
+                                        <a>
+                                            <img src="/icons/user.svg" alt="user" />
+                                            <span>{fullName}</span>
+                                        </a>
+                                    </Link>
+                                </div>
+
+                                <div className={styles.divider}></div>
+
+                                <div className={styles.dropdownItem}>
+                                    <Link href={"/orders"}>
+                                        <a>
+                                            <img src="/icons/clipboard.png" alt="suitcase" />
+                                            <span>Zamówienia</span>
+                                        </a>
+                                    </Link>
+                                </div>
+
+                                <div className={styles.divider}></div>
+
+                                <div className={styles.dropdownItem}>
+                                    <Link href="/my-money">
+                                        <a>
+                                            <img src="/icons/money.svg" alt="money" />
+                                            <span>Stan Portfela</span>
+                                        </a>
+                                    </Link>
+                                </div>
+
+                                <div className={styles.divider}></div>
+
+                                <div className={styles.dropdownItem}>
+                                    <Link href="/settings">
+                                        <a>
+                                            <img src="/icons/settings.svg" alt="settings" />
+                                            <span>Ustawienia</span>
+                                        </a>
+                                    </Link>
+                                </div>
+
+                                <div className={styles.divider}></div>
+
+                                <div className={styles.dropdownItem} onClick={() => dispatch(logout())}>
                                     <a>
-                                        <div className="dropdown-item">{fullName}</div>
+                                        <img src="/icons/logout.svg" alt="logout" />
+                                        <span className="text-white">Wyloguj się</span>
                                     </a>
-                                </Link>
-                                <div className="dropdown-divider"></div>
-                                <Link href={"/orders"}>
-                                    <a>
-                                        <div className="dropdown-item">Zamówienia</div>
-                                    </a>
-                                </Link>
-                                <div className="dropdown-divider"></div>
-                                <Link href="/my-money">
-                                    <a>
-                                        <div className="dropdown-item">Stan Portfela</div>
-                                    </a>
-                                </Link>
-                                <div className="dropdown-divider"></div>
-                                <Link href="/settings">
-                                    <a>
-                                        <div className="dropdown-item">Ustawienia</div>
-                                    </a>
-                                </Link>
-                                <div className="dropdown-divider"></div>
-                                <div className="dropdown-item cursor-pointer" onClick={() => dispatch(logout())}>Wyloguj się</div>
+                                </div>
                             </div>
                         </li>
                     }

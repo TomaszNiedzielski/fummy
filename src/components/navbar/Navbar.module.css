@@ -47,8 +47,31 @@
     }
 }
 
-@media (min-width: 1100px) {
-    .dropdown {
-        right: 15px;
-    }
+.dropdown {
+    right: 15px;
+    background: var(--global-accent-color);
+    border: 2px solid #3d3d3d;
+    color: var(--global-primary-color);
+}
+.dropdownItem {
+    width: 100%;
+    cursor: pointer;
+}
+.dropdownItem a {
+    color: var(--global-primary-color);
+    padding: 15px 12px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.dropdownItem a span {
+    font-size: 16px;
+    line-height: 16px;
+}
+.dropdownItem img {
+    height: 20px;
+    margin-right: 5px;
+}
+.divider {
+    border-top: 2px solid #3d3d3d;
 }
