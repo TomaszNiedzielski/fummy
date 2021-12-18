@@ -71,7 +71,7 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, dead
         }
 
         if(processingComplete === 0) {
-            setUploadMessage('Trwa przetwarzanie video. Może to zająć kilka minut.');
+            setIsUploaded(true);
             setStatusIcon('clock');
         }
     }, [video, isUploading, isUploaded, thumbnail, videoName, processingComplete]);
@@ -179,7 +179,7 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, dead
                 <div className="w-100 d-flex flex-column align-items-center">
                     {!unrealized && <div className={styles.upload}>
                         <label className={styles.label}>
-                            {!isUploaded && !isCompleted && <input type="file" className={styles.input} accept="video/mp4,video/x-m4v,video/*" onChange={e => onChange(e)} />}
+                            {!isUploaded && !isCompleted && !isUploading && <input type="file" className={styles.input} accept="video/mp4,video/x-m4v,video/*" onChange={e => onChange(e)} />}
                             <img alt="state" src={`/icons/${statusIcon}.png`} />
                             {<div className={styles.fileName}>{uploadMessage}</div>}
                             {isUploading && <ProgressBar progress={uploadProgress} />}
