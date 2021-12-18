@@ -17,7 +17,7 @@
 .modal-content {
     background: var(--global-dark-background);
     color: white!important;
-    border: 2px solid #ccc;
+    border: 2px solid #3d3d3d;
     max-height: calc(100vh - 30px);
 }
 
