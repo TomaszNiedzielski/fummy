@@ -54,12 +54,7 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
             setIsLoading(false);
 
             if(response.code === 200) {
-                router.push({
-                    pathname: `/u/${nick}/booked`,
-                    query: {
-                        'delivery': (is24HoursDeliveryOn ? '24h' : '7days')
-                    }
-                });
+                window.location.href = response.data.paymentLink;
             }
         })
         .catch(() => setIsLoading(false));
