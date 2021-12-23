@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { get } from '../helpers/ApiRequest';
 import AuthButtons from '../components/dedicated/auth_buttons/AuthButtons';
+import { API_STORAGE } from '../constants';
 
 export interface User {
     fullName: string;
@@ -21,9 +22,13 @@ const HomePage: React.FC<{ users: User[] }> = ({ users }) => {
 
     return (
         <>
-        <header className="home__header">
-            <h1 className="font-weight-bold mb-4 mt-0">Dedykowane filmy od twoich <br className="d-none d-sm-block" /> ulubionych idoli!</h1>
-            <div className="home__header__desc">Wyszukaj swojego ulubionego influencera i zamów <br className="d-none d-sm-block" /> video przygotowane specjalnie dla Ciebie!</div>
+        <header className="home-header">
+            <div className="home-header__text">
+                <h1 className="font-weight-bold mb-4 mt-0">Dedykowane filmy od twoich <br className="d-none d-sm-block" /> ulubionych idoli!</h1>
+                <div className="home-header__text--bottom">Wyszukaj swojego ulubionego influencera i zamów <br className="d-none d-sm-block" /> video przygotowane specjalnie dla Ciebie!</div>
+            </div>
+            <video src={API_STORAGE+'videos/video-1638309703.mp4'} autoPlay={true} loop={true} muted></video>
+            <div className="home-header__shadow"></div>
         </header>
 
         {(!token && users.length === 0) && <AuthButtons />}
