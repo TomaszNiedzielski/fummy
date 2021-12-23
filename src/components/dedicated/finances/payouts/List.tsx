@@ -13,7 +13,7 @@ const PayoutsHistoryList: React.FC<{ list: Item[] }> = ({ list }) => {
     return (
         <div className="primary-box primary-color my-3">
             {list.length ? list.map(({ createdAt, amount, isComplete }, i) => (
-                <div className={styles.item}>
+                <div className={styles.item} key={i}>
                     <div className="my-2">
                         <div className={styles.title}>Data wypłaty</div>
                         <div>

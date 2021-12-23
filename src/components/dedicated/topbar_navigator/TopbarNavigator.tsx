@@ -14,8 +14,8 @@ const TopbarNavigator: React.FC<Props> = ({ links }) => {
 
     return (
         <div className={styles.container}>
-            {links.map(({ title, href }) => (
-                <div className={styles.item +' '+ (location.pathname.slice(1) === href ? styles.active : '')}>
+            {links.map(({ title, href }, i) => (
+                <div key={i} className={styles.item +' '+ (location.pathname.slice(1) === href ? styles.active : '')}>
                     <Link to={href}>{title}</Link>
                 </div>
             ))}
