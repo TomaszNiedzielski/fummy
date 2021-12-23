@@ -21,6 +21,7 @@ interface Props {
 const MoneyBoxPage: React.FC<Props> = ({ incomesList, payoutsList, accountBalance, income }) => {
     return (
         <div className="container pt-3">
+            <h5 className="p-2 rounded text-center" style={{ backgroundColor: 'rgba(var(--global-primary-color-rgb), .1)' }}>Stan konta, wypłacanie, dochody</h5>
             <div className="d-flex flex-column flex-sm-row justify-content-center mb-5">
                 <section className="primary-box primary-color px-4 px-sm-5 text-center d-flex flex-column justify-content-center mr-sm-5 my-2">
                     <h5>Stan mojego konta</h5>
@@ -48,6 +49,7 @@ const MoneyBoxPage: React.FC<Props> = ({ incomesList, payoutsList, accountBalanc
                 }}
             />
 
+            <h5 className="mb-3 p-2 rounded text-center" style={{ backgroundColor: 'rgba(var(--global-primary-color-rgb), .1)' }}>Historia operacji finansowych</h5>
             <Router>
                 <TopbarNavigator
                     links={[{
