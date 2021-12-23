@@ -11,6 +11,7 @@ import Link from 'next/link';
 import Moment from 'react-moment';
 import 'moment/locale/pl';
 import { isLinkExternal } from '../../../../helpers/Link';
+import { Prompt } from 'react-router-dom';
 
 interface Props {
     id: number | string;
@@ -40,18 +41,31 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, dead
     const [video, setVideo] = useState<File>();
     const [isUploading, setIsUploading] = useState(false);
     const [isUploaded, setIsUploaded] = useState(false);
-    const [uploadMessage, setUploadMessage] = useState('Upuść video tutaj lub kliknij, aby wybrać z galerii.');
+    const [uploadMessage, setUploadMessage] = useState('Kliknij, aby wybrać video z galerii.');
     const [uploadProgress, setUploadProgress] = useState('0%');
     const [statusIcon, setStatusIcon] = useState<string>('upload');
     const [isCompleted, setIsCompleted] = useState(false);
     const [videoError, setVideoError] = useState<string>();
 
     useEffect(() => {
+        window.onbeforeunload = beforeUnload;
+
+        function beforeUnload(e: any) {
+            if(!isUploading) {
+                window.onbeforeunload = null;
+                e.preventDefault();
+            } else {
+                return 'Show alert!';
+            }
+        }
+    }, [isUploading]);
+
+    useEffect(() => {
         if(video && !isUploading) {
             setUploadMessage(video.name);
             setStatusIcon('upload');
         } else {
-            setUploadMessage('Upuść video tutaj lub kliknij, aby wybrać z galerii.');
+            setUploadMessage('Kliknij, aby wybrać video z galerii.');
         }
 
         if(isUploading) {
@@ -136,6 +150,10 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, dead
 
     return (
         <div className={styles.container}>
+            <Prompt
+                when={isUploading}
+                message={() => 'Trwa wysyłanie plików. Jeżele opuścisz tę stronę zmiany mogą zostać niezapisane.'}
+            />
             <div className={styles.scrollable}>
                 <div className={styles.price}>{price} {currency}</div>
                 <div className="w-100 d-flex flex-column">
