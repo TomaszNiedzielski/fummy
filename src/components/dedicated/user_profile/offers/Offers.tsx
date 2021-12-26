@@ -29,7 +29,7 @@ const Offers: React.FC<Props> = ({ isDashboard, nick, data, isActive }) => {
                     <EditButton title="Edytuj oferte" attributes={{ 'data-toggle': 'modal', 'data-target': '#editOffersModal' }} />
                 </div>}
             </div>
-            <div className="my-2" style={{ color: '#ccc' }}>
+            <div className="my-2 font-small" style={{ color: '#ccc' }}>
                 {isDashboard ? 'Poinformuj swoich fanów jaki rodzaj video oferujesz. Dodaj ofertę i poczekaj na zamówienia.'
                 : 'Kupując u tego użytkownika dostajesz gwarancję zwrotu pieniędzy w przypadku nie dostarczenia video.' }
             </div>

@@ -53,7 +53,7 @@ const Details: React.FC<Props> = ({ fullName, nick, bio, socials, avatar, isDash
                     </div>
                 </div>
             </div>
-            <div className="d-block d-md-none">
+            <div className="d-block d-md-none mt-2">
                 <Bio value={bio} isDashboard={isDashboard} />
                 {socials && <Links links={socials} />}
                 <Offers isDashboard={isDashboard} nick={nick} data={offers} isActive={isActive} />
