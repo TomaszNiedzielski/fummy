@@ -1,0 +1,52 @@
+.button {
+    border: none;
+    background-color: rgba(var(--global-primary-color-rgb), .15);
+    border-radius: 4px;
+    height: 40px;
+}
+.button:focus {
+    outline: none;
+}
+.hamburger {
+    height: 34px;
+    width: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 5px;
+    padding: 3px 3px;
+    cursor: pointer;
+}
+.focus {
+    background-color: transparent;
+}
+.focus .hamburger .line {
+    display: none;
+}
+.focus .hamburger::before {
+    transform: rotate(-45deg);
+    margin-bottom: -28px;
+    transition-duration: .2s;
+}
+.focus .hamburger::after {
+    transform: rotate(45deg);
+    margin-top: 0px;
+    transition-duration: .2s;
+}
+.line {
+    border-top: 4px solid var(--global-primary-color);
+    width: 25px;
+    border-radius: 2px;
+}
+.hamburger::before, .hamburger::after {
+    content: "";
+    display: block;
+    width: 25px;
+    border-top: 4px solid var(--global-primary-color);
+    border-radius: 2px;
+}
+.focus .hamburger::before .hamburger::after {
+    border-top-width: 6px;
+    width: 30px;
+}

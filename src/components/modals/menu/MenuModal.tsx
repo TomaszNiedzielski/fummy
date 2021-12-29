@@ -5,6 +5,7 @@ import { RootState } from '../../../redux/store';
 import { logout } from '../../../redux/actions/user/Auth';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import HamburgerButton from '../../buttons/hamburger/HamburgerButton';
 
 interface Props {
     isVisible: boolean;
@@ -43,9 +44,10 @@ const MenuModal: React.FC<Props> = ({ isVisible, onChange }) => {
         {isVisible && <div className={styles.overlay} onClick={() => onChange(false)}></div>}
         <div className={styles.container + ' ' + (isVisible ? styles.visible : '')}>
             <div className={styles.header}>
-                <button type="button" className="close" style={{ fontSize: '60px' }} onClick={() => onChange(false)}>
-                    <span aria-hidden="true" className="primary-color">&times;</span>
-                </button>
+                <HamburgerButton
+                    onClick={() => onChange(false)}
+                    isOpen={true}
+                />
             </div>
             <hr className={styles.hr} />
             <div className="d-flex flex-column align-items-center px-2">

@@ -9,6 +9,7 @@ import { RootState } from '../../redux/store';
 import { APP_NAME } from '../../constants';
 import MenuModal from '../modals/menu/MenuModal';
 import LoadingBar from '../loaders/bar/LoadingBar';
+import HamburgerButton from '../buttons/hamburger/HamburgerButton';
 
 const Navbar: React.FC = () => {
     const { auth } = useSelector((state: RootState) => state);
@@ -34,9 +35,12 @@ const Navbar: React.FC = () => {
 
             <SearchInput />
 
-            <button className="navbar-toggler" style={{ backgroundColor: 'var(--global-primary-color)' }} onClick={() => setIsMenuVisible(true)}>
-                <span className="navbar-toggler-icon"></span>
-            </button>
+            <div className="d-flex justify-content-center d-lg-none">
+                <HamburgerButton
+                    onClick={() => setIsMenuVisible(true)}
+                    isOpen={false}
+                />
+            </div>
 
             <div className="d-md-none d-sm-none d-none d-lg-block">
                 <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
