@@ -141,6 +141,14 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'webnar-bold';
 }
 
+p {
+  font-family: 'futura-light';
+}
+
+li {
+  list-style: none;
+}
+
 @media screen and (min-width: 992px) {
   .w-md-50 {
     width: 50%!important;

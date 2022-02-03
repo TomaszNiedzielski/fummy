@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
                     </Link>
                 </div>
             </div>
-            <div className={styles.copyright}>Copyright © {APP_NAME} 2021</div>
+            <div className={styles.copyright}>Copyright © {APP_NAME} 2021 - 2022</div>
         </footer>
         </>
     );
