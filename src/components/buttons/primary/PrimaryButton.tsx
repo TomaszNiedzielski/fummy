@@ -4,7 +4,7 @@ import styles from './PrimaryButton.module.css';
 
 export interface Props {
     type?: "button" | "submit" | "reset";
-    title: string;
+    title: string | React.FC;
     attributes?: object;
     style?: object;
     onClick?: () => void;
@@ -13,9 +13,10 @@ export interface Props {
 }
 
 const PrimaryButton: React.FC<Props> = ({ type, title, attributes, style, onClick, isLoading, disabled }) => {
+    const Title = title;
     return (
         <button type={type} { ...attributes } style={style} className={styles.button} onClick={onClick} disabled={disabled}>
-            {isLoading ? <Spinner /> : title}
+            {isLoading ? <Spinner /> : (typeof title === 'function' ? <Title /> : title)}
         </button>
     );
 }

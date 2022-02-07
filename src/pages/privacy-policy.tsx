@@ -190,21 +190,6 @@ const PrivacyPolicyPage = () => {
                     plików cookies niezbędnych dla procesów uwierzytelniania, bezpieczeństwa, utrzymania preferencji użytkownika może utrudnić,
                     a w skrajnych przypadkach może uniemożliwić korzystanie ze stron www.
                 </p></li>
-                <li><p>W celu zarządzania ustawienia cookies wybierz z listy poniżej przeglądarkę internetową, której używasz i postępuj zgodnie z instrukcjami:</p></li>
-                <ul>
-                    <li><p>Edge</p></li>
-                    <li><p>Internet Explorer</p></li>
-                    <li><p>Chrome</p></li>
-                    <li><p>Safari</p></li>
-                    <li><p>Firefox</p></li>
-                    <li><p>Opera</p></li>
-                </ul>
-                <p>Urządzenia mobilne:</p>
-                <ul>
-                    <li><p>Android</p></li>
-                    <li><p>Safari (iOS)</p></li>
-                    <li><p>Windows Phone</p></li>
-                </ul>
             </ul>
         </div>
     );

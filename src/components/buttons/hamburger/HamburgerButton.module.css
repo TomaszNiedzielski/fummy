@@ -8,7 +8,7 @@
     outline: none;
 }
 .hamburger {
-    height: 34px;
+    height: 30px;
     width: 40px;
     display: flex;
     flex-direction: column;

@@ -42,7 +42,7 @@ const PrimaryInput: React.FC<Props> = ({ type, label, placeholder, value, onChan
     return (
         <div className={styles.container}>
             {isCopyBubbleVisible && <div className={styles.copyBubble}>{copyBubbleText}</div>}
-            <label className={styles.label}>{label}</label>
+            {label ? <label className={styles.label}>{label}</label> : null}
             <input
                 type={type ? type : 'text'}
                 className={styles.input}
