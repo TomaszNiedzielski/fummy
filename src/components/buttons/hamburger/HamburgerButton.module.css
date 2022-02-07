@@ -18,15 +18,12 @@
     padding: 3px 3px;
     cursor: pointer;
 }
-.focus {
-    background-color: transparent;
-}
 .focus .hamburger .line {
     display: none;
 }
 .focus .hamburger::before {
     transform: rotate(-45deg);
-    margin-bottom: -28px;
+    margin-bottom: -24px;
     transition-duration: .2s;
 }
 .focus .hamburger::after {
@@ -35,7 +32,7 @@
     transition-duration: .2s;
 }
 .line {
-    border-top: 4px solid var(--global-primary-color);
+    border-top: 4.5px solid var(--global-primary-color);
     width: 25px;
     border-radius: 2px;
 }
@@ -43,10 +40,10 @@
     content: "";
     display: block;
     width: 25px;
-    border-top: 4px solid var(--global-primary-color);
+    border-top: 4.5px solid var(--global-primary-color);
     border-radius: 2px;
 }
-.focus .hamburger::before .hamburger::after {
+.focus .hamburger::before, .focus .hamburger::after {
     border-top-width: 6px;
-    width: 30px;
+    width: 25px;
 }
