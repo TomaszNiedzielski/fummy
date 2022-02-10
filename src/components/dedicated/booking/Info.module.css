@@ -23,6 +23,7 @@
     .container {
         max-width: 400px;
         align-self: flex-start;
-        margin-top: calc(50vh - 170px);
+        position: sticky;
+        top: 170px;
     }
 }
