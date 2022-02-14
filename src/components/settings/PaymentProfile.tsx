@@ -93,7 +93,7 @@ const PaymentProfile: React.FC = () => {
     }, [holderName]);
 
     return (
-        <section className="w-100 primary-box mt-3">
+        <section className="w-100 primary-box mt-3" id="payment_profile">
             <h5>Profil płatności</h5>
             <div>Uzupełnij dane, aby móc wypłacać zarobione pieniądze.</div>
             <div>

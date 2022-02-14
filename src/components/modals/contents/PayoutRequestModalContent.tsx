@@ -96,7 +96,7 @@ const PayoutRequestModalContent: React.FC<any> = ({ moneyAmount }) => {
                     <div>
                         <ConfirmButton
                             title="Przejdź do ustawień"
-                            onClick={() => router.push('settings')}
+                            onClick={() => router.push({ pathname: 'settings', query: {'scroll': 'payment-profile' } })}
                         />
                     </div>
                 </div>
