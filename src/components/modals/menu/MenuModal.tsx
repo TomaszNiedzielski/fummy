@@ -10,9 +10,10 @@ import HamburgerButton from '../../buttons/hamburger/HamburgerButton';
 interface Props {
     isVisible: boolean;
     onChange: (isVisible: boolean) => void;
+    newOrdersNumber: number;
 }
 
-const MenuModal: React.FC<Props> = ({ isVisible, onChange }) => {
+const MenuModal: React.FC<Props> = ({ isVisible, onChange, newOrdersNumber }) => {
     const auth = useSelector((state: RootState) => state.auth);
     const profile = useSelector((state: RootState) => state.profile);
 
@@ -63,6 +64,7 @@ const MenuModal: React.FC<Props> = ({ isVisible, onChange }) => {
                             <a className={styles.item}>
                                 <img src="/icons/clipboard.png" alt="user" className={styles.icon} />
                                 <span className="ml-2">Zamówienia</span>
+                                {newOrdersNumber ? <span className="badge primary-color-background accent-color ml-2" style={{ fontSize: '12px' }}>{newOrdersNumber}</span> : null}
                             </a>
                         </Link>
                         <Link href="/my-money">

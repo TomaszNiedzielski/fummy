@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Navbar.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
@@ -10,14 +10,29 @@ import { APP_NAME } from '../../constants';
 import MenuModal from '../modals/menu/MenuModal';
 import LoadingBar from '../loaders/bar/LoadingBar';
 import HamburgerButton from '../buttons/hamburger/HamburgerButton';
+import { get, Response } from '../../helpers/ApiRequest';
 
 const Navbar: React.FC = () => {
     const { auth } = useSelector((state: RootState) => state);
     const { fullName, nick } = useSelector((state: RootState) => state.profile);
 
     const [isMenuVisible, setIsMenuVisible] = useState(false);
+    const [newOrdersNumber, setNewOrdersNumber] = useState(0);
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(!auth.token) return;
+
+        get('notifications')
+        .then((response: Response) => {
+            const { code, data } = response;
+
+            if(code === 200) {
+                setNewOrdersNumber(data.notifications.orders.number);
+            }
+        });
+    }, [auth.token]);
 
     return (
         <>
@@ -73,6 +88,7 @@ const Navbar: React.FC = () => {
                                         <a>
                                             <img src="/icons/clipboard.png" alt="suitcase" />
                                             <span>Zamówienia</span>
+                                            {newOrdersNumber ? <span className="badge primary-color-background accent-color ml-2" style={{ fontSize: '12px' }}>{newOrdersNumber}</span> : null}
                                         </a>
                                     </Link>
                                 </div>
@@ -114,7 +130,11 @@ const Navbar: React.FC = () => {
             </div>
         </nav>
         <SearchResultsModal />
-        <MenuModal isVisible={isMenuVisible} onChange={isVisible => setIsMenuVisible(isVisible)} />
+        <MenuModal
+            isVisible={isMenuVisible}
+            onChange={isVisible => setIsMenuVisible(isVisible)}
+            newOrdersNumber={newOrdersNumber}
+        />
         </>
     );
 }

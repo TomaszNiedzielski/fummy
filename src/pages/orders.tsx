@@ -1,6 +1,6 @@
 import React from 'react';
 import OrderCard from '../components/dedicated/orders/card/Card';
-import { get, Response } from '../helpers/ApiRequest';
+import { get, post, Response } from '../helpers/ApiRequest';
 import Cookies from 'universal-cookie';
 import Navigator from '../components/dedicated/orders/navigator/Navigator';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
@@ -121,6 +121,8 @@ export const getServerSideProps = async ({ req }) => {
             orders = response.data;
         }
     });
+
+    await post('notifications/mark-as-read?token='+token);
 
     if(orders) {
         return {

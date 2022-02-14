@@ -25,6 +25,9 @@ code {
 .primary-color {
   color: var(--global-primary-color)!important;
 }
+.accent-color {
+  color: var(--global-accent-color)!important;
+}
 .primary-color-background {
   background-color: var(--global-primary-color);
 }
