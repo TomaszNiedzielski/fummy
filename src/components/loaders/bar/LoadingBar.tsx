@@ -15,8 +15,13 @@ const LoadingBar: React.FC = () => {
             setIsLoading(false);
         }
 
+        const routeChangeError = () => {
+            setIsLoading(false);
+        }
+
         router.events.on('routeChangeStart', handleRouteStart);
         router.events.on('routeChangeComplete', handleRouteComplete);
+        router.events.on('routeChangeError', routeChangeError);
 
         return () => {
             router.events.off('routeChangeStart', handleRouteStart);

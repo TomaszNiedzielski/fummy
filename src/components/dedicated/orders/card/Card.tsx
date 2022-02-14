@@ -12,6 +12,7 @@ import Moment from 'react-moment';
 import 'moment/locale/pl';
 import { isLinkExternal } from '../../../../helpers/Link';
 import { Prompt } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 interface Props {
     id: number | string;
@@ -35,6 +36,8 @@ const ProgressBar = ({ progress }) => (
     </div>
 );
 
+const PROMPT_MESSAGE = 'Trwa wysyłanie plików. Jeżele opuścisz tę stronę zmiany mogą zostać niezapisane.';
+
 const OrderCard: React.FC<Props> = ({ id, title, description, instructions, deadline, purchaser, price, currency, thumbnail, videoName, processingComplete, unrealized, videoCreatedAt }) => {
     const { nick } = useSelector((state: RootState) => state.profile);
 
@@ -46,6 +49,31 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, dead
     const [statusIcon, setStatusIcon] = useState<string>('upload');
     const [isCompleted, setIsCompleted] = useState(false);
     const [videoError, setVideoError] = useState<string>();
+
+    const router = useRouter();
+
+    useEffect(() => {
+        const handleWindowClose = (e: BeforeUnloadEvent) => {
+            if(!isUploading) return;
+            e.preventDefault();
+            return (e.returnValue = PROMPT_MESSAGE);
+        }
+
+        const handleBrowseAway = () => {
+            if(!isUploading) return;
+            if(window.confirm(PROMPT_MESSAGE)) return;
+            router.events.emit('routeChangeError');
+            throw 'routeChange aborted.';
+        }
+
+        window.addEventListener('beforeunload', handleWindowClose);
+        router.events.on('routeChangeStart', handleBrowseAway);
+        
+        return () => {
+            window.removeEventListener('beforeunload', handleWindowClose);
+            router.events.off('routeChangeStart', handleBrowseAway);
+        }
+    }, [isUploading]);
 
     useEffect(() => {
         window.onbeforeunload = beforeUnload;
@@ -152,7 +180,7 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, dead
         <div className={styles.container}>
             <Prompt
                 when={isUploading}
-                message={() => 'Trwa wysyłanie plików. Jeżele opuścisz tę stronę zmiany mogą zostać niezapisane.'}
+                message={PROMPT_MESSAGE}
             />
             <div className={styles.scrollable}>
                 <div className={styles.price}>{price} {currency}</div>
