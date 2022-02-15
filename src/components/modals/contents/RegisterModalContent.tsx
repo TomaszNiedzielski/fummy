@@ -104,6 +104,7 @@ const RegisterModalContent = () => {
                 maxLength={NICK_LENGTH}
                 errorMessage={nickError}
                 onBlur={() => setNickError(nickRules(nick))}
+                autoCapitalize="none"
             />
             <PrimaryInput
                 type="password"

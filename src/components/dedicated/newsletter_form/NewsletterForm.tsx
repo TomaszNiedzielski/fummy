@@ -41,6 +41,7 @@ const NewsletterForm: React.FC = () => {
     return (
         <form className="d-flex align-items-start justify-content-center" onSubmit={saveEmail}>
             <PrimaryInput
+                type="email"
                 placeholder="Podaj swój adres e-mail"
                 onChange={newValue => setEmail(newValue)}
                 value={email}

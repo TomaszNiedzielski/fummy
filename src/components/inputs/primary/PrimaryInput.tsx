@@ -14,9 +14,10 @@ export interface Props {
     onBlur?: () => void;
     style?: object;
     inputMode?: 'search' | 'text' | 'none' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal';
+    autoCapitalize?: string;
 }
 
-const PrimaryInput: React.FC<Props> = ({ type, label, placeholder, value, onChange, maxLength, min, clickToCopy, errorMessage, onBlur, style, inputMode }) => {
+const PrimaryInput: React.FC<Props> = ({ type, label, placeholder, value, onChange, maxLength, min, clickToCopy, errorMessage, onBlur, style, inputMode, autoCapitalize }) => {
     const BEFORE_COPY__BUBBLE_TEXT = 'Kliknij, by skopiować';
     const AFTER_COPY__BUBBLE_TEXT = 'Skopiowano';
 
@@ -56,6 +57,7 @@ const PrimaryInput: React.FC<Props> = ({ type, label, placeholder, value, onChan
                 style={style}
                 inputMode={inputMode}
                 readOnly={clickToCopy}
+                autoCapitalize={autoCapitalize}
             />
             {errorMessage && <div className={styles.error}>{errorMessage}</div>}
         </div>
