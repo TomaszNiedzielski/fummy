@@ -9,7 +9,7 @@ const cookies = new Cookies();
 
 export const authSuccess = (token: string) => {
     return (dispatch: Dispatch) => {
-        cookies.set('token', token, { path: '/' });
+        cookies.set('token', token, { path: '/', maxAge: 31536000 });
         dispatch({ type: AUTH_SUCCESS, payload: { token }});
     }
 }
