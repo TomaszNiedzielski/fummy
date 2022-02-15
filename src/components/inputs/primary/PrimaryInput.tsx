@@ -55,6 +55,7 @@ const PrimaryInput: React.FC<Props> = ({ type, label, placeholder, value, onChan
                 onBlur={onBlur}
                 style={style}
                 inputMode={inputMode}
+                readOnly={clickToCopy}
             />
             {errorMessage && <div className={styles.error}>{errorMessage}</div>}
         </div>
