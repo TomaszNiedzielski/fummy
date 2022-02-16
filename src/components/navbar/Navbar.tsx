@@ -11,6 +11,7 @@ import MenuModal from '../modals/menu/MenuModal';
 import LoadingBar from '../loaders/bar/LoadingBar';
 import HamburgerButton from '../buttons/hamburger/HamburgerButton';
 import { get, Response } from '../../helpers/ApiRequest';
+import { useRouter } from 'next/router';
 
 const Navbar: React.FC = () => {
     const { auth } = useSelector((state: RootState) => state);
@@ -20,6 +21,7 @@ const Navbar: React.FC = () => {
     const [newOrdersNumber, setNewOrdersNumber] = useState(0);
 
     const dispatch = useDispatch();
+    const router = useRouter();
 
     useEffect(() => {
         if(!auth.token) return;
@@ -32,7 +34,7 @@ const Navbar: React.FC = () => {
                 setNewOrdersNumber(data.notifications.orders.number);
             }
         });
-    }, [auth.token]);
+    }, [auth.token, router.pathname]);
 
     return (
         <>

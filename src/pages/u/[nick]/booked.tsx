@@ -11,6 +11,7 @@ const BookedPage: React.FC<{ purchaseStatus: string }> = ({ purchaseStatus }) =>
             {purchaseStatus === 'paid' ? <>
                 <img src="/icons/champagne.png" alt="champagne" style={{ height: '150px' }} />
                 <h6 className="mt-4 text-center">Gratulacje! W ciągu {delivery === '24h' ? '24 godzin' : '7 dni'} otrzymasz video od {nick}.</h6>
+                <small className="text-secondary mt-3 text-center">Link do nagrania zostanie przesłany na podany <br /> przez ciebie adres e-mail.</small>
             </> : <h6>Coś poszło nie tak.</h6>}
         </div>
     );
