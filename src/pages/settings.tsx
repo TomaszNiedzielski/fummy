@@ -20,6 +20,7 @@ const SettingsPage: React.FC = () => {
         <div className="container">
             <div className="d-flex flex-column align-items-center py-3 mx-auto" style={{ maxWidth: '550px' }}>
                 <h3 className="mb-3">Ustawienia</h3>
+                <input type="email" style={{ width: 0, height: 0, padding: 0, border: 'none' }} />
                 <UpdatePassword />
                 <ActivityStatus />
                 <_24HrDelivery />
