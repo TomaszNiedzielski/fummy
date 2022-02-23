@@ -1,9 +1,12 @@
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import VideoPlayer from '../../../../components/dedicated/video_player/VideoPlayer';
 import { API_STORAGE } from '../../../../constants';
 
 const VideoPage: React.FC = (props) => {
     const [name, setName] = useState<string>();
+
+    const router = useRouter();
 
     useEffect(() => {
         document.body.classList.add('overflow-hidden');
@@ -19,6 +22,20 @@ const VideoPage: React.FC = (props) => {
         const videoName = window.location.href.split('/').pop();
 
         setName(videoName);
+    }, []);
+
+    useEffect(() => {
+        const handleEsc = (e: any) => {
+            if(e.keyCode === 27) {
+                router.back();
+            }
+        }
+
+        window.addEventListener('keydown', handleEsc);
+    
+        return () => {
+            window.removeEventListener('keydown', handleEsc);
+        };
     }, []);
 
     return (
