@@ -62,3 +62,7 @@ export const get = (url: string, data?: object, onUploadProgress?: (p: unknown) 
 export const put = (url: string, data?: object, onUploadProgress?: (p: unknown) => void) => {
     return base('put', url, data, onUploadProgress);
 }
+
+export const _delete = (url: string, data?: object, onUploadProgress?: (p: unknown) => void) => {
+    return base('delete', url, data, onUploadProgress);
+}
