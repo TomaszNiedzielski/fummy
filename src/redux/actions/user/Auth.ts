@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
 import Cookies from 'universal-cookie';
+import { post } from '../../../helpers/ApiRequest';
 
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const SET_TOKEN = 'SET_TOKEN';
@@ -22,11 +23,11 @@ export const setToken = (token: string) => {
 }
 
 export const logout = () => {
-
-    return (dispatch: Dispatch) => {
-        cookies.remove('token', { path: '/' });
-
-        // dispatch({ type: LOGOUT });
-        window.location.reload();
+    return () => {
+        post('auth/logout')
+        .then(() => {
+            cookies.remove('token', { path: '/' });
+            window.location.reload();
+        });
     }
 }
