@@ -6,6 +6,7 @@ import { authSuccess } from '../../../redux/actions/user/Auth';
 import { NICK_LENGTH } from '../../../constants';
 import { fullNameRules, emailRules, nickRules, passwordRules } from '../../../helpers/ValidationRules';
 import { post, Response } from '../../../helpers/ApiRequest';
+import Checkbox from '../../inputs/checkbox/Checkbox';
 
 const RegisterModalContent = () => {
     const [fullName, setFullName] = useState<string>();
@@ -13,11 +14,13 @@ const RegisterModalContent = () => {
     const [nick, setNick] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [isLoading, setIsLoading] = useState<boolean>();
+    const [isAgreed, setIsAgreed] = useState<boolean>();
 
     const [fullNameError, setFullNameError] = useState<string>();
     const [emailError, setEmailError] = useState<string>();
     const [nickError, setNickError] = useState<string>();
     const [passwordError, setPasswordError] = useState<string>();
+    const [isAgreedError, setIsAgreedError] = useState<string>();
 
     const dispatch = useDispatch();
 
@@ -64,13 +67,18 @@ const RegisterModalContent = () => {
         if(passwordError) setPasswordError(passwordRules(password));
     }, [password]);
 
-    const isFormCorrect = () => {        
+    useEffect(() => {
+        if(isAgreedError) setIsAgreedError(!isAgreed ? 'Musisz zaakceptować regulamin i politykę prywatności.' : '');
+    }, [isAgreed]);
+
+    const isFormCorrect = () => {
         setFullNameError(fullNameRules(fullName));
         setEmailError(emailRules(email));
         setNickError(nickRules(nick));
         setPasswordError(passwordRules(password));
+        setIsAgreedError(!isAgreed ? 'Musisz zaakceptować regulamin i politykę prywatności.' : '');
 
-        if(!fullName || !email || !nick || !password || fullNameError || emailError || nickError || passwordError) {
+        if(!fullName || !email || !nick || !password ||!isAgreed || fullNameError || emailError || nickError || passwordError) {
             return false;
         }
         
@@ -115,6 +123,14 @@ const RegisterModalContent = () => {
                 errorMessage={passwordError}
                 onBlur={() => setPasswordError(passwordRules(password))}
             />
+            <div className="d-flex w-100 mt-2">
+                <Checkbox
+                    value={isAgreed}
+                    onChange={setIsAgreed}
+                    label="Akceptuję regulamin i politykę prywatności."
+                    errorMessage={isAgreedError}
+                />
+            </div>
             <div className="mt-3 w-75 d-flex justify-content-center mb-5">
                 <PrimaryButton
                     type="submit"
