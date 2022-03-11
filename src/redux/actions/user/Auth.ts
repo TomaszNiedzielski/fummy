@@ -25,7 +25,7 @@ export const setToken = (token: string) => {
 export const logout = () => {
     return () => {
         post('auth/logout')
-        .then(() => {
+        .finally(() => {
             cookies.remove('token', { path: '/' });
             window.location.reload();
         });
