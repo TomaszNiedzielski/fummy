@@ -64,7 +64,7 @@ const AdminPage: React.FC<{ users: User[] }> = ({ users }) => {
                         <tr key={id}>
                             <th scope="row">{id}</th>
                             <td>
-                                <img src={(isLinkExternal(avatar) ? avatar : API_STORAGE + 'avatars/' + avatar)} alt="avatar" height={40} width={40} />
+                                {avatar && <img src={(isLinkExternal(avatar) ? avatar : API_STORAGE + 'avatars/' + avatar)} alt="avatar" height={40} width={40} />}
                             </td>
                             <td>{fullName}</td>
                             <td>{email}</td>
