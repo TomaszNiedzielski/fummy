@@ -14,12 +14,12 @@ interface User {
     ordersNumber: number;
 }
 
-const AdminPage: React.FC<{ users: User[] }> = ({ users }) => {
+const AdminPage: React.FC<{ users: User[]; token: string }> = ({ users, token }) => {
     const [updatedUsers, setUpdatedUsers] = useState(users);
 
     const verifyUser = (id: string) => {
         if(confirm('Czy napewno chcesz zweryfikować tego użytkownika?')) {
-            post('admin/users/'+id+'/verify')
+            post('admin/users/'+id+'/verify?token='+token)
             .then(() => {
                 const updated = updatedUsers.map(user => {
                     if(user.id === id) {
@@ -36,7 +36,7 @@ const AdminPage: React.FC<{ users: User[] }> = ({ users }) => {
 
     const deleteUser = (id: string) => {
         if(confirm('Czy napewno chcesz usunąć tego użytkownika?')) {
-            _delete('admin/users/'+id)
+            _delete('admin/users/'+id+'?token='+token)
             .then(() => {
                 const updated = updatedUsers.filter(user => user.id !== id);
 
@@ -83,7 +83,7 @@ const AdminPage: React.FC<{ users: User[] }> = ({ users }) => {
 }
 
 export const getServerSideProps = async ({ req }) => {
-    const token = new Cookies(req.headers.cookie).get('token');
+    const token = new Cookies(req.headers.cookie).get('admin_token');
 
     if(!token) {
         return {
@@ -107,6 +107,7 @@ export const getServerSideProps = async ({ req }) => {
 
     return {
         props: {
+            token,
             users: usersResponse.data
         }
     }
