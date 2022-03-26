@@ -3,12 +3,19 @@ import styles from './EditButton.module.css';
 
 interface Props {
     title: string;
-    attributes: object;
+    attributes?: object;
+    style?: React.CSSProperties;
+    onClick?: () => void;
 }
 
-const EditButton: React.FC<Props> = ({ title, attributes }) => {
+const EditButton: React.FC<Props> = ({ title, attributes, style, onClick }) => {
     return (
-        <button className={styles.editButton} {...attributes}>{title}</button>
+        <button
+            className={styles.editButton}
+            {...attributes}
+            style={style}
+            onClick={onClick}
+        >{title}</button>
     );
 }
 export default EditButton;

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Navbar.module.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Link from 'next/link';
-import { logout } from '../../redux/actions/user/Auth';
 import SearchInput from '../inputs/search/SearchInput';
 import SearchResultsModal from '../modals/SearchResultsModal';
 import { RootState } from '../../redux/store';
@@ -20,7 +19,6 @@ const Navbar: React.FC = () => {
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const [newOrdersNumber, setNewOrdersNumber] = useState(0);
 
-    const dispatch = useDispatch();
     const router = useRouter();
 
     useEffect(() => {
@@ -70,10 +68,40 @@ const Navbar: React.FC = () => {
                             <span className={styles.registerLink} data-toggle="modal" data-target="#registerModal">Dołącz jako influencer</span>
                         </li>
                         </> :
+                        <>
                         <li className={styles.item}>
-                            <span className="dropdown-toggle" data-toggle="dropdown">{fullName}</span>
+                            <Link href={"/orders"}>
+                                <a className={styles.itemIcon}>
+                                    <img src="/icons/clipboard.png" alt="suitcase" />
+                                    {newOrdersNumber ? <span className={styles.badge + " badge"}>{newOrdersNumber}</span> : null}
+                                </a>
+                            </Link>
+                        </li>
+                        <li className={styles.item}>
+                            <Link href={"/my-money"}>
+                                <a className={styles.itemIcon}>
+                                    <img src="/icons/money.svg" alt="suitcase" />
+                                </a>
+                            </Link>
+                        </li>
+                        <li className={styles.item}>
+                            <Link href="/settings">
+                                <a className={styles.itemIcon}>
+                                    <img src="/icons/settings.svg" alt="suitcase" />
+                                </a>
+                            </Link>
+                        </li>
+                        <li className={styles.item + " ml-4"}>
+                            <Link href={"/u/" + nick}>
+                                <a>
+                                    <span>{fullName}</span>
+                                </a>
+                            </Link>
 
-                            <div className={styles.dropdown + " dropdown-menu dropdown-menu-right"}>
+
+                            {/* <span className="dropdown-toggle" data-toggle="dropdown">{fullName}</span> */}
+
+                            {/* <div className={styles.dropdown + " dropdown-menu dropdown-menu-right"}>
                                 <div className={styles.dropdownItem}>
                                     <Link href={"/u/" + nick}>
                                         <a>
@@ -125,8 +153,9 @@ const Navbar: React.FC = () => {
                                         <span className="text-white">Wyloguj się</span>
                                     </a>
                                 </div>
-                            </div>
+                            </div> */}
                         </li>
+                        </>
                     }
                 </ul>
             </div>

@@ -1,6 +1,31 @@
 .item {
     display: flex;
     align-items: center;
+    margin-left: 10px;
+}
+.itemIcon {
+    background: rgba(var(--global-primary-color-rgb), .2);
+    border-radius: 45px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.itemIcon img {
+    width: 16px;
+}
+.badge {
+    font-size: 12px!important;
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    border-radius: 10px;
+    background-color: #e41e3f;
+    padding: 5px;
+    min-width: 21px;
+    color: white!important;
 }
 .item span {
     color: var(--global-primary-color);

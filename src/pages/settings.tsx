@@ -5,6 +5,7 @@ import ActivityStatus from '../components/settings/ActivityStatus';
 import _24HrDelivery from '../components/settings/24HrDelivery';
 import PaymentProfile from '../components/settings/PaymentProfile';
 import { useRouter } from 'next/router';
+import Account from '../components/settings/Account';
 
 const SettingsPage: React.FC = () => {
     const router = useRouter();
@@ -25,6 +26,7 @@ const SettingsPage: React.FC = () => {
                 <ActivityStatus />
                 <_24HrDelivery />
                 <PaymentProfile />
+                <Account />
             </div>
         </div>
     );
