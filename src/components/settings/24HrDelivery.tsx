@@ -26,7 +26,7 @@ const _24HrDelivery: React.FC = () => {
                     <h5>Dostępność w 24 godziny</h5>
                     <div className="font-small">
                         Im szybciej tym lepiej. Dasz radę nagrać video w 24 godziny? Twoi fani będą zachwycenii.
-                        Ludzie kochają szybkie realizacje, korzystająć z tej opcji twoja prowizja, zwiększy się o 5%.
+                        Ludzie kochają szybkie realizacje - korzystając z tej opcji twoja prowizja zwiększy się o 5%.
                     </div>
                 </div>
                 {profile.is24HoursDeliveryOn !== null && <ToggleSwitch
