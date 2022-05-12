@@ -8,7 +8,7 @@ import { LOAD_OFFERS_SUCCESS } from '../../redux/actions/user/Offers';
 import Videos from '../../components/dedicated/user_profile/videos/Videos';
 import Cookies from 'universal-cookie';
 import { USER_PROFILE_LOADING_SUCCESS } from '../../redux/actions/user/Profile';
-import Unverified from '../../components/dedicated/user_profile/unverified/Unverified';
+import CompletenessSteps from '../../components/dedicated/user_profile/completeness_steps/CompletenessSteps';
 
 const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDetails, e }) => {
     const { profile, offers } = useSelector((state: RootState) => state);
@@ -58,7 +58,10 @@ const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDet
                     isActive={userDetails.isActive}
                     is24HoursDeliveryOn={userDetails.is24HoursDeliveryOn}
                 />
-                {isDashboard && !isVerified ? <Unverified /> : null}
+                {isDashboard && <CompletenessSteps
+                    isVerified={isVerified}
+                    isWelcomeVideoCompleted={videos.length > 0 ? true : false}
+                />}
                 <div className="mt-4">
                     <Videos nick={nick} videos={videos} />
                 </div>
