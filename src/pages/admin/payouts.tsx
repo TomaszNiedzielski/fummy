@@ -1,10 +1,11 @@
+import { useState } from 'react';
 import Cookies from 'universal-cookie';
 import { API_STORAGE } from '../../constants';
-import { get } from '../../helpers/ApiRequest';
+import { get, post } from '../../helpers/ApiRequest';
 import { isLinkExternal } from '../../helpers/Link';
 
 interface Payout {
-    id: number;
+    id: string;
     amount: string;
     createdAt: string;
     isComplete: boolean;
@@ -21,7 +22,28 @@ interface Payout {
     };
 }
 
-const PayoutsPage: React.FC<{ payouts: Payout[] }> = ({ payouts }) => {
+const PayoutsPage: React.FC<{ payoutsProps: Payout[]; token: string; }> = ({ payoutsProps, token }) => {
+    const [payouts, setPayouts] = useState(payoutsProps);
+
+    const confirmPayout = (id: string) => {
+        if(confirm('Czy na pewno chcesz potwierdzić tą wypłate?')) {
+            post('admin/payouts/'+id+'/confirm?token='+token)
+            .then((res: any) => {
+                if(res.code === 200) {
+                    const updatedPayouts = payouts.map((payout) => {
+                        if(payout.id === id) {
+                            payout.isComplete = true;
+                        }
+
+                        return payout;
+                    });
+
+                    setPayouts(updatedPayouts);
+                }
+            });
+        }
+    }
+ 
     return (
         <div style={{ height: '100vh' }}>
             <table className="table table-dark table-responsive">
@@ -54,7 +76,7 @@ const PayoutsPage: React.FC<{ payouts: Payout[] }> = ({ payouts }) => {
                             <td>{holderName}</td>
                             <td>{number}</td>
                             <td>
-                                <button className="btn btn-primary btn-sm" onClick={() => alert('To jeszcze nie działa!')}>Oznacz jako przelane</button>
+                                {!isComplete && <button className="btn btn-primary btn-sm" onClick={() => confirmPayout(id)}>Oznacz jako przelane</button>}
                             </td>
                         </tr>
                     ))}
@@ -70,7 +92,8 @@ export const getServerSideProps = async ({ req }) => {
 
     return {
         props: {
-            payouts: payoutsResponse.data
+            payoutsProps: payoutsResponse.data,
+            token
         }
     }
 }
