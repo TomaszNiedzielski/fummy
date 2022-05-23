@@ -47,7 +47,7 @@ const CompletenessSteps: React.FC<{ isVerified: boolean, isWelcomeVideoCompleted
                         <span>4. Dodaj ofertę filmów, jakie chcesz nagrywać. {offers.data.length > 0 && <Check />}</span>
                     </li>
                     <li>
-                        <span>5. Nagraj video na przywitanie i zgarnij 100 złoty! {isWelcomeVideoCompleted && <Check />}</span>
+                        <span>5. Nagraj video na przywitanie i zgarnij 100 złotych! {isWelcomeVideoCompleted && <Check />}</span>
                     </li>
                     <li>
                         <span>
