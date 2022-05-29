@@ -9,6 +9,7 @@ import Videos from '../../components/dedicated/user_profile/videos/Videos';
 import Cookies from 'universal-cookie';
 import { USER_PROFILE_LOADING_SUCCESS } from '../../redux/actions/user/Profile';
 import CompletenessSteps from '../../components/dedicated/user_profile/completeness_steps/CompletenessSteps';
+import Reviews from '../../components/dedicated/user_profile/reviews/Reviews';
 
 const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDetails, e }) => {
     const { profile, offers } = useSelector((state: RootState) => state);
@@ -62,8 +63,13 @@ const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDet
                     isVerified={isVerified}
                     isWelcomeVideoCompleted={videos.length > 0 ? true : false}
                 />}
-                <div className="mt-4">
-                    <Videos nick={nick} videos={videos} />
+                <div className="container" style={{ minHeight: 'unset' }}>
+                    <div className="mt-4">
+                        <Videos nick={nick} videos={videos} />
+                    </div>
+                    <div className="my-5">
+                        <Reviews isDashboard={isDashboard } />
+                    </div>
                 </div>
             </div>
         );

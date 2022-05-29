@@ -1,0 +1,74 @@
+.container {
+    margin: 14px 0;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, .05);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 50px auto;
+    grid-template-rows: repeat(4, auto);
+    grid-template-areas: 
+        "avatar name"
+        "avatar date"
+        "rate rate"
+        "text text";
+}
+.empty {
+    background-color: rgba(255, 255, 255, .05);
+    padding: 10px;
+    border-radius: 10px;
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.avatar {
+    grid-area: avatar;
+    background-color: var(--global-primary-color);
+    height: 35px;
+    width: 35px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    margin-right: 12px;
+    align-self: center;
+}
+.name {
+    grid-area: name;
+}
+.date {
+    grid-area: date;
+    font-size: 14px;
+    font-family: futura-light;
+}
+.rate {
+    grid-area: rate;
+    margin-top: 6px;
+}
+.text {
+    grid-area: text;
+    color: rgb(190, 187, 191);
+}
+
+.all {
+    color: cadetblue;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+    .container:not(.mobile) {
+        padding: 20px 50px;
+        grid-template-columns: 200px auto;
+        grid-template-areas: 
+            "avatar rate"
+            "name text"
+            "date text";
+    }
+    .rate {
+        margin-top: 0px;
+    }
+    .name {
+        margin-top: 4px;
+    }
+}

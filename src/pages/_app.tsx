@@ -72,6 +72,7 @@ function Index({ Component, pageProps }) {
                 <title>{title}</title>
                 <meta name="description" content="Wyszukaj swojego ulubionego influencera i zamów video przygotowane specjalnie dla Ciebie!" />
                 <link rel="icon" href="/icons/favicon.ico" />
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"></link>
                 <script src="https://kit.fontawesome.com/b002c191d7.js" crossOrigin="anonymous"></script>
             </Head>
             <Navbar />

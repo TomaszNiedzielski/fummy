@@ -1,0 +1,48 @@
+/* use display:inline-flex to prevent whitespace issues. alternatively, you can put all the children of .group on a single line */
+.group {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* make hover effect work properly in IE */
+.icon {
+    pointer-events: none;
+}
+
+/* hide radio inputs */
+.input {
+    position: absolute !important;
+    left: -9999px !important;
+}
+
+/* hide 'none' input from screenreaders */
+.inputNone {
+    display: none
+}
+
+/* set icon padding and size */
+.label {
+    cursor: pointer;
+    padding: 0 0.1em;
+    margin: 0;
+}
+
+/* set default star color */
+.iconStar {
+    color: orange;
+}
+
+/* if any input is checked, make its following siblings grey */
+.input:checked~.label .iconStar {
+    color: #ddd;
+}
+
+/* make all stars orange on rating group hover */
+.group:hover .label .iconStar {
+    color: orange;
+}
+
+/* make hovered input's following siblings grey on hover */
+.input:hover~.label.changeable .iconStar {
+    color: #ddd;
+}
