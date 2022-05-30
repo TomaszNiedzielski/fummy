@@ -92,7 +92,7 @@ const ReviewPage: NextPage<Props> = ({ isReviewedProp }) => {
             </section> :
             <div className="d-flex flex-column align-items-center">
                 <h6 className="mt-5 text-center mb-3">Dziękujemy za przesłanie opinii!</h6>
-                <EditButton title="Edytuj opinię" onClick={() => setIsReviewed(false)} />
+                <EditButton title="Zmień opinię" onClick={() => setIsReviewed(false)} />
             </div> 
             }
         </div>
