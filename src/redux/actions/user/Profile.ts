@@ -17,6 +17,9 @@ export const loadProfileDetails = () => {
                     payload: response.data
                 });
             }
+        })
+        .catch(() => {
+            cookies.remove('token');
         });
     }
 }
