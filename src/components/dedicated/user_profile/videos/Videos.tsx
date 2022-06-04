@@ -50,7 +50,12 @@ const Videos: React.FC<Props> = ({ nick, videos }) => {
                         <SwiperSlide key={i}>
                             <div className={styles.card}>
                                 <Link to={`${nick}/video/${name}`}>
-                                    <img src={isLinkExternal(thumbnail) ? thumbnail : `${API_STORAGE}thumbnails/${thumbnail}`} alt="cover" className={styles.mask} />
+                                    <>
+                                        <div className={styles.play}>
+                                            <i className=" fas fa-play"></i>
+                                        </div>
+                                        <img src={isLinkExternal(thumbnail) ? thumbnail : `${API_STORAGE}thumbnails/${thumbnail}`} alt="cover" className={styles.mask} />
+                                    </>
                                 </Link>
                             </div>
                         </SwiperSlide>

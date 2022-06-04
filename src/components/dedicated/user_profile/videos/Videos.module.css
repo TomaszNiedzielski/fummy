@@ -12,3 +12,24 @@
     border-radius: 8px;
     object-fit: cover;
 }
+.card a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.play {
+    position: absolute;
+    color: white;
+    background: rgba(255, 255, 255, 0.5);
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+}
+.play i {
+    font-size: 24px;
+    margin-left: 5px;
+}
