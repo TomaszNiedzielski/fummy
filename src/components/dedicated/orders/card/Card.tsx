@@ -14,11 +14,12 @@ import { isLinkExternal } from '../../../../helpers/Link';
 import { Prompt } from 'react-router-dom';
 import { useRouter } from 'next/router';
 
-interface Props {
+export interface Props {
     id: number | string;
     title: string;
     description: string;
     instructions: string;
+    isPrivate: boolean;
     deadline: string;
     purchaser: string;
     price: number;
@@ -38,7 +39,7 @@ const ProgressBar = ({ progress }) => (
 
 const PROMPT_MESSAGE = 'Trwa wysyłanie plików. Jeżele opuścisz tę stronę zmiany mogą zostać niezapisane.';
 
-const OrderCard: React.FC<Props> = ({ id, title, description, instructions, deadline, purchaser, price, currency, thumbnail, videoName, processingComplete, unrealized, videoCreatedAt }) => {
+const OrderCard: React.FC<Props> = ({ id, title, description, instructions, isPrivate, deadline, purchaser, price, currency, thumbnail, videoName, processingComplete, unrealized, videoCreatedAt }) => {
     const { nick } = useSelector((state: RootState) => state.profile);
 
     const [video, setVideo] = useState<File>();
@@ -210,6 +211,13 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, dead
                     <div className={styles.specification}>
                         <div className={styles.specificationTitle}>Instrukcja do wykonania</div>
                         <div className={styles.specificationBody}>{instructions}</div>
+                    </div>
+                    <div className={styles.specification}>
+                        <div className={styles.specificationTitle}>Dostęp do nagrania</div>
+                        <div className={styles.specificationBody}>
+                            {isPrivate ? <span className="text-success">Video prywatne, link ma tylko zamawiający.</span>
+                            : <span className="text-info">Video dostępne na Twoim profilu.</span>}
+                        </div>
                     </div>
                     {!isCompleted && <div className={styles.specification}>
                         <div className={styles.specificationTitle}>Czas na wykonanie zamówienia</div>

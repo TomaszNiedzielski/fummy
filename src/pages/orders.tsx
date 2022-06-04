@@ -6,22 +6,15 @@ import Navigator from '../components/dedicated/orders/navigator/Navigator';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import { Props as Order } from '../components/dedicated/orders/card/Card';
 
 const CurrentOrders = ({ orders }) => {
     if(orders.length > 0) {
         return (
-            orders.map(({ id, title, description, instructions, deadline, purchaser, price, currency, processingComplete }) => (
+            orders.map((order: Order) => (
                 <OrderCard
-                    key={id}
-                    id={id}
-                    title={title}
-                    description={description}
-                    instructions={instructions}
-                    deadline={deadline}
-                    purchaser={purchaser}
-                    price={price}
-                    currency={currency}
-                    processingComplete={processingComplete}
+                    key={order.id}
+                    {...order}
                 />
             ))
         );
@@ -33,21 +26,10 @@ const CurrentOrders = ({ orders }) => {
 const CompletedOrders = ({ orders }) => {
     if(orders.length > 0) {
         return (
-            orders.map(({ id, title, description, instructions, deadline, purchaser, price, currency, videoName, thumbnail, processingComplete, videoCreatedAt }) => (
+            orders.map((order: Order) => (
                 <OrderCard
-                    key={id}
-                    id={id}
-                    title={title}
-                    description={description}
-                    instructions={instructions}
-                    deadline={deadline}
-                    purchaser={purchaser}
-                    price={price}
-                    currency={currency}
-                    thumbnail={thumbnail}
-                    videoName={videoName}
-                    processingComplete={processingComplete}
-                    videoCreatedAt={videoCreatedAt}
+                    key={order.id}
+                    {...order}
                 />
             ))
         );
@@ -59,17 +41,10 @@ const CompletedOrders = ({ orders }) => {
 const UnrealizedOrders = ({ orders }) => {
     if(orders.length > 0) {
         return (
-            orders.map(({ id, title, description, instructions, deadline, purchaser, price, currency }) => (
+            orders.map((order: Order) => (
                 <OrderCard
-                    key={id}
-                    id={id}
-                    title={title}
-                    description={description}
-                    instructions={instructions}
-                    deadline={deadline}
-                    purchaser={purchaser}
-                    price={price}
-                    currency={currency}
+                    key={order.id}
+                    {...order}
                     unrealized={true}
                 />
             ))
