@@ -64,9 +64,9 @@ const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDet
                     isWelcomeVideoCompleted={videos.length > 0 ? true : false}
                 />}
                 <div className="container" style={{ minHeight: 'unset' }}>
-                    <div className="mt-4">
+                    {videos.length ? <div className="mt-4">
                         <Videos nick={nick} videos={videos} />
-                    </div>
+                    </div> : null}
                     <div className="my-5">
                         <Reviews isDashboard={isDashboard } />
                     </div>

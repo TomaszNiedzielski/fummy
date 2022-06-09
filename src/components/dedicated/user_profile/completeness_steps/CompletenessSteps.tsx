@@ -29,10 +29,8 @@ const CompletenessSteps: React.FC<{ isVerified: boolean, isWelcomeVideoCompleted
 
     if(completeness < 6) {
         return (
-            <div className={styles.container}>
-                <section>
-                    <h5>Uzupełnij swój profil ({completeness} / 6)</h5>
-                </section>
+            <section className={styles.container}>
+                <h4>Uzupełnij swój profil ({completeness} / 6)</h4>
                 <ul className="list-unstyled">
                     <li>
                         <span>1. Dodaj zdjęcie profilowe. {avatar && <Check />}</span>
@@ -51,12 +49,12 @@ const CompletenessSteps: React.FC<{ isVerified: boolean, isWelcomeVideoCompleted
                     </li>
                     <li>
                         <span>
-                            6. Zweryfikuj swoje konto, aby Twój profil stał się dostępny. Napisz do nas na nasz <a href={Constants.INSTAGRAM}>profil instagramowy</a>, wysyłając link do Twojego <span className="text-nowrap">profilu. {isVerified ? <Check /> : null}</span>
+                            6. Zweryfikuj swoje konto, aby Twój profil stał się dostępny. Napisz do nas na nasz <a href={Constants.INSTAGRAM} target="_blank" className="text-primary">profil instagramowy</a>, wysyłając link do Twojego <span className="text-nowrap">profilu. {isVerified ? <Check /> : null}</span>
                             {!isVerified ? <PrimaryInput value={window.location.href} clickToCopy={true} style={{ cursor: 'pointer' }} /> : null}
                         </span>
                     </li>
                 </ul>
-            </div>
+            </section>
         );
     }
 

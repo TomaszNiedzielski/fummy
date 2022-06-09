@@ -57,7 +57,7 @@ const MenuModal: React.FC<Props> = ({ isVisible, onChange, newOrdersNumber }) =>
                         <Link href={"/u/" + profile.nick}>
                             <a className={styles.item}>
                                 <img src="/icons/user.svg" alt="user" className={styles.icon} />
-                                <span className="ml-2">{profile.fullName}</span>
+                                <span className="ml-2">Mój profil</span>
                             </a>
                         </Link>
                         <Link href="/orders">

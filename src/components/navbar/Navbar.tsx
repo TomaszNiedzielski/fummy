@@ -13,8 +13,7 @@ import { get, Response } from '../../helpers/ApiRequest';
 import { useRouter } from 'next/router';
 
 const Navbar: React.FC = () => {
-    const { auth } = useSelector((state: RootState) => state);
-    const { fullName, nick } = useSelector((state: RootState) => state.profile);
+    const { auth, profile: { nick } } = useSelector((state: RootState) => state);
 
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const [newOrdersNumber, setNewOrdersNumber] = useState(0);
@@ -94,7 +93,7 @@ const Navbar: React.FC = () => {
                         <li className={styles.item + " ml-4"}>
                             <Link href={"/u/" + nick}>
                                 <a>
-                                    <span>{fullName}</span>
+                                    <span>{nick}</span>
                                 </a>
                             </Link>
 
