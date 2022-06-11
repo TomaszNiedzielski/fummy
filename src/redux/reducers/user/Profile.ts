@@ -48,15 +48,15 @@ const initialState: Profile = {
 }
 
 const ProfileReducer = (state = initialState, action: Action) => {
-    switch(action.type) {
+    switch (action.type) {
         case USER_PROFILE_LOADING_SUCCESS:
         case UPDATE_PROFILE_DETAILS:
             let user = Object.assign({}, action.payload);
-            if(!user.fullName) user.fullName = '';
-            if(!user.bio) user.bio = '';
-            if(!user.nick) user.nick = '';
-            if(!user.isMailVerified) user.isMailVerified = null;
-            if(!user.socials) {
+            if (!user.fullName) user.fullName = '';
+            if (!user.bio) user.bio = '';
+            if (!user.nick) user.nick = '';
+            if (!user.isMailVerified) user.isMailVerified = null;
+            if (!user.socials) {
                 user.socials = {
                     instagram: initialLink,
                     tiktok: initialLink,

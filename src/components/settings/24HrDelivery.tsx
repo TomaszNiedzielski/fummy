@@ -6,7 +6,6 @@ import { RootState } from '../../redux/store';
 import ToggleSwitch from '../inputs/toggle_switch/ToggleSwitch';
 
 const _24HrDelivery: React.FC = () => {
-    const { token } = useSelector((state: RootState) => state.auth);
     const { profile } = useSelector((state: RootState) => state);
 
     const dispatch = useDispatch();

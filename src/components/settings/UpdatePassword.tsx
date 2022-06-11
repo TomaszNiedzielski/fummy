@@ -13,7 +13,7 @@ const UpdatePassword: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const save = () => {
-        if(!isFormCorrect()) return;
+        if (!isFormCorrect()) return;
 
         setIsLoading(true);
 
@@ -21,7 +21,7 @@ const UpdatePassword: React.FC = () => {
         .then((response: Response) => {
             setCurrentPasswordError(null);
 
-            if(response.code === 200) {
+            if (response.code === 200) {
                 setCurrentPassword(null);
                 setNewPassword(null);
 
@@ -40,7 +40,7 @@ const UpdatePassword: React.FC = () => {
         setCurrentPasswordError(loginPasswordRules(currentPassword));
         setNewPasswordError(passwordRules(newPassword));
 
-        if(!currentPassword || !newPassword || currentPasswordError || newPasswordError) {
+        if (!currentPassword || !newPassword || currentPasswordError || newPasswordError) {
             return false;
         }
         
@@ -48,11 +48,11 @@ const UpdatePassword: React.FC = () => {
     }
 
     useEffect(() => {
-        if(currentPasswordError) setCurrentPasswordError(loginPasswordRules(currentPassword));
+        if (currentPasswordError) setCurrentPasswordError(loginPasswordRules(currentPassword));
     }, [currentPassword]);
 
     useEffect(() => {
-        if(newPasswordError) setNewPasswordError(passwordRules(newPassword));
+        if (newPasswordError) setNewPasswordError(passwordRules(newPassword));
     }, [newPassword]);
 
     return (

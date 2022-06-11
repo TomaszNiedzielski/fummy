@@ -24,19 +24,19 @@ const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDet
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(offersFromServer) {
+        if (offersFromServer) {
             dispatch({ type: LOAD_OFFERS_SUCCESS, payload: offersFromServer });
         }
     }, [offersFromServer]);
 
     useEffect(() => {
-        if(isDashboard) {
+        if (isDashboard) {
             dispatch({ type: USER_PROFILE_LOADING_SUCCESS, payload: userDetails });
         }
     }, [isDashboard]);
 
     useEffect(() => {
-        if(isDashboard) {
+        if (isDashboard) {
             setFullName(profile.fullName);
             setNick(profile.nick);
             setBio(profile.bio);
@@ -45,7 +45,7 @@ const UserPage: React.FC<any> = ({ offersFromServer, videos, isError404, userDet
         }
     }, [isDashboard, profile]);
 
-    if(!isError404) {
+    if (!isError404) {
         return (
             <div className="wrapper mx-2" style={{ minHeight: 'calc(100vh - 56px)' }}>
                 <Details
@@ -91,7 +91,7 @@ export const getServerSideProps = async ({ params, req }) => {
         const userDetailsResponse: any = await get('users/'+nick+'?token='+token);
         const { isMailVerified, isDashboard } = userDetailsResponse.data;
 
-        if(isMailVerified === false && isDashboard) {
+        if (isMailVerified === false && isDashboard) {
             return {
                 redirect: {
                     destination: '/mail/unverified',
@@ -101,14 +101,14 @@ export const getServerSideProps = async ({ params, req }) => {
         }
 
         let isError404 = false;
-        if((isDashboard === false && isMailVerified === false) || !nick) {
+        if ((isDashboard === false && isMailVerified === false) || !nick) {
             isError404 = true;
         }
 
         const responseWithOffers: any = await get('offers?user_nick='+nick);
         const responseWithVideos: any = await get('videos?user_nick='+nick);
 
-        if(responseWithOffers.code === 200 && responseWithVideos.code === 200) {
+        if (responseWithOffers.code === 200 && responseWithVideos.code === 200) {
             return {
                 props: {
                     offersFromServer: responseWithOffers.data,

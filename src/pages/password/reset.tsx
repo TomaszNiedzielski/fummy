@@ -12,13 +12,13 @@ const PasswordResetPage = () => {
     const [isEmailSent, setIsEmailSent] = useState(false);
 
     const resetPassword = () => {
-        if(!isFormCorrect()) return;
+        if (!isFormCorrect()) return;
 
         setIsLoading(true);
 
         post('password/send-reset-link', { email })
         .then((response: any) => {
-            if(response.code === 200) {
+            if (response.code === 200) {
                 setIsEmailSent(true);
             }
         })
@@ -31,7 +31,7 @@ const PasswordResetPage = () => {
     const isFormCorrect = () => {        
         setEmailError(emailRules(email));
 
-        if(!email || emailError) {
+        if (!email || emailError) {
             return false;
         }
 
@@ -39,7 +39,7 @@ const PasswordResetPage = () => {
     }
 
     useEffect(() => {
-        if(emailError) setEmailError(emailRules(email));
+        if (emailError) setEmailError(emailRules(email));
     }, [email]);
 
     return (

@@ -18,11 +18,11 @@ const AdminPage: React.FC<{ users: User[]; token: string }> = ({ users, token })
     const [updatedUsers, setUpdatedUsers] = useState(users);
 
     const verifyUser = (id: string) => {
-        if(confirm('Czy napewno chcesz zweryfikować tego użytkownika?')) {
+        if (confirm('Czy napewno chcesz zweryfikować tego użytkownika?')) {
             post('admin/users/'+id+'/verify?token='+token)
             .then(() => {
                 const updated = updatedUsers.map(user => {
-                    if(user.id === id) {
+                    if (user.id === id) {
                         user.isVerified = true;
                     }
 
@@ -35,7 +35,7 @@ const AdminPage: React.FC<{ users: User[]; token: string }> = ({ users, token })
     }
 
     const deleteUser = (id: string) => {
-        if(confirm('Czy napewno chcesz usunąć tego użytkownika?')) {
+        if (confirm('Czy napewno chcesz usunąć tego użytkownika?')) {
             _delete('admin/users/'+id+'?token='+token)
             .then(() => {
                 const updated = updatedUsers.filter(user => user.id !== id);
@@ -85,7 +85,7 @@ const AdminPage: React.FC<{ users: User[]; token: string }> = ({ users, token })
 export const getServerSideProps = async ({ req }) => {
     const token = new Cookies(req.headers.cookie).get('admin_token');
 
-    if(!token) {
+    if (!token) {
         return {
             redirect: {
                 destination: '/',
@@ -96,7 +96,7 @@ export const getServerSideProps = async ({ req }) => {
 
     const usersResponse: any = await get('admin/users?token='+token);
 
-    if(usersResponse.code !== 200) {
+    if (usersResponse.code !== 200) {
         return {
             redirect: {
                 destination: '/',

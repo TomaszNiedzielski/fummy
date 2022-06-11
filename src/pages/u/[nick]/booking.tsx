@@ -31,7 +31,7 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
     useEffect(() => {
         const id = window.location.href.split('=').pop();
 
-        if(validateNumericString(id)) {
+        if (validateNumericString(id)) {
             setSelectedOfferId(Number(id) ? Number(id) : 0);
         } else {
             setSelectedOfferId(offers[0].id);
@@ -39,13 +39,13 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
     }, [offers]);
 
     useEffect(() => {
-        if(selectedOfferId !== undefined) {
+        if (selectedOfferId !== undefined) {
             setPrice(offers.find(({ id }) => id === selectedOfferId).price);
         }
     }, [selectedOfferId]);
 
     const orderVideo = () => {
-        if(!isFormCorrect()) return;
+        if (!isFormCorrect()) return;
 
         setIsLoading(true);
 
@@ -53,7 +53,7 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
         .then((response: Response) => {
             setIsLoading(false);
 
-            if(response.code === 200) {
+            if (response.code === 200) {
                 window.location.href = response.data.paymentLink;
             }
         })
@@ -61,15 +61,15 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
     }
 
     useEffect(() => {
-        if(nameError) setNameError(purchaserNameRules(name));
+        if (nameError) setNameError(purchaserNameRules(name));
     }, [name]);
 
     useEffect(() => {
-        if(emailError) setEmailError(emailRules(email));
+        if (emailError) setEmailError(emailRules(email));
     }, [email]);
 
     useEffect(() => {
-        if(instructionsError) setInstructionsError(orderInstructionsRules(instructions));
+        if (instructionsError) setInstructionsError(orderInstructionsRules(instructions));
     }, [instructions]);
 
     const isFormCorrect = () => {        
@@ -77,7 +77,7 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
         setEmailError(emailRules(email));
         setInstructionsError(orderInstructionsRules(instructions));
 
-        if(!name || !email || !instructions || nameError || emailError || instructionsError) {
+        if (!name || !email || !instructions || nameError || emailError || instructionsError) {
             return false;
         }
         
@@ -172,7 +172,7 @@ export const getServerSideProps = async ({ params }) => {
     const profileDetails: any = await get('users/'+nick);
     const offers: any = await get('offers?user_nick='+nick);
 
-    if(profileDetails.code === 200 && offers.code === 200) {
+    if (profileDetails.code === 200 && offers.code === 200) {
         return {
             props: {
                 profileDetails: profileDetails.data,

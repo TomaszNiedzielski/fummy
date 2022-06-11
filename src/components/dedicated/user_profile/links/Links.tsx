@@ -26,7 +26,7 @@ interface Props {
 const Links: React.FC<Props> = ({ links }) => {
     const { instagram, tiktok, youtube } = links;
 
-    if((instagram && instagram.link) || (tiktok && tiktok.link) || (youtube && youtube.link)) {
+    if ((instagram && instagram.link) || (tiktok && tiktok.link) || (youtube && youtube.link)) {
         return (
             <div className={styles.container}>
                 {instagram && instagram.link && <Item icon="instagram" link={instagram.link} name={instagram.name} />}

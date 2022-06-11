@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Dispatch, SetStateAction } from 'react';
+import React, { useState, useEffect } from 'react';
 import PrimaryButton from '../../buttons/primary/PrimaryButton';
 import PrimaryInput from '../../inputs/primary/PrimaryInput';
 import { useDispatch } from 'react-redux';
@@ -27,19 +27,19 @@ const RegisterModalContent = () => {
     const register = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if(!isFormCorrect()) return;
+        if (!isFormCorrect()) return;
 
         setIsLoading(true);
 
         post('auth/register', { fullName, email, nick, password })
         .then((response: Response) => {
-            if(response.code === 200) {
+            if (response.code === 200) {
                 dispatch(authSuccess(response.data.token));
                 window.location.href = '/mail/unverified';
             }
         })
         .catch(({ response }) => {
-            if(response.data.errors) {
+            if (response.data.errors) {
                 const { fullName, email, nick, password } = response.data.errors;
 
                 setFullNameError(fullName);
@@ -52,23 +52,23 @@ const RegisterModalContent = () => {
     }
 
     useEffect(() => {
-        if(fullNameError) setFullNameError(fullNameRules(fullName));
+        if (fullNameError) setFullNameError(fullNameRules(fullName));
     }, [fullName]);
 
     useEffect(() => {
-        if(emailError) setEmailError(emailRules(email));
+        if (emailError) setEmailError(emailRules(email));
     }, [email]);
 
     useEffect(() => {
-        if(nickError) setNickError(nickRules(nick));
+        if (nickError) setNickError(nickRules(nick));
     }, [nick]);
 
     useEffect(() => {
-        if(passwordError) setPasswordError(passwordRules(password));
+        if (passwordError) setPasswordError(passwordRules(password));
     }, [password]);
 
     useEffect(() => {
-        if(isAgreedError) setIsAgreedError(!isAgreed ? 'Musisz zaakceptować regulamin i politykę prywatności.' : '');
+        if (isAgreedError) setIsAgreedError(!isAgreed ? 'Musisz zaakceptować regulamin i politykę prywatności.' : '');
     }, [isAgreed]);
 
     const isFormCorrect = () => {
@@ -78,7 +78,7 @@ const RegisterModalContent = () => {
         setPasswordError(passwordRules(password));
         setIsAgreedError(!isAgreed ? 'Musisz zaakceptować regulamin i politykę prywatności.' : '');
 
-        if(!fullName || !email || !nick || !password ||!isAgreed || fullNameError || emailError || nickError || passwordError) {
+        if (!fullName || !email || !nick || !password ||!isAgreed || fullNameError || emailError || nickError || passwordError) {
             return false;
         }
         

@@ -18,7 +18,7 @@ const Offers: React.FC<Props> = ({ isDashboard, nick, data, isActive }) => {
 
     const router = useRouter();
 
-    if(!isDashboard && data !== undefined && data.length === 0) return null;
+    if (!isDashboard && data !== undefined && data.length === 0) return null;
     
     return (
         <div className={styles.container}>

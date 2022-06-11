@@ -55,14 +55,14 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, isPr
 
     useEffect(() => {
         const handleWindowClose = (e: BeforeUnloadEvent) => {
-            if(!isUploading) return;
+            if (!isUploading) return;
             e.preventDefault();
             return (e.returnValue = PROMPT_MESSAGE);
         }
 
         const handleBrowseAway = () => {
-            if(!isUploading) return;
-            if(window.confirm(PROMPT_MESSAGE)) return;
+            if (!isUploading) return;
+            if (window.confirm(PROMPT_MESSAGE)) return;
             router.events.emit('routeChangeError');
             throw 'routeChange aborted.';
         }
@@ -80,7 +80,7 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, isPr
         window.onbeforeunload = beforeUnload;
 
         function beforeUnload(e: any) {
-            if(!isUploading) {
+            if (!isUploading) {
                 window.onbeforeunload = null;
                 e.preventDefault();
             } else {
@@ -90,30 +90,30 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, isPr
     }, [isUploading]);
 
     useEffect(() => {
-        if(video && !isUploading) {
+        if (video && !isUploading) {
             setUploadMessage(video.name);
             setStatusIcon('upload');
         } else {
             setUploadMessage('Kliknij, aby wybrać video z galerii.');
         }
 
-        if(isUploading) {
+        if (isUploading) {
             setUploadMessage('Trwa dodawanie video...');
             setStatusIcon('clock');
         }
 
-        if(isUploaded) {
+        if (isUploaded) {
             setUploadMessage('Trwa przetwarzanie video. Może to zająć kilka minut.');
             setStatusIcon('clock');
         }
 
-        if(thumbnail && videoName) {
+        if (thumbnail && videoName) {
             setIsCompleted(true);
             setUploadMessage('Zamówienie zostało zrealizowane.');
             setStatusIcon('tick');
         }
 
-        if(processingComplete === 0) {
+        if (processingComplete === 0) {
             setIsUploaded(true);
             setStatusIcon('clock');
         }
@@ -125,9 +125,9 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, isPr
 
         const video = e.target.files[0];
 
-        if(!video) return;
+        if (!video) return;
 
-        if(video.size > 209715200) {
+        if (video.size > 209715200) {
             setVideoError('Video nie może być większe niż 200MB.');
             return;
         }
@@ -138,11 +138,11 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, isPr
         videoEl.addEventListener('loadedmetadata', function () {
             const ratio = Math.round(this.videoWidth/this.videoHeight * 100)/100;
 
-            if(ratio < 0.50 || ratio > 0.60) {
+            if (ratio < 0.50 || ratio > 0.60) {
                 setVideoError('Video powinno być pionowe, w proporcji 9/16.');
             }
 
-            if(this.duration > 60) {
+            if (this.duration > 60) {
                 setVideoError('Video nie może być dłuższe niż 1 minuta.');
             }
         });
@@ -162,7 +162,7 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, isPr
         setIsUploading(true);
         post('videos', formData, onUploadProgress)
         .then((response: Response) => {
-            if(response.code === 200) {
+            if (response.code === 200) {
                 setVideo(null);
                 setIsUploaded(true);
             } else {
@@ -170,7 +170,7 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, isPr
             }
         })
         .catch(({ response }) => {
-            if(response.status === 422) {
+            if (response.status === 422) {
                 toast.error('Nieobsługiwany typ pliku.');
             }
         })

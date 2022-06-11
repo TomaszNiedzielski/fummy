@@ -11,7 +11,7 @@ const SettingsPage: React.FC = () => {
     const router = useRouter();
 
     useEffect(() => {
-        if(router.query.scroll === 'payment-profile') {
+        if (router.query.scroll === 'payment-profile') {
             const paymentProfileEl = document.getElementById('payment_profile');
             paymentProfileEl.scrollIntoView();
         }
@@ -35,7 +35,7 @@ const SettingsPage: React.FC = () => {
 export const getServerSideProps = async ({ req }) => {
     const token = new Cookies(req.headers.cookie).get('token');
 
-    if(!token) {
+    if (!token) {
         return {
             redirect: {
                 destination: '/',

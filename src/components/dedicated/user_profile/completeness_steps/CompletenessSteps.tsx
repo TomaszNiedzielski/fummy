@@ -16,18 +16,18 @@ const CompletenessSteps: React.FC<{ isVerified: boolean, isWelcomeVideoCompleted
 
     useEffect(() => {
         let completeness = 0;
-        if(avatar) completeness++;
-        if(bio) completeness++;
-        if(instagram.link || tiktok.link || youtube.link) completeness++;
-        if(offers.data.length > 0) completeness++;
-        if(isVerified) completeness++;
-        if(isWelcomeVideoCompleted) completeness++;
+        if (avatar) completeness++;
+        if (bio) completeness++;
+        if (instagram.link || tiktok.link || youtube.link) completeness++;
+        if (offers.data.length > 0) completeness++;
+        if (isVerified) completeness++;
+        if (isWelcomeVideoCompleted) completeness++;
 
         setCompleteness(completeness);
     }, [avatar, bio, instagram, tiktok, youtube, offers.data.length, isVerified, isWelcomeVideoCompleted]);
 
 
-    if(completeness < 6) {
+    if (completeness < 6) {
         return (
             <section className={styles.container}>
                 <h4>Uzupełnij swój profil ({completeness} / 6)</h4>
@@ -49,7 +49,7 @@ const CompletenessSteps: React.FC<{ isVerified: boolean, isWelcomeVideoCompleted
                     </li>
                     <li>
                         <span>
-                            6. Zweryfikuj swoje konto, aby Twój profil stał się dostępny. Napisz do nas na nasz <a href={Constants.INSTAGRAM} target="_blank" className="text-primary">profil instagramowy</a>, wysyłając link do Twojego <span className="text-nowrap">profilu. {isVerified ? <Check /> : null}</span>
+                            6. Zweryfikuj swoje konto, aby Twój profil stał się dostępny. Napisz do nas na nasz <a href={Constants.INSTAGRAM} target="_blank" rel="noopener noreferrer" className="text-primary">profil instagramowy</a>, wysyłając link do Twojego <span className="text-nowrap">profilu. {isVerified ? <Check /> : null}</span>
                             {!isVerified ? <PrimaryInput value={window.location.href} clickToCopy={true} style={{ cursor: 'pointer' }} /> : null}
                         </span>
                     </li>

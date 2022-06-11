@@ -19,7 +19,7 @@ const BookedPage: React.FC<{ purchaseStatus: string }> = ({ purchaseStatus }) =>
 export const getServerSideProps = async ({ query }) => {
     const purchaseStatusRes: any = await post('orders/purchase/verify-status?purchase_key='+query.purchase_key);
 
-    if(purchaseStatusRes.code === 200) {
+    if (purchaseStatusRes.code === 200) {
         return {
             props: {
                 purchaseStatus: purchaseStatusRes.data.status

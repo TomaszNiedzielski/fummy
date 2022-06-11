@@ -16,7 +16,7 @@ export const saveOffer = (offers: Offer[]) => {
     return (dispatch: Dispatch) => {
         post('offers', { offers })
         .then((response: Response) => {
-            if(response.code === 200) {
+            if (response.code === 200) {
                 dispatch({
                     type: UPDATE_OFFERS_SUCCESS,
                     payload: response.data

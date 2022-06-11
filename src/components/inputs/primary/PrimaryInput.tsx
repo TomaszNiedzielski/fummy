@@ -31,7 +31,7 @@ const PrimaryInput: React.FC<Props> = ({ type, label, placeholder, value, onChan
     }
 
     useEffect(() => {
-        if(clickToCopy) {
+        if (clickToCopy) {
             setAttributes({
                 onMouseOver: () => setIsCopyBubbleVisible(true),
                 onMouseOut: () => {setIsCopyBubbleVisible(false); setCopyBubbleText(BEFORE_COPY__BUBBLE_TEXT)},

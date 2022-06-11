@@ -12,7 +12,7 @@ const UnverifiedPage = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        if(isMailVerified) {
+        if (isMailVerified) {
             window.location.href = '/u/'+nick;
         }
     }, [isMailVerified]);
@@ -24,14 +24,14 @@ const UnverifiedPage = () => {
         .then((response: Response) => {
             const { code, data } = response;
             
-            if(code === 200) {
+            if (code === 200) {
                 toast.success(data.message);
             }
         })
         .catch(({ response }) => {
             const { status, data } = response;
 
-            if(status === 429) {
+            if (status === 429) {
                 toast.info(data.message);
             }
         })
@@ -54,7 +54,7 @@ const UnverifiedPage = () => {
 export const getServerSideProps = async ({ req }) => {
     const token = new Cookies(req.headers.cookie).get('token');
 
-    if(!token) {
+    if (!token) {
         return {
             redirect: {
                 destination: '/',

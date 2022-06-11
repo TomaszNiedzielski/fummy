@@ -9,7 +9,7 @@ import { RootState } from '../redux/store';
 import { Props as Order } from '../components/dedicated/orders/card/Card';
 
 const CurrentOrders = ({ orders }) => {
-    if(orders.length > 0) {
+    if (orders.length > 0) {
         return (
             orders.map((order: Order) => (
                 <OrderCard
@@ -24,7 +24,7 @@ const CurrentOrders = ({ orders }) => {
 }
 
 const CompletedOrders = ({ orders }) => {
-    if(orders.length > 0) {
+    if (orders.length > 0) {
         return (
             orders.map((order: Order) => (
                 <OrderCard
@@ -39,7 +39,7 @@ const CompletedOrders = ({ orders }) => {
 }
 
 const UnrealizedOrders = ({ orders }) => {
-    if(orders.length > 0) {
+    if (orders.length > 0) {
         return (
             orders.map((order: Order) => (
                 <OrderCard
@@ -64,7 +64,7 @@ const OrdersPage = ({ ordersProps }) => {
         const interval = setInterval(() => {
             get('orders?token='+token)
             .then((response: Response) => {
-                if(response.code === 200) {
+                if (response.code === 200) {
                     setOrders(response.data);
                 }
             });
@@ -101,7 +101,7 @@ const OrdersPage = ({ ordersProps }) => {
 export const getServerSideProps = async ({ req }) => {
     const token = new Cookies(req.headers.cookie).get('token');
 
-    if(!token) {
+    if (!token) {
         return {
             redirect: {
                 destination: '/',
@@ -113,14 +113,14 @@ export const getServerSideProps = async ({ req }) => {
     let orders: unknown;
     await get('orders?token='+token)
     .then((response: Response) => {
-        if(response.code === 200) {
+        if (response.code === 200) {
             orders = response.data;
         }
     });
 
     await post('notifications/mark-as-read?token='+token);
 
-    if(orders) {
+    if (orders) {
         return {
             props: { ordersProps: orders }
         }

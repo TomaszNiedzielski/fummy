@@ -21,13 +21,13 @@ const Navbar: React.FC = () => {
     const router = useRouter();
 
     useEffect(() => {
-        if(!auth.token) return;
+        if (!auth.token) return;
 
         get('notifications')
         .then((response: Response) => {
             const { code, data } = response;
 
-            if(code === 200) {
+            if (code === 200) {
                 setNewOrdersNumber(data.notifications.orders.number);
             }
         });
@@ -96,7 +96,6 @@ const Navbar: React.FC = () => {
                                     <span>{nick}</span>
                                 </a>
                             </Link>
-
 
                             {/* <span className="dropdown-toggle" data-toggle="dropdown">{fullName}</span> */}
 

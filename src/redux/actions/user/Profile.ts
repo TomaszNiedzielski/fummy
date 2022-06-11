@@ -11,7 +11,7 @@ export const loadProfileDetails = () => {
     return (dispatch: Dispatch) => {
         get('users/me')
         .then((response: Response) => {
-            if(response.code === 200) {
+            if (response.code === 200) {
                 dispatch({
                     type: USER_PROFILE_LOADING_SUCCESS,
                     payload: response.data

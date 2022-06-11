@@ -6,7 +6,7 @@ import { RootState } from '../../redux/store';
 const SearchResultsModal: React.FC = () => {
     const { data, loaded } = useSelector((state: RootState) => state.searchResults);
 
-    if(loaded) {
+    if (loaded) {
         document.body.classList.add('overflow-hidden');
 
         return (
@@ -30,7 +30,7 @@ const SearchResultsModal: React.FC = () => {
             </div>
         );
     } else {
-        if(typeof document !== 'undefined') {
+        if (typeof document !== 'undefined') {
             document.body.classList.remove('overflow-hidden');
         }
 

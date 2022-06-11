@@ -15,7 +15,7 @@ const SearchInput: React.FC = () => {
     useEffect(() => {
         let timer: any;
 
-        if(value) {
+        if (value) {
             timer = setTimeout(() => {
                 dispatch(search(value));
             }, 1000);
@@ -29,7 +29,7 @@ const SearchInput: React.FC = () => {
     }, [value]);
 
     let url: string;
-    if(typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
         url = window.location.href;
     }
 
@@ -49,7 +49,7 @@ const SearchInput: React.FC = () => {
             />
             {isLoading && <Spinner style={spinnerStyle} />}
         </div>
-    )
+    );
 }
 export default SearchInput;
 

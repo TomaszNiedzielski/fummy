@@ -26,7 +26,7 @@ const initialState: State = {
 }
 
 const SearchResultsReducer = (state = initialState, action: Action) => {
-    switch(action.type) {
+    switch (action.type) {
         case SEARCH_USERS_REQUEST:
             return {
                 ...state,

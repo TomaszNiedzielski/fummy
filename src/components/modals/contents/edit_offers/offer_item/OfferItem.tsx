@@ -19,19 +19,19 @@ const OfferItem: React.FC<Props> = ({ title, price, description, onRemoveOffer, 
     const [descriptionError, setDescriptionError] = useState<string>();
 
     useEffect(() => {
-        if(titleError) setTitleError(offerTitleRules(title));
+        if (titleError) setTitleError(offerTitleRules(title));
     }, [title]);
 
     useEffect(() => {
-        if(priceError) setPriceError(offerPriceRules(price));
+        if (priceError) setPriceError(offerPriceRules(price));
     }, [price]);
 
     useEffect(() => {
-        if(descriptionError) setDescriptionError(offerDescriptionRules(description));
+        if (descriptionError) setDescriptionError(offerDescriptionRules(description));
     }, [description]);
 
     useEffect(() => {
-        if(!isFormValid) {
+        if (!isFormValid) {
             setTitleError(offerTitleRules(title));
             setPriceError(offerPriceRules(price));
             setDescriptionError(offerDescriptionRules(description));

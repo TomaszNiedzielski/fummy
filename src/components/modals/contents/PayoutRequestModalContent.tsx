@@ -17,14 +17,14 @@ const PayoutRequestModalContent: React.FC<any> = ({ moneyAmount }) => {
     const router = useRouter();
 
     useEffect(() => {
-        if(!token) return;
+        if (!token) return;
 
         get('bank-account')
         .then((response: Response) => {
-            if(response.code === 200 && response.data) {
+            if (response.code === 200 && response.data) {
                 const { number, holderName } = response.data;
 
-                if(number && holderName) {
+                if (number && holderName) {
                     setIsPaymentProfileComplete(true);
                 } else {
                     setIsPaymentProfileComplete(false);
@@ -36,7 +36,7 @@ const PayoutRequestModalContent: React.FC<any> = ({ moneyAmount }) => {
         .then((response: Response) => {
             const { code, data } = response;
             
-            if(code === 200) {
+            if (code === 200) {
                 setIsPayoutRequestSent(data.isRequestSent)
             }
         })
@@ -45,7 +45,7 @@ const PayoutRequestModalContent: React.FC<any> = ({ moneyAmount }) => {
     const createPayoutRequest = () => {
         post('payouts/request')
         .then((response: Response) => {
-            if(response.code === 200) {
+            if (response.code === 200) {
                 hideModal();
                 setIsPayoutRequestSent(true);
                 toast.success(response.message);
@@ -74,7 +74,7 @@ const PayoutRequestModalContent: React.FC<any> = ({ moneyAmount }) => {
                 </div>}
                 <div>
                     <ConfirmButton
-                        title={"Potwierdź wypłatę ["+moneyAmount+" PLN]"}
+                        title={"Potwierdź wypłatę [" + moneyAmount + " PLN]"}
                         onClick={createPayoutRequest}
                         disabled={isPayoutRequestSent}
                     />
@@ -96,7 +96,7 @@ const PayoutRequestModalContent: React.FC<any> = ({ moneyAmount }) => {
                     <div>
                         <ConfirmButton
                             title="Przejdź do ustawień"
-                            onClick={() => router.push({ pathname: 'settings', query: {'scroll': 'payment-profile' } })}
+                            onClick={() => router.push({ pathname: 'settings', query: { 'scroll': 'payment-profile' } })}
                         />
                     </div>
                 </div>

@@ -20,11 +20,11 @@ const PaymentProfile: React.FC = () => {
     const [isSubmitVisible, setIsSubmitVisible] = useState(false);
 
     useEffect(() => {
-        if(!token) return;
+        if (!token) return;
 
         get('bank-account')
         .then((response: Response) => {
-            if(response.code === 200 && response.data) {
+            if (response.code === 200 && response.data) {
                 const { number, holderName } = response.data;
 
                 setNumber(number);
@@ -37,13 +37,13 @@ const PaymentProfile: React.FC = () => {
     const setNumber = (number: string) => {
         number = number.replace(/ /g, '');
 
-        if(number.length > 26 || (number && !NUMBER_REGEX.test(number))) return;
+        if (number.length > 26 || (number && !NUMBER_REGEX.test(number))) return;
 
         setIsSubmitVisible(true);
 
         let numberWithSpaces = '';
-        for(let i = 0; i <= 26; i++) {
-            if(LENGHTS_TO_ADD_SPACE.includes(i)) {
+        for (let i = 0; i <= 26; i++) {
+            if (LENGHTS_TO_ADD_SPACE.includes(i)) {
                 const start = i === 2 ? 0 : i-4;
                 numberWithSpaces = numberWithSpaces+number.slice(start, i)+(number.length >= (i>2 && i+1) ? ' ' : '');
             }
@@ -54,7 +54,7 @@ const PaymentProfile: React.FC = () => {
     }
 
     const updateBankAccountDetails = () => {
-        if(!isFormCorrect()) return;
+        if (!isFormCorrect()) return;
         
         setIsLoading(true);
         post('bank-account', {
@@ -62,7 +62,7 @@ const PaymentProfile: React.FC = () => {
             holderName
         })
         .then((response: Response) => {
-            if(response.code === 200) {
+            if (response.code === 200) {
                 setIsSubmitVisible(false);
                 toast.success('Dane konta bankowego zostały zaktualizowane.');
             }
@@ -77,7 +77,7 @@ const PaymentProfile: React.FC = () => {
         setBankAccountNumberError(bankAccountNumberRules(bankAccountNumber.replaceAll(' ', '')));
         setHolderNameError(bankAccountHolderNameRules(holderName));
 
-        if(!bankAccountNumber || !holderName || bankAccountNumberError || holderNameError) {
+        if (!bankAccountNumber || !holderName || bankAccountNumberError || holderNameError) {
             return false;
         }
         
@@ -85,11 +85,11 @@ const PaymentProfile: React.FC = () => {
     }
 
     useEffect(() => {
-        if(bankAccountNumberError) setBankAccountNumberError(bankAccountNumberRules(bankAccountNumber.replaceAll(' ', '')));
+        if (bankAccountNumberError) setBankAccountNumberError(bankAccountNumberRules(bankAccountNumber.replaceAll(' ', '')));
     }, [bankAccountNumber]);
 
     useEffect(() => {
-        if(holderNameError) setHolderNameError(bankAccountHolderNameRules(holderName));
+        if (holderNameError) setHolderNameError(bankAccountHolderNameRules(holderName));
     }, [holderName]);
 
     return (

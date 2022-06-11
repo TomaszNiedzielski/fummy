@@ -15,10 +15,10 @@ type httpMethod = 'post' | 'get' | 'put' | 'patch' | 'delete';
 const base = (method: httpMethod, url: string, data?: object, onUploadProgress?: (p: unknown) => void) => {
     const token = restoreToken();
 
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         axios.request({
             method,
-            url: API_URL+url+(token ? ((url.includes('?') ? '&' : '?')+'token='+token) : ''),
+            url: API_URL + url + (token ? ((url.includes('?') ? '&' : '?') + 'token=' + token) : ''),
             data,
             onUploadProgress: (p) => {
                 onUploadProgress && onUploadProgress(p);
@@ -30,7 +30,7 @@ const base = (method: httpMethod, url: string, data?: object, onUploadProgress?:
         .catch((e: AxiosError) => {
             reject(e);
 
-            if(e.response.status === 500) {
+            if (e.response.status === 500) {
                 toast.error('Coś poszło nie tak. Błąd serwera.');
             }
         })
@@ -42,7 +42,7 @@ export const post = (url: string, data?: object, onUploadProgress?: (p: unknown)
 }
 
 // export const get = (url: string) => {
-//     return new Promise(function(resolve, reject) {
+//     return new Promise(function (resolve, reject) {
 //         fetch(API_URL+url)
 //         .then(response => response.json())
 //         .then((response: Response) => {

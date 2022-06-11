@@ -41,7 +41,7 @@ const EditProfileModalContent = () => {
     const dispatch = useDispatch();
 
     const updateProfileDetails = () => {
-        if(!isFormCorrect()) return;
+        if (!isFormCorrect()) return;
 
         setIsLoading(true);
 
@@ -69,7 +69,7 @@ const EditProfileModalContent = () => {
 
         post('users/me', formData)
         .then((response: Response) => {
-            if(response.code === 200) {
+            if (response.code === 200) {
                 dispatch({
                     type: UPDATE_PROFILE_DETAILS,
                     payload: { fullName, bio, nick, avatarFile, avatar: avatarUrl, socials }
@@ -94,17 +94,17 @@ const EditProfileModalContent = () => {
 
         const { instagram, tiktok, youtube } = socials;
 
-        if(instagram) {
+        if (instagram) {
             setInstagramLink(instagram.link);
             setInstagramName(instagram.name);
         }
 
-        if(tiktok) {
+        if (tiktok) {
             setTiktokLink(tiktok.link);
             setTiktokName(tiktok.name);
         }
 
-        if(youtube) {
+        if (youtube) {
             setYoutubeLink(youtube.link);
             setYoutubeName(youtube.name);
         }
@@ -116,7 +116,7 @@ const EditProfileModalContent = () => {
         setFullNameError(fullNameRules(fullName));
         setNickError(nickRules(nick));
 
-        if(!fullName || !nick || fullNameError || nickError || instagramLinkError || tiktokLinkError || youtubeLinkError) {
+        if (!fullName || !nick || fullNameError || nickError || instagramLinkError || tiktokLinkError || youtubeLinkError) {
             return false;
         }
         
@@ -124,27 +124,27 @@ const EditProfileModalContent = () => {
     }
 
     useEffect(() => {
-        if(fullNameError) setFullNameError(fullNameRules(fullName));
+        if (fullNameError) setFullNameError(fullNameRules(fullName));
     }, [fullName]);
 
     useEffect(() => {
-        if(nickError) setNickError(nickRules(nick));
+        if (nickError) setNickError(nickRules(nick));
     }, [nick]);
 
     useEffect(() => {
-        if(bioError) setBioError(bioRules(bio));
+        if (bioError) setBioError(bioRules(bio));
     }, [bio]);
 
     useEffect(() => {
-        if(instagramLinkError) setInstagramLinkError(instagramLinkRules(instagramLink));
+        if (instagramLinkError) setInstagramLinkError(instagramLinkRules(instagramLink));
     }, [instagramLink]);
 
     useEffect(() => {
-        if(tiktokLinkError) setTiktokLinkError(tiktokLinkRules(tiktokLink));
+        if (tiktokLinkError) setTiktokLinkError(tiktokLinkRules(tiktokLink));
     }, [tiktokLink]);
 
     useEffect(() => {
-        if(youtubeLinkError) setYoutubeLinkError(youtubeLinkRules(youtubeLink));
+        if (youtubeLinkError) setYoutubeLinkError(youtubeLinkRules(youtubeLink));
     }, [youtubeLink]);
 
     return (

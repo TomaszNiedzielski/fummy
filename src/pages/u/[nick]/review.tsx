@@ -24,20 +24,20 @@ const ReviewPage: NextPage<Props> = ({ isReviewedProp }) => {
     const router = useRouter();
 
     const sendReviewRequest = () => {
-        if(!isFormCorrect()) return;
+        if (!isFormCorrect()) return;
 
         setIsLoading(true);
 
         post('reviews', { key: router.query.key, rate, name, text })
         .then((response: Response) => {
-            if(response.code === 200) {
+            if (response.code === 200) {
                 setIsReviewed(true);
             }
         })
         .catch(({ response }) => {
             const { status, data } = response;
 
-            if(status === 422) {
+            if (status === 422) {
                 setNameError(data.errors.name[0]);
             }
         })
@@ -45,13 +45,13 @@ const ReviewPage: NextPage<Props> = ({ isReviewedProp }) => {
     }
 
     useEffect(() => {
-        if(nameError) setNameError(purchaserNameRules(name));
+        if (nameError) setNameError(purchaserNameRules(name));
     }, [name]);
 
     const isFormCorrect = () => {        
         setNameError(purchaserNameRules(name));
 
-        if(!name || nameError) {
+        if (!name || nameError) {
             return false;
         }
         
@@ -118,8 +118,6 @@ export const getServerSideProps = async ({ req }) => {
             }
         }
     }
-
-    
 }
 
 export default ReviewPage;

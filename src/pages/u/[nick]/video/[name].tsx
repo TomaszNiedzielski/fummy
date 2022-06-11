@@ -12,7 +12,7 @@ const VideoPage: React.FC = (props) => {
         document.body.classList.add('overflow-hidden');
         
         return () => {
-            if(typeof document !== 'undefined') {
+            if (typeof document !== 'undefined') {
                 document.body.classList.remove('overflow-hidden');
             }
         }
@@ -26,7 +26,7 @@ const VideoPage: React.FC = (props) => {
 
     useEffect(() => {
         const handleEsc = (e: any) => {
-            if(e.keyCode === 27) {
+            if (e.keyCode === 27) {
                 router.back();
             }
         }

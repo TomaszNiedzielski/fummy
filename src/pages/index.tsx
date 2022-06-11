@@ -56,7 +56,7 @@ const HomePage: React.FC<{ users: User[] }> = ({ users }) => {
 export const getServerSideProps = async () => {
     const response: any = await get('users/verified');
 
-    if(response.code === 200) {
+    if (response.code === 200) {
         const users = response.data;
         return {
             props: { users }

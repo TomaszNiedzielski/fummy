@@ -18,7 +18,7 @@ const NewsletterForm: React.FC = () => {
     const saveEmail = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if(!isFormCorrect()) return;
+        if (!isFormCorrect()) return;
 
         post('mailing-address', { email })
         .then(() => {
@@ -31,7 +31,7 @@ const NewsletterForm: React.FC = () => {
         const emailError = emailRules(email);    
         setEmailError(emailError);
 
-        if(!email || emailError) {
+        if (!email || emailError) {
             return false;
         }
         

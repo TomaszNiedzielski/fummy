@@ -15,7 +15,7 @@ const EditAvatar: React.FC<Props> = ({ avatar, onSelectAvatar }) => {
 
     const onChange = (e: any) => {
         const img = e.target.files[0];
-        if(!img) return;
+        if (!img) return;
 
         const url = URL.createObjectURL(img)
         setSelectedAvatar(url);
@@ -36,23 +36,31 @@ const EditAvatar: React.FC<Props> = ({ avatar, onSelectAvatar }) => {
 
     return (
         <>
-        <div className={styles.container}>
-            <div className={styles.avatars}>
-                <img alt="avatar" className={styles.round} src={avatar ? (avatar.split(':')[0] === 'blob' ? avatar :  (isLinkExternal(avatar) ? avatar : API_STORAGE + 'avatars/' + avatar)) : '/icons/user_square.png'} />
-                <img alt="avatar" className={styles.rect} src={avatar ? (avatar.split(':')[0] === 'blob' ? avatar :  (isLinkExternal(avatar) ? avatar : API_STORAGE + 'avatars/' + avatar)) : '/icons/user.png'} />
+            <div className={styles.container}>
+                <div className={styles.avatars}>
+                    <img
+                        alt="avatar"
+                        className={styles.round}
+                        src={avatar ? (avatar.split(':')[0] === 'blob' ? avatar : (isLinkExternal(avatar) ? avatar : API_STORAGE + 'avatars/' + avatar)) : '/icons/user_square.png'}
+                    />
+                    <img
+                        alt="avatar"
+                        className={styles.rect}
+                        src={avatar ? (avatar.split(':')[0] === 'blob' ? avatar : (isLinkExternal(avatar) ? avatar : API_STORAGE + 'avatars/' + avatar)) : '/icons/user.png'}
+                    />
+                </div>
+                <label className={styles.label + " my-2 w-100"}>
+                    <input type="file" className="custom-file-input" accept="image/*" onChange={(e) => { onChange(e); e.target.value = null; }} />
+                    Zmień zdjęcie profilowe
+                </label>
             </div>
-            <label className={styles.label + " my-2 w-100"}>
-                <input type="file" className="custom-file-input" accept="image/*" onChange={(e) => { onChange(e); e.target.value = null; }} />
-                Zmień zdjęcie profilowe
-            </label>
-        </div>
-        {isEditorVisible && <Editor
-            image={selectedAvatar}
-            aspect={1}
-            shape="rect"
-            onCrop={(src) => onCrop(src)}
-            onCancel={onCancel}
-        />}
+            {isEditorVisible && <Editor
+                image={selectedAvatar}
+                aspect={1}
+                shape="rect"
+                onCrop={(src) => onCrop(src)}
+                onCancel={onCancel}
+            />}
         </>
     );
 }

@@ -11,7 +11,7 @@ export const search = (term: string) => {
         
         get('search-results?q='+term)
         .then((response: Response) => {
-            if(response.code === 200) {
+            if (response.code === 200) {
                 dispatch({
                     type: SEARCH_USERS_SUCCESS,
                     payload: response.data

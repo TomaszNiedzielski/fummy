@@ -27,12 +27,12 @@ function Index({ Component, pageProps }) {
     const [title, setTitle] = useState(APP_NAME+' - Dedykowane filmy od twoich ulubionych idoli');
 
     let { token } = useSelector((state: RootState) => state.auth);
-    if(!token && typeof window !== 'undefined') {
+    if (!token && typeof window !== 'undefined') {
         token = cookies.get('token');
     }
 
     useEffect(() => {
-        if(token) {
+        if (token) {
             dispatch(setToken(token));
             dispatch(loadProfileDetails());
         }

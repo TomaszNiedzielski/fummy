@@ -14,16 +14,15 @@ interface Props {
 }
 
 const MenuModal: React.FC<Props> = ({ isVisible, onChange, newOrdersNumber }) => {
-    const auth = useSelector((state: RootState) => state.auth);
-    const profile = useSelector((state: RootState) => state.profile);
+    const { auth, profile } = useSelector((state: RootState) => state);
 
     const dispatch = useDispatch();
     const router = useRouter();
 
     useEffect(() => {
-        if(isVisible) {
+        if (isVisible) {
             document.body.classList.add('overflow-hidden');
-        } else if(typeof document !== 'undefined') {
+        } else if (typeof document !== 'undefined') {
             document.body.classList.remove('overflow-hidden');
         }
     }, [isVisible]);

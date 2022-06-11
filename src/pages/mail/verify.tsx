@@ -8,7 +8,7 @@ const VerifyPage = () => {
     const { isMailVerified, nick } = useSelector((state: RootState) => state.profile);
 
     useEffect(() => {
-        if(isMailVerified) {
+        if (isMailVerified) {
             window.location.href = '/u/'+nick;
         }
     }, [isMailVerified]);
@@ -20,7 +20,7 @@ const VerifyPage = () => {
 
         post('mail/confirm', { userId, key })
         .then((response: Response) => {
-            if(response.code === 200) {
+            if (response.code === 200) {
                 setProcessState('Adres e-mail został zweryfikowany.');
             }
         })

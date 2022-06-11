@@ -32,7 +32,7 @@ const CreateOfferModalContent: React.FC = () => {
     useEffect(() => {
         const updatedOffers = [...offersFromRedux.data];
 
-        if(updatedOffers.length === 0) {
+        if (updatedOffers.length === 0) {
             updatedOffers.push({...DEFAULT_OFFER});
         }
 
@@ -46,13 +46,13 @@ const CreateOfferModalContent: React.FC = () => {
             const priceError = offerPriceRules(!price ? '' : price.toString());
             const descriptionError = offerDescriptionRules(description);
 
-            if(titleError || priceError || descriptionError) {
+            if (titleError || priceError || descriptionError) {
                 offers[i].isValid = false;
                 isFormValid = false;
             }
         });
 
-        if(!isFormValid) {
+        if (!isFormValid) {
             setOffers([...offers]);
 
             return;

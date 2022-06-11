@@ -11,7 +11,7 @@ interface Props {
 export const hideModal = () => {
     const closeButtons = document.getElementsByClassName('close');
 
-    for(let i = 0; i < closeButtons.length; i++) {
+    for (let i = 0; i < closeButtons.length; i++) {
         const button = closeButtons[i] as HTMLElement;
         button.click();
     }
@@ -25,10 +25,10 @@ const PrimaryModal: React.FC<Props> = ({ id, title, Content, contentProps }) => 
             hideModal();
         }
 
-        router.events.on('routeChangeStart', handleRouteChange)
+        router.events.on('routeChangeStart', handleRouteChange);
 
         return () => {
-            router.events.off('routeChangeStart', handleRouteChange)
+            router.events.off('routeChangeStart', handleRouteChange);
         }
     }, []);
 
@@ -44,7 +44,7 @@ const PrimaryModal: React.FC<Props> = ({ id, title, Content, contentProps }) => 
                     
                     <div className="overflow-auto">
                         <div className="px-2">
-                            <h3 className="modal-title w-100 text-center font-weight-bold primary-color">{ title }</h3>
+                            <h3 className="modal-title w-100 text-center font-weight-bold primary-color">{title}</h3>
                         </div>
                         <div className="modal-body">
                             <Content {...contentProps} />

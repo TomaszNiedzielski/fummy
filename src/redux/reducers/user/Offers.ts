@@ -5,7 +5,7 @@ const initialState = {
 }
 
 const OffersReducer = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case UPDATE_OFFERS_SUCCESS:
             return {
                 ...state,

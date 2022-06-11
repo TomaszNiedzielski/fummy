@@ -54,7 +54,7 @@ const AdminLoginPage: React.FC = () => {
 export const getServerSideProps = async ({ req }) => {
     const token = new Cookies(req.headers.cookie).get('admin_token');
 
-    if(token) {
+    if (token) {
         return {
             redirect: {
                 destination: '/admin',

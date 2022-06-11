@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
 import PrimaryButton from '../../buttons/primary/PrimaryButton';
 import PrimaryInput from '../../inputs/primary/PrimaryInput';
-
 import { useDispatch } from 'react-redux';
 import { authSuccess } from '../../../redux/actions/user/Auth';
 import { emailRules, loginPasswordRules } from '../../../helpers/ValidationRules';
@@ -26,7 +24,7 @@ const LoginModalContent = () => {
     const login = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if(!isFormCorrect()) return;
+        if (!isFormCorrect()) return;
 
         setIsLoading(true);
 
@@ -34,7 +32,7 @@ const LoginModalContent = () => {
         .then((response: LoginResponse) => {
             const { code, token } = response;
 
-            if(code === 200) {
+            if (code === 200) {
                 dispatch(authSuccess(token));
                 window.location.reload();
             }
@@ -49,18 +47,18 @@ const LoginModalContent = () => {
     }
 
     useEffect(() => {
-        if(emailError) setEmailError(emailRules(email));
+        if (emailError) setEmailError(emailRules(email));
     }, [email]);
 
     useEffect(() => {
-        if(passwordError) setPasswordError(loginPasswordRules(password));
+        if (passwordError) setPasswordError(loginPasswordRules(password));
     }, [password]);
 
     const isFormCorrect = () => {        
         setEmailError(emailRules(email));
         setPasswordError(loginPasswordRules(password));
 
-        if(!email || !password || emailError || passwordError) {
+        if (!email || !password || emailError || passwordError) {
             return false;
         }
         

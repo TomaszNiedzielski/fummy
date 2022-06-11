@@ -36,7 +36,7 @@ const Reviews: React.FC<{ isDashboard: boolean }> = ({ isDashboard }) => {
     useEffect(() => {
         get('reviews?user_nick=' + router.query.nick)
         .then((response: Response) => {
-            if(response.code === 200) {
+            if (response.code === 200) {
                 setReviews(response.data);
             }
         });

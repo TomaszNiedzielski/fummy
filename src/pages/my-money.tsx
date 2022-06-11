@@ -76,7 +76,7 @@ const MoneyBoxPage: React.FC<Props> = ({ incomesList, payoutsList, accountBalanc
 export const getServerSideProps = async ({ req }) => {
     const token = new Cookies(req.headers.cookie).get('token');
 
-    if(!token) {
+    if (!token) {
         return {
             redirect: {
                 destination: '/',

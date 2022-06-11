@@ -26,12 +26,12 @@ const PayoutsPage: React.FC<{ payoutsProps: Payout[]; token: string; }> = ({ pay
     const [payouts, setPayouts] = useState(payoutsProps);
 
     const confirmPayout = (id: string) => {
-        if(confirm('Czy na pewno chcesz potwierdzić tą wypłate?')) {
+        if (confirm('Czy na pewno chcesz potwierdzić tą wypłate?')) {
             post('admin/payouts/'+id+'/confirm?token='+token)
             .then((res: any) => {
-                if(res.code === 200) {
+                if (res.code === 200) {
                     const updatedPayouts = payouts.map((payout) => {
-                        if(payout.id === id) {
+                        if (payout.id === id) {
                             payout.isComplete = true;
                         }
 

@@ -31,40 +31,40 @@ export const validateNumericString = (value: string) => {
 const validator = (value: string, rules: Validator) => {
     const { required, length, minLength, maxLength, between, email, regex, numeric, positive } = rules;
 
-    if(required && !value) {
+    if (required && !value) {
         return required.message;
     }
 
-    if(length && value.length !== length.status) {
+    if (length && value.length !== length.status) {
         return length.message;
     }
 
-    if(minLength && value.length < minLength.status) {
+    if (minLength && value.length < minLength.status) {
         return minLength.message;
     }
 
-    if(maxLength && value.length > maxLength.status) {
+    if (maxLength && value.length > maxLength.status) {
         return maxLength.message;
     }
 
-    if(between && (value.length < between.status[0] || value.length > between.status[1])) {
+    if (between && (value.length < between.status[0] || value.length > between.status[1])) {
         return between.message;
     }
 
-    if(email && !validateEmail(value)) {
+    if (email && !validateEmail(value)) {
         return email.message;
     }
 
-    if(regex) {
+    if (regex) {
         const re = regex.status;
         return !re.test(value) && rules.regex.message;
     }
 
-    if(numeric && !validateNumericString(value)) {
+    if (numeric && !validateNumericString(value)) {
         return numeric.message;
     }
 
-    if(positive && Number(value) < 0 || value[0] === '0') {
+    if (positive && Number(value) < 0 || value[0] === '0') {
         return positive.message;
     }
 

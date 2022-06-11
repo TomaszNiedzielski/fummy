@@ -17,14 +17,14 @@ const PasswordChangePage = () => {
     const { token } = useSelector((state: RootState) => state.auth);
 
     useEffect(() => {
-        if(token) window.location.href = '/';
+        if (token) window.location.href = '/';
     }, [token]);
 
     useEffect(() => {
         const { searchParams } = new URL(window.location.href);
         const key = searchParams.get('key');
 
-        if(!key) {
+        if (!key) {
             window.location.href = '/';
         }
 
@@ -32,7 +32,7 @@ const PasswordChangePage = () => {
     }, []);
 
     const changePassword = () => {
-        if(!isFormCorrect()) return;
+        if (!isFormCorrect()) return;
 
         setIsLoading(true);
 
@@ -40,7 +40,7 @@ const PasswordChangePage = () => {
         .then((response: any) => {
             const { code, data } = response;
 
-            if(code === 200) {
+            if (code === 200) {
                 setResponseMessage(data);
             }
         })
@@ -51,13 +51,13 @@ const PasswordChangePage = () => {
     }
 
     useEffect(() => {
-        if(passwordError) setPasswordError(passwordRules(password));
+        if (passwordError) setPasswordError(passwordRules(password));
     }, [password]);
 
     const isFormCorrect = () => {        
         setPasswordError(passwordRules(password));
 
-        if(!password || passwordError) {
+        if (!password || passwordError) {
             return false;
         }
 
