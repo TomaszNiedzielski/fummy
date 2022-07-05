@@ -7,15 +7,21 @@ import { API_STORAGE } from '../../../constants';
 import { get, post, Response } from '../../../helpers/ApiRequest';
 import { useRouter } from 'next/router';
 import Checkbox from '../../../components/inputs/checkbox/Checkbox';
-import { emailRules, orderInstructionsRules, purchaserNameRules, validateNumericString } from '../../../helpers/ValidationRules';
+import { emailRules, forWhomNameRules, fromWhoNameRules, occasionRules, orderInstructionsRules, purchaserNameRules, validateNumericString } from '../../../helpers/ValidationRules';
 import Card from '../../../components/dedicated/user_profile/offers/card/Card';
 import Info from '../../../components/dedicated/booking/Info';
 import { isLinkExternal } from '../../../helpers/Link';
+import RadioButton from '../../../components/dedicated/booking/RadioButton/RadioButton';
 
 const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
     const { avatar, nick, is24HoursDeliveryOn } = profileDetails;
 
     const [selectedOfferId, setSelectedOfferId] = useState<number>();
+    const [forWhom, setForWhom] = useState<'me' | 'someone'>('someone');
+    const [forWhomName, setForWhomName] = useState<string>();
+    const [fromWhoName, setFromWhoName] = useState<string>();
+    const [selectedOccasion, setSelectedOccasion] = useState<string>('urodziny');
+    const [occasion, setOccasion] = useState<string>();
     const [name, setName] = useState<string>();
     const [email, setEmail] = useState<string>();
     const [instructions, setInstructions] = useState<string>();
@@ -25,6 +31,9 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
     const [nameError, setNameError] = useState<string>();
     const [emailError, setEmailError] = useState<string>();
     const [instructionsError, setInstructionsError] = useState<string>();
+    const [forWhomNameError, setForWhomNameError] = useState<string>();
+    const [fromWhoNameError, setFromWhoNameError] = useState<string>();
+    const [occasionError, setOccasionError] = useState<string>();
 
     const router = useRouter();
 
@@ -49,7 +58,17 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
 
         setIsLoading(true);
 
-        post('orders', { name, email, instructions, offerId: selectedOfferId, isPrivate })
+        post('orders', {
+            name,
+            email,
+            instructions,
+            offerId: selectedOfferId,
+            isPrivate,
+            forWhom,
+            fromWhoName,
+            forWhomName,
+            occasion: selectedOccasion !== 'other' ? selectedOccasion : occasion
+        })
         .then((response: Response) => {
             setIsLoading(false);
 
@@ -59,6 +78,21 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
         })
         .catch(() => setIsLoading(false));
     }
+
+    useEffect(() => {
+        if (forWhom === 'me') {
+            setFromWhoNameError(undefined);
+            setForWhomNameError(undefined);
+        } else if (forWhom === 'someone') {
+            setNameError(undefined);
+        }
+    }, [forWhom]);
+
+    useEffect(() => {
+        if (selectedOccasion !== 'other') {
+            setOccasionError(undefined);
+        }
+    }, [selectedOccasion]);
 
     useEffect(() => {
         if (nameError) setNameError(purchaserNameRules(name));
@@ -72,12 +106,34 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
         if (instructionsError) setInstructionsError(orderInstructionsRules(instructions));
     }, [instructions]);
 
-    const isFormCorrect = () => {        
-        setNameError(purchaserNameRules(name));
+    useEffect(() => {
+        if (fromWhoNameError) setFromWhoNameError(fromWhoNameRules(fromWhoName));
+    }, [fromWhoName]);
+
+    useEffect(() => {
+        if (forWhomNameError) setForWhomNameError(forWhomNameRules(forWhomName));
+    }, [forWhomName]);
+
+    useEffect(() => {
+        if (occasionError) setOccasionError(occasionRules(occasion));
+    }, [occasion]);
+
+    const isFormCorrect = () => {   
+        if (forWhom === 'me') {
+            setNameError(purchaserNameRules(name));
+        } else if (forWhom === 'someone') {
+            setFromWhoNameError(fromWhoNameRules(fromWhoName));
+            setForWhomNameError(forWhomNameRules(forWhomName));
+        }
+
+        if (selectedOccasion === 'other') {
+            setOccasionError(occasionRules(occasion));
+        }
+
         setEmailError(emailRules(email));
         setInstructionsError(orderInstructionsRules(instructions));
 
-        if (!name || !email || !instructions || nameError || emailError || instructionsError) {
+        if ((forWhom === 'me' ? !name : (!fromWhoName || !forWhomName)) || !email || !instructions || (!occasion && (selectedOccasion === 'other')) || nameError || emailError || instructionsError || fromWhoNameError || forWhomNameError || occasionError) {
             return false;
         }
         
@@ -112,15 +168,94 @@ const BookingPage: React.FC<any> = ({ profileDetails, offers }) => {
                         ))}
                     </div>
                     <div className="my-3 d-flex flex-column align-items-center">
-                        <PrimaryInput
-                            label="Imię"
-                            placeholder="Jak masz na imię?"
-                            value={name}
-                            onChange={val => setName(val)}
-                            style={styles.input}
-                            errorMessage={nameError}
-                            onBlur={() => setNameError(purchaserNameRules(name))}
-                        />
+                        <div className="w-100 my-4">
+                            <div className="mb-2" style={{ fontSize: '13px' }}>Dla kogo video?</div>
+                            <div className="d-flex justify-content-around w-100">
+                                <div className="mr-1 w-100">
+                                    <RadioButton
+                                        text="Dla kogoś innego"
+                                        onSelect={() => setForWhom('someone')}
+                                        isSelected={forWhom === 'someone'}
+                                    />
+                                </div>
+                                <div className="ml-1 w-100">
+                                    <RadioButton
+                                        text="Dla mnie"
+                                        onSelect={() => setForWhom('me')}
+                                        isSelected={forWhom === 'me'}
+                                    />
+                                </div>
+                            </div>
+                            <div className="mt-2">
+                                {forWhom === 'someone' &&
+                                <>
+                                    <PrimaryInput
+                                        placeholder="Od *"
+                                        value={fromWhoName}
+                                        onChange={val => setFromWhoName(val)}
+                                        style={styles.input}
+                                        errorMessage={fromWhoNameError}
+                                        onBlur={() => setFromWhoNameError(fromWhoNameRules(fromWhoName))}
+                                    />
+                                    <PrimaryInput
+                                        placeholder="Dla *"
+                                        value={forWhomName}
+                                        onChange={val => setForWhomName(val)}
+                                        style={styles.input}
+                                        errorMessage={forWhomNameError}
+                                        onBlur={() => setForWhomNameError(forWhomNameRules(forWhomName))}
+                                    />
+                                </>}
+                                {forWhom === 'me' &&
+                                <PrimaryInput
+                                    placeholder="Jak masz na imię?"
+                                    value={name}
+                                    onChange={val => setName(val)}
+                                    style={styles.input}
+                                    errorMessage={nameError}
+                                    onBlur={() => setNameError(purchaserNameRules(name))}
+                                />}
+                            </div>
+                        </div>
+                        <div className="w-100 mb-4">
+                            <div className="mb-2" style={{ fontSize: '13px' }}>Z jakiej okazji?</div>
+                            <div className="d-flex flex-wrap">
+                                <div className="my-2 mr-3">
+                                    <RadioButton
+                                        text="Urodziny"
+                                        rounded
+                                        isSelected={selectedOccasion === 'urodziny'}
+                                        onSelect={() => setSelectedOccasion('urodziny')}
+                                    />
+                                </div>
+                                <div className="my-2 mr-3">
+                                    <RadioButton
+                                        text="Zmotywowanie"
+                                        rounded
+                                        isSelected={selectedOccasion === 'Zmotywowanie'}
+                                        onSelect={() => setSelectedOccasion('Zmotywowanie')}
+                                    />
+                                </div>
+                                <div className="my-2 mr-3">
+                                    <RadioButton
+                                        text="Inna"
+                                        rounded
+                                        isSelected={selectedOccasion === 'other'}
+                                        onSelect={() => setSelectedOccasion('other')}
+                                    />
+                                </div>
+                            </div>
+                            {selectedOccasion === 'other' && <div className="my-2">
+                            <PrimaryInput
+                                placeholder="Napisz z jakiej okazji..."
+                                value={occasion}
+                                onChange={val => setOccasion(val)}
+                                style={styles.input}
+                                errorMessage={occasionError}
+                                onBlur={() => setOccasionError(occasionRules(occasion))}
+                            />
+                            </div>}
+                        </div>
                         <PrimaryInput
                             type="email"
                             label="Twój e-mail."

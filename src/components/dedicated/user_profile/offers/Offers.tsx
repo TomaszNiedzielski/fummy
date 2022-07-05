@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Offers.module.css';
 import { useRouter } from 'next/router';
 import { Offer } from '../../../../redux/actions/user/Offers';
@@ -17,6 +17,12 @@ const Offers: React.FC<Props> = ({ isDashboard, nick, data, isActive }) => {
     const [selectedOfferId, setSelectedOfferId] = useState<number>();
 
     const router = useRouter();
+
+    useEffect(() => {
+        if (!isDashboard && data[0]) {
+            setSelectedOfferId(data[0].id);
+        }
+    }, [data, isDashboard]);
 
     if (!isDashboard && data !== undefined && data.length === 0) return null;
     
@@ -41,7 +47,8 @@ const Offers: React.FC<Props> = ({ isDashboard, nick, data, isActive }) => {
                         price={price}
                         description={description}
                         isSelected={id === selectedOfferId}
-                        onClick={() => setSelectedOfferId(id)}
+                        onClick={() => !isDashboard && setSelectedOfferId(id)}
+                        style={isDashboard ? { pointerEvents: 'none' } : {}}
                     />
                 ))}
                 {data.find(offer => offer.id === selectedOfferId) !== undefined && <PrimaryButton

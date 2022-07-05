@@ -61,7 +61,7 @@ const OfferItem: React.FC<Props> = ({ title, price, description, onRemoveOffer, 
                         label="Cena [PLN]"
                         placeholder="np. 200"
                         type="number"
-                        min={0}
+                        min={2}
                         value={price}
                         onChange={val => update('price', val)}
                         errorMessage={priceError}

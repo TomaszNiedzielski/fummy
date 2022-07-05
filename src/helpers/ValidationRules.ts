@@ -16,6 +16,7 @@ interface Validator {
     regex?: Rule;
     numeric?: Rule;
     positive?: Rule;
+    min?: Rule;
 }
 
 const validateEmail = (email: string) => {
@@ -29,7 +30,7 @@ export const validateNumericString = (value: string) => {
 }
 
 const validator = (value: string, rules: Validator) => {
-    const { required, length, minLength, maxLength, between, email, regex, numeric, positive } = rules;
+    const { required, length, minLength, maxLength, between, email, regex, numeric, positive, min } = rules;
 
     if (required && !value) {
         return required.message;
@@ -68,6 +69,9 @@ const validator = (value: string, rules: Validator) => {
         return positive.message;
     }
 
+    if (min && Number(value) < min.status) {
+        return min.message;
+    }
 }
 
 /* Rules */
@@ -223,6 +227,10 @@ export const offerPriceRules = (value: string) => {
         positive: {
             status: true,
             message: 'Cena musi być liczbą dodatnią.'
+        },
+        min: {
+            status: 2,
+            message: 'Cena nie może być mniejsza niż 2 PLN.'
         }
     });
 }
@@ -301,6 +309,45 @@ export const bankAccountHolderNameRules = (value: string) => {
         maxLength: {
             status: 70,
             message: 'Nazwa nie może być dłuższa niż 70 znaków.'
+        }
+    })
+}
+
+export const fromWhoNameRules = (value: string) => {
+    return validator(value, {
+        required: {
+            status: true,
+            message: 'Podaj swoje imię.'
+        },
+        maxLength: {
+            status: 50,
+            message: 'Twoję imię jest za długie.'
+        }
+    })
+}
+
+export const forWhomNameRules = (value: string) => {
+    return validator(value, {
+        required: {
+            status: true,
+            message: 'Podaj imię osoby, do której kierowane jest video.'
+        },
+        maxLength: {
+            status: 50,
+            message: 'Imię jest za długie.'
+        }
+    })
+}
+
+export const occasionRules = (value: string) => {
+    return validator(value, {
+        required: {
+            status: true,
+            message: 'Podanie okazji jest wymagane.'
+        },
+        maxLength: {
+            status: 256,
+            message: 'Podana okazja jest za długa.'
         }
     })
 }

@@ -7,11 +7,12 @@ interface Props {
     description: string;
     onClick: () => void;
     isSelected: boolean;
+    style?: object;
 }
 
-const Card: React.FC<Props> = ({ title, price, description, onClick, isSelected }) => {
+const Card: React.FC<Props> = ({ title, price, description, onClick, isSelected, style }) => {
     return (
-        <div className={styles.container} style={isSelected ? selectedStyle : {}} onClick={onClick}>
+        <div className={styles.container} style={isSelected ? selectedStyle : style} onClick={onClick}>
             <div className="d-flex justify-content-between">
                 <div>{title}</div>
                 <div>{price} PLN</div>

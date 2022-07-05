@@ -29,6 +29,8 @@ export interface Props {
     processingComplete?: number;
     unrealized?: boolean;
     videoCreatedAt?: string;
+    forWhom?: string;
+    occasion?: string;
 }
 
 const ProgressBar = ({ progress }) => (
@@ -39,7 +41,24 @@ const ProgressBar = ({ progress }) => (
 
 const PROMPT_MESSAGE = 'Trwa wysyłanie plików. Jeżele opuścisz tę stronę zmiany mogą zostać niezapisane.';
 
-const OrderCard: React.FC<Props> = ({ id, title, description, instructions, isPrivate, deadline, purchaser, price, currency, thumbnail, videoName, processingComplete, unrealized, videoCreatedAt }) => {
+const OrderCard: React.FC<Props> = ({
+    id,
+    title,
+    description,
+    instructions,
+    isPrivate,
+    deadline,
+    purchaser,
+    price,
+    currency,
+    thumbnail,
+    videoName,
+    processingComplete,
+    unrealized,
+    videoCreatedAt,
+    forWhom,
+    occasion,
+}) => {
     const { nick } = useSelector((state: RootState) => state.profile);
 
     const [video, setVideo] = useState<File>();
@@ -205,8 +224,16 @@ const OrderCard: React.FC<Props> = ({ id, title, description, instructions, isPr
                         <div className={styles.specificationBody}>{description}</div>
                     </div>
                     <div className={styles.specification}>
-                        <div className={styles.specificationTitle}>Klient</div>
+                        <div className={styles.specificationTitle}>Imię osoby zamawiającej</div>
                         <div className={styles.specificationBody}>{purchaser}</div>
+                    </div>
+                    <div className={styles.specification}>
+                        <div className={styles.specificationTitle}>Dla kogo?</div>
+                        <div className={styles.specificationBody}>{forWhom || 'Dla samego siebie'}</div>
+                    </div>
+                    <div className={styles.specification}>
+                        <div className={styles.specificationTitle}>Z jakiej okazji?</div>
+                        <div className={styles.specificationBody}>{occasion}</div>
                     </div>
                     <div className={styles.specification}>
                         <div className={styles.specificationTitle}>Instrukcja do wykonania</div>
