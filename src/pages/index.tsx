@@ -32,8 +32,8 @@ const HomePage: React.FC<{ users: User[] }> = ({ users }) => {
             <div className="home-header__shadow"></div>
         </header>
 
-        {(!token && users.length === 0) && <AuthButtons />}
         <DecorativeCards />
+        {(!token && users.length === 0) && <AuthButtons />}
         <div className="container">
             <div className="home-page__users-list">
                 {users.map(({ avatar, nick, fullName, prices, is24HoursDeliveryOn }, i) => (
